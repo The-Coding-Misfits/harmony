@@ -23,6 +23,7 @@ class Place{
 
     List<Image> parseImages(dynamic imagePathArray){
       List<DocumentReference> references= imagePathArray;
+      print(references.toString());
       List<Image> images = [];
       for(DocumentReference reference in references){
         //TODO

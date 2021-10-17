@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+//TODO Left for you comrade
+//Dont forget to register using viewmodel and authservice
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
 
