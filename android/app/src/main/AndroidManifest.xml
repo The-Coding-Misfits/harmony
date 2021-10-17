@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.emirs.harmony.harmony">
+    package="com.EGstudios.harmony.harmony">
    <application
         android:label="harmony"
         android:icon="@mipmap/ic_launcher">
