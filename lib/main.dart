@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:harmony/login.dart';
 
 import 'home.dart';
 
@@ -13,10 +14,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        fontFamily: "Montserrat",
+        primaryColor: const Color(0xff00CA9D)
       ),
-      home: const MyHomePage(),
+      home: const HomePage(),
     );
   }
 }
