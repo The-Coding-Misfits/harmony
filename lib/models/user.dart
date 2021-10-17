@@ -2,22 +2,18 @@ import 'package:harmony/models/review.dart';
 import 'package:harmony/models/place.dart';
 class HarmonyUser{
   final String id; // Not designated by us as all other classes, comes from firestore when creating document
-  String username;
-  String email; //May change in profile settings etc.
-  String passwordHash;
+  String username;//May change in profile settings etc.
   List<String> _pastPlaceIDs;
   List<String> _reviewIds;
 
 
-  HarmonyUser(this.id, this.username, this.email, this.passwordHash,
+  HarmonyUser(this.id, this.username,
       this._pastPlaceIDs, this._reviewIds);
 
   factory HarmonyUser.fromJson(Map<String, dynamic> data){
     return HarmonyUser(
       data["id"] as String,
       data["username"] as String,
-      data["email"] as String,
-      data["passwordHash"] as String,
       data["past_places"] as List<String>,
       data["reviews"] as List<String>
     );
