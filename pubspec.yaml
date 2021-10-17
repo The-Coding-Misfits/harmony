@@ -27,8 +27,13 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  firebase_core: ^1.6.0
+  firebase_auth: ^3.1.0
+  cloud_firestore: ^2.5.1
+  firebase_storage: ^10.0.3
   flutter:
     sdk: flutter
+
 
 
   # The following adds the Cupertino Icons font to your application.
