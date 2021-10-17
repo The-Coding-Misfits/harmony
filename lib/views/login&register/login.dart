@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'home.dart';
+import 'package:harmony/utilites/constants.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -42,11 +41,9 @@ class LoginPageState extends State<LoginPage> {
               ),
               child: TextButton(
                 onPressed: () => {
-                  Navigator.pushReplacement(
+                  Navigator.pushReplacementNamed(
                     context,
-                    MaterialPageRoute(
-                      builder: (BuildContext context) => const HomePage(),
-                    ),
+                    kMainPageRouteName,
                   )
                 },
                 child: const Text(
