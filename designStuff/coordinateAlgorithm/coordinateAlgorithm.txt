@@ -1,0 +1,13 @@
+basically a binary tree but partitions its childs through their geographic planes
+well since we have latitude and longitude, we can use Rtree
+https://en.wikipedia.org/wiki/R-tree
+just what we want
+or we can also use https://en.wikipedia.org/wiki/K-d_tree and use x,y coordinates, which is the same thing whatever
+then perform range search
+
+i am not sure whether we need optimization since we dont need nearest neighbour search. Edit: Well we do dumbass
+
+
+search algo:
+
+go recursively deep as a normal insert precudere, check if dist lower than 1km or whatever, add to all nodes, then from parent look at the other branch and from current dim (x or y) calculate if curr dim is bigger than 1km  already, if not go check

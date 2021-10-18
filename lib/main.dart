@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:harmony/services/kdtree_service.dart';
 
 import 'starting_page.dart';
 
 void main() {
+  KDTreeService.initTree();
   runApp(const MyApp());
 }
 

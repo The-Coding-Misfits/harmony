@@ -18,24 +18,10 @@ class _PlaceBuilderState extends State<PlaceBuilder> {
   }
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<QuerySnapshot>(
-      stream: FireStoreService().getPlacesStream(),
-      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) { //
-        if (snapshot.hasError) {
-          return Text('Something went wrong');
-        }
 
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return CircularProgressIndicator();
-        }
+    return ListView.builder(
+      itemBuilder: (BuildContext context, int index){
 
-        return ListView.builder(
-          itemBuilder: (BuildContext context, int index) {
-            return Text("h");
-          },
-
-
-        );
       },
     );
   }
