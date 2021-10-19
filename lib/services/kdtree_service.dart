@@ -1,7 +1,8 @@
 import 'dart:ffi';
-import 'dart:math';
+import 'dart:math' as math;
+import 'dart:ui';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:harmony/models/place.dart';
 import 'package:harmony/utilites/custom_exception.dart';
 import 'package:harmony/utilites/kdtree_implementation/kdtree.dart';
 import 'package:harmony/services/firestore.dart';
@@ -14,31 +15,73 @@ class KDTreeService{
 
   static void  initTree() async{
     tree = await FireStoreService().initKDTree();
+    //TESTS
+    addTestPlace([1,1,1]);
+    addTestPlace([1,5,7]);
+    addTestPlace([3,5,7]);
+    addTestPlace([4,5,6]);
+    addTestPlace([8,9,2]);
+    addTestPlace([8,12,3]);
+    addTestPlace([1,7,3]);
+    addTestPlace([6,1,4]);
+    addTestPlace([6,7,7]);
+    addTestPlace([7,5,2]);
+    addTestPlace([12,15,16]);
+    addTestPlace([13,15,16]);
+    addTestPlace([13,12,16]);
+    addTestPlace([17,12,19]);
+    addTestPlace([65,23,176]);
+    addTestPlace([6135,131,14124]);
+    addTestPlace([21213,123112,1231515]);
+    addTestPlace([1,8,6]);
 
-    KDTreeService().insertPosition([1,1,3]);
+
+    tree!.toStringTree(tree!.rootNode);
+    print(tree!.str);
+
+    /*List<String> neighbours = KDTreeService().findNearPlaces(
+        [3,3,3],
+        3
+    );*/
+    List<String> neighbours = KDTreeService().findNearPlaces(
+        [2,7,7],
+        5
+    );
+
+    print(neighbours);
+
+
+  }
+  static void addTestPlace(List<double> coord){
+    List<Image> dummyImage = [];
+    List<String> dummyStringarr = [];
+   KDTreeService().insertPosition(
+        new Place(coord.toString(), "category", coord, "description", dummyImage, "name", dummyStringarr, 1, dummyStringarr)
+    );
   }
 
-  void insertPosition(List<double> cartesianCoordinate){
+  void insertPosition(Place place){
     ///Requires a Cartesian Coordinate, an x,y coordinate
     ///May be time expensive, wait for it
-    if(cartesianCoordinate.length != 2){
-      throw new CustomException("Cartesian Coordinate list must include 2 vars, x,y");
+    if(place.coordinate.length != 3){
+      throw new CustomException("Cartesian Coordinate list must include 3 vars, x,y,z");
     }
     try{
-      tree!.rootNode = _insert(cartesianCoordinate, tree!.rootNode);
+      tree!.rootNode = _insert(place, tree!.rootNode);
     } catch(e){
         print(e.toString());
     }
   }
 
-  void deletePosition(List<double> cartesianCoordinate){
+  void deletePosition(Place place){
     ///Requires a Cartesian Coordinate, an x,y coordinate
     ///May be time expensive, wait for it
-    if(cartesianCoordinate.length != 2){
-      throw new CustomException("Cartesian Coordinate list must include 2 vars, x,y");
+    List<double> cartesianCoordinate = place.coordinate;
+    if(cartesianCoordinate.length != 3){
+      throw new CustomException("Cartesian Coordinate list must include 3 vars, x,y,z");
     }
     try{
-      tree!.rootNode = _delete(cartesianCoordinate, tree!.rootNode, 2);
+      tree!.rootNode = _delete(cartesianCoordinate, tree!.rootNode, 3);
     } catch(e){
       print(e.toString());
     }
@@ -47,19 +90,23 @@ class KDTreeService{
 
 
 
-  Node _insert(List<double> point, Node? node, {int cd : 0}){
+  Node _insert(Place place, Node? node, {int cd : 0}){
+    List<double> point = place.coordinate;
     int k = point.length;
     if (node == null) {
-      node = Node(point: point);
+      node = Node(
+          point: point,
+        placeID: place.id
+      );
     }
     else if(point == node.point){
       return throw new CustomException("Duplicate Node!");
     }
     else if(point[cd] < node.point[cd]) {
-      node.leftChild = _insert(point, node.leftChild, cd : (cd+1) % k);
+      node.leftChild = _insert(place, node.leftChild, cd : (cd+1) % k);
     }
     else {
-      node.rightChild = _insert(point, node.rightChild, cd : (cd+1) % k);
+      node.rightChild = _insert(place, node.rightChild, cd : (cd+1) % k);
     }
     return node;
   }
@@ -117,8 +164,75 @@ class KDTreeService{
     return T;
   }
 
-  Node balanceTree(){
+  List<String> findNearPlaces(List<double> cartesianCoordinate, int distance){
+    ///First argument is the users place or the coordinate relative to distance, second arg is distance in km ex(1)
+    ///Returns place ids
+    List<String> neighbours = [];
+    int itemsvisited = 0;
+
+    void _findFixedRadiusNeighbours(Node? T, List<double> x, int cd, int dist){
+      ///T -> tree, x -> desired loc, cd -> depth and dim, dist -> in km
+      int next_cd = (cd+1) % x.length;
+      if (T == null){
+        return;
+      }
+      itemsvisited++;
+
+      if(x[cd] < T.point[cd]){ //Left tree
+
+        //Then check the left subtree
+        //After, check if query search point of right subtree is nearer than 1km to loc, if is search right subtree too
+         _findFixedRadiusNeighbours(T.leftChild, x, next_cd, dist);
+        if (_isInBoundingBoxDist(x, T.rightChild, cd, dist)){
+          _findFixedRadiusNeighbours(T.rightChild, x, next_cd, dist);
+        }
+        if(_distance(x, T.point) <= dist) neighbours.add(T.placeID); //check distance of parent node
+
+      }else { //equal or bigger
+        //vice versa
+        _findFixedRadiusNeighbours(T.rightChild, x, next_cd, dist);
+        if (_isInBoundingBoxDist(x, T.leftChild, cd, dist)){
+          _findFixedRadiusNeighbours(T.leftChild, x, next_cd, dist);
+        }
+        if(_distance(x, T.point) <= dist) neighbours.add(T.placeID);
+      }
+    }
+    _findFixedRadiusNeighbours(tree!.rootNode, cartesianCoordinate, 0, distance);
+    return neighbours;
 
   }
+
+
+
+
+
+  int _distance(List<double> coord1, List<double> coord2 ){
+    double distanceSquared = 0;
+    for(int i = 0; i < coord1.length ; i++){
+      distanceSquared += math.pow((coord1[i] - coord2[i]), 2); // (x1- x2) squared
+    }
+    return math.sqrt(distanceSquared).round();
+
+  }
+
+  bool _isInBoundingBoxDist(List<double> x, Node? T, int cd, int dist){
+    if(T == null) return false;
+    List<double> comparedPos = [...T.point];
+    comparedPos.removeAt(cd);
+    comparedPos.insert(cd, x[cd]);
+
+
+    //By this way, you have all axes same instead of cd, thats really what we want
+    if(_distance(x, comparedPos) <= dist){
+      return true;
+    }
+    return false;
+
+  }
+
+
+
+
+
 
 }

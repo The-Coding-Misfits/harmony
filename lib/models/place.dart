@@ -7,7 +7,7 @@ import 'package:harmony/models/user.dart';
 class Place{
   final String id;
   String category;
-  GeoPoint coordinate;
+  List<double> coordinate; //Requires cartesian coordinates
   String description;
   List<Image> images;
   String name;
@@ -37,7 +37,7 @@ class Place{
     return Place(
       data["id"] as String,
       data["category"] as String,
-      data["coordinate"] as GeoPoint,
+      data["coordinate"] as List<double>,
       data["description"] as String,
       parseImages(data["imagePaths"]),
       data["name"] as String,
