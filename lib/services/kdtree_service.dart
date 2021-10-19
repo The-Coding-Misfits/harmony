@@ -15,6 +15,8 @@ class KDTreeService{
 
   static void  initTree() async{
     tree = await FireStoreService().initKDTree();
+
+
     //TESTS
     addTestPlace([1,1,1]);
     addTestPlace([1,5,7]);
@@ -183,7 +185,7 @@ class KDTreeService{
         //Then check the left subtree
         //After, check if query search point of right subtree is nearer than 1km to loc, if is search right subtree too
          _findFixedRadiusNeighbours(T.leftChild, x, next_cd, dist);
-        if (_isInBoundingBoxDist(x, T.rightChild, cd, dist)){
+        if (_isInBoundingBoxDist(x, T.rightChild, next_cd, dist)){
           _findFixedRadiusNeighbours(T.rightChild, x, next_cd, dist);
         }
         if(_distance(x, T.point) <= dist) neighbours.add(T.placeID); //check distance of parent node
@@ -191,13 +193,14 @@ class KDTreeService{
       }else { //equal or bigger
         //vice versa
         _findFixedRadiusNeighbours(T.rightChild, x, next_cd, dist);
-        if (_isInBoundingBoxDist(x, T.leftChild, cd, dist)){
+        if (_isInBoundingBoxDist(x, T.leftChild, next_cd, dist)){
           _findFixedRadiusNeighbours(T.leftChild, x, next_cd, dist);
         }
         if(_distance(x, T.point) <= dist) neighbours.add(T.placeID);
       }
     }
     _findFixedRadiusNeighbours(tree!.rootNode, cartesianCoordinate, 0, distance);
+    print("visited " + itemsvisited.toString() + " items");
     return neighbours;
 
   }
@@ -216,13 +219,14 @@ class KDTreeService{
   }
 
   bool _isInBoundingBoxDist(List<double> x, Node? T, int cd, int dist){
-    if(T == null) return false;
-    List<double> comparedPos = [...T.point];
-    comparedPos.removeAt(cd);
-    comparedPos.insert(cd, x[cd]);
-
-
     //By this way, you have all axes same instead of cd, thats really what we want
+    // you want to compare only the axis you are on, thats why you change that on line 225
+    //also while calling this function it takes the next cd, thats because you index child nodes depending on the next cd i.e axis. Reason is that this function is called from the parent!
+    if(T == null) return false;
+    List<double> comparedPos = [...x];
+    comparedPos.removeAt(cd);
+    comparedPos.insert(cd, T.point[cd]);
+
     if(_distance(x, comparedPos) <= dist){
       return true;
     }
