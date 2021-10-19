@@ -220,7 +220,7 @@ class KDTreeService{
 
   bool _isInBoundingBoxDist(List<double> x, Node? T, int cd, int dist){
     //By this way, you have all axes same instead of cd, thats really what we want
-    // you want to compare only the axis you are on, thats why you change that on line 225
+    // you want to compare only the axis you are on, thats why you change that on line 228
     //also while calling this function it takes the next cd, thats because you index child nodes depending on the next cd i.e axis. Reason is that this function is called from the parent!
     if(T == null) return false;
     List<double> comparedPos = [...x];
