@@ -185,7 +185,7 @@ class KDTreeService{
         //Then check the left subtree
         //After, check if query search point of right subtree is nearer than 1km to loc, if is search right subtree too
          _findFixedRadiusNeighbours(T.leftChild, x, next_cd, dist);
-        if (_isInBoundingBoxDist(x, T.rightChild, next_cd, dist)){
+        if (_isInBoundingBoxDist(x, T, cd, dist)){
           _findFixedRadiusNeighbours(T.rightChild, x, next_cd, dist);
         }
         if(_distance(x, T.point) <= dist) neighbours.add(T.placeID); //check distance of parent node
@@ -193,7 +193,7 @@ class KDTreeService{
       }else { //equal or bigger
         //vice versa
         _findFixedRadiusNeighbours(T.rightChild, x, next_cd, dist);
-        if (_isInBoundingBoxDist(x, T.leftChild, next_cd, dist)){
+        if (_isInBoundingBoxDist(x, T, cd, dist)){
           _findFixedRadiusNeighbours(T.leftChild, x, next_cd, dist);
         }
         if(_distance(x, T.point) <= dist) neighbours.add(T.placeID);
@@ -223,11 +223,8 @@ class KDTreeService{
     // you want to compare only the axis you are on, thats why you change that on line 228
     //also while calling this function it takes the next cd, thats because you index child nodes depending on the next cd i.e axis. Reason is that this function is called from the parent!
     if(T == null) return false;
-    List<double> comparedPos = [...x];
-    comparedPos.removeAt(cd);
-    comparedPos.insert(cd, T.point[cd]);
 
-    if(_distance(x, comparedPos) <= dist){
+    if( ((x[cd] - T.point[cd])).abs()  <= dist){
       return true;
     }
     return false;
