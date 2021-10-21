@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:harmony/register.dart';
 import 'package:harmony/services/auth_service.dart';
 import 'package:harmony/utilites/constants.dart';
 import 'package:harmony/views/discover/discover_page.dart';
@@ -29,7 +30,7 @@ class _MyAppState extends State<MyApp> {
       builder: (context, snapshot) {
         // Check for errors
         if (snapshot.hasError) {
-          return SomethingWentWrong();
+          return const SomethingWentWrong();
         }
 
         // Once complete, show your application
@@ -41,8 +42,7 @@ class _MyAppState extends State<MyApp> {
             routes: {
               kLoginPageRouteName : (context) => LoginPage(),
               kMainPageRouteName : (context) => DiscoverPage(),
-              /*kRegisterPageRouteName : (context) => RegisterPage(),
-              kMainPageRouteName : (context) => MainPage(),*/
+              kRegisterPageRouteName : (context) => RegisterPage(),
             },
           );
         }

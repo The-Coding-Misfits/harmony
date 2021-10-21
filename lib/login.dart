@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:harmony/register.dart';
 
-import 'home.dart';
+import 'main.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -46,7 +46,7 @@ class LoginPageState extends State<LoginPage> {
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                      builder: (BuildContext context) => const HomePage(),
+                      builder: (BuildContext context) => const MyApp(),
                     ),
                   )
                 },
