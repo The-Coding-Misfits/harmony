@@ -3,10 +3,11 @@ import 'dart:ui';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:harmony/models/review.dart';
 import 'package:harmony/models/user.dart';
+import 'package:harmony/utilites/places/place_category_enum.dart';
 
 class Place{
   final String id;
-  String category;
+  PlaceCategory category;
   List<double> coordinate; //Requires cartesian coordinates
   String description;
   List<Image> images;
@@ -30,13 +31,15 @@ class Place{
         //Figure getting snaphsot first
       }
       return images;
-
+    }
+    PlaceCategory parsePlaceCategory(String sPlaceCategory){
+      return PlaceCategory.values.firstWhere((e) => e.toString() == sPlaceCategory); //from string to enum
     }
 
     //TODO
     return Place(
       data["id"] as String,
-      data["category"] as String,
+      parsePlaceCategory(data["category"] as String),
       data["coordinate"] as List<double>,
       data["description"] as String,
       parseImages(data["imagePaths"]),

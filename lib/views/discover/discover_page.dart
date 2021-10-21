@@ -130,30 +130,9 @@ class _DiscoverPageState extends State<DiscoverPage> {
   }
 
   void _toFilterScreen(){
-    showGeneralDialog(
-        context: context, // Flutter has built in getter for context, LOVELY!
-        barrierDismissible: true,
-        barrierLabel: MaterialLocalizations.of(context).dialogLabel,
-        transitionDuration: Duration(milliseconds: 500),
-        pageBuilder: (context, _, __) => FilterSheet(),
-        barrierColor: Colors.black.withOpacity(0.0),
-        transitionBuilder: _transitFilterSheet,
-    ).whenComplete( //When complete is when dialog is dismissed
-            () => null
-    );
-  }
-
-  SlideTransition _transitFilterSheet(context, animation, secondaryAnimation, child ){
-    //Copied from https://stackoverflow.com/questions/56440920/how-to-set-bottom-sheet-position-to-top
-    return SlideTransition(
-      position: CurvedAnimation(
-        parent: animation,
-        curve: Curves.easeOut,
-      ).drive(Tween<Offset>(
-        begin: Offset(0, -1.0),
-        end: Offset.zero,
-      )),
-      child: child,
-    );
+    showModalBottomSheet(
+        context: context,
+        builder: (context) => FilterSheet(context),
+    ).whenComplete(() => null);
   }
 }

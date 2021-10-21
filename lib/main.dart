@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:harmony/register.dart';
 import 'package:harmony/services/auth_service.dart';
 import 'package:harmony/utilites/constants.dart';
+import 'package:harmony/viewmodel/discover/discover_page_viewmodel.dart';
 import 'package:harmony/views/discover/discover_page.dart';
 import 'package:harmony/views/login&register/login.dart';
 import 'package:harmony/views/state_pages/something_went_wrong.dart';
+import 'package:provider/provider.dart';
 
 
 void main() {
@@ -36,14 +38,21 @@ class _MyAppState extends State<MyApp> {
         // Once complete, show your application
         if (snapshot.connectionState == ConnectionState.done) {
           String initialRoute = auth.currentUser == null ? kLoginPageRouteName : kMainPageRouteName;
-          return MaterialApp(
-            title: "Harmony",
-            initialRoute: initialRoute,
-            routes: {
-              kLoginPageRouteName : (context) => LoginPage(),
-              kMainPageRouteName : (context) => DiscoverPage(),
-              kRegisterPageRouteName : (context) => RegisterPage(),
-            },
+          return MultiProvider(
+            providers: [
+              ChangeNotifierProvider(
+              create: (_) => DiscoverPageViewModel(),
+              ),
+            ],
+            child: MaterialApp(
+              title: "Harmony",
+              initialRoute: initialRoute,
+              routes: {
+                kLoginPageRouteName : (context) => LoginPage(),
+                kMainPageRouteName : (context) =>  DiscoverPage(),
+                kRegisterPageRouteName : (context) => RegisterPage(),
+              },
+            ),
           );
         }
 

@@ -7,6 +7,7 @@ import 'package:harmony/utilites/custom_exception.dart';
 import 'package:harmony/utilites/kdtree_implementation/kdtree.dart';
 import 'package:harmony/services/firestore.dart';
 import 'package:harmony/utilites/kdtree_implementation/node.dart';
+import 'package:harmony/utilites/places/place_category_enum.dart';
 //https://www.cs.cmu.edu/~ckingsf/bioinfo-lectures/kdtrees.pdf
 class KDTreeService{
 
@@ -58,7 +59,7 @@ class KDTreeService{
     List<Image> dummyImage = [];
     List<String> dummyStringarr = [];
    KDTreeService().insertPosition(
-        new Place(coord.toString(), "category", coord, "description", dummyImage, "name", dummyStringarr, 1, dummyStringarr)
+        new Place(coord.toString(), PlaceCategory.TREKKING, coord, "description", dummyImage, "name", dummyStringarr, 1, dummyStringarr)
     );
   }
 
