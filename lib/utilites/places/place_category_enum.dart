@@ -1,0 +1,8 @@
+enum PlaceCategory{
+  TREKKING,
+  CYCLING,
+  SWIMMING,
+  RUNNING,
+  CAMPING,
+  WILDLIFE
+}

@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:harmony/utilites/login_state.dart';
-import 'package:harmony/utilites/register_state.dart';
+import 'package:harmony/utilites/login_register_states/login_state.dart';
+import 'package:harmony/utilites/login_register_states/register_state.dart';
 
 FirebaseAuth auth = FirebaseAuth.instance;
 

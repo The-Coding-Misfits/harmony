@@ -1,5 +1,8 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:harmony/services/kdtree_service.dart';
+import 'package:harmony/views/discover/filter/filter_sheet.dart';
 import 'package:harmony/widgets/general_use/clickable_text.dart';
 
 class DiscoverPage extends StatefulWidget {
@@ -17,76 +20,140 @@ class DiscoverPage extends StatefulWidget {
 }
 
 class _DiscoverPageState extends State<DiscoverPage> {
-
-  //App bar variables, if filter modal sheet is closed then discover widgets otherwise filter widgets
-  ///DISCOVER WIDGETS
-  IconButton hamburgerButton = IconButton(
-    onPressed: onPressed,
-    icon: Icon(Icons.menu),
-  );
-  Text discoverText = Text(
-    "Discover",
-  );
-  IconButton filterButton = IconButton( //filter button
-    onPressed: ,
-    icon: Icon(
-        Icons.sort
-    ),
-  );
-
-  ///FILTER WIDGETS
-  ClickableText cancelText = ClickableText(
-    onPress: ,
-    textWidget: Text(
-      "Cancel",
-      style: TextStyle(color : Colors.black45),
-    ),
-  );
-  Text filtersText = Text(
-    "Filters"
-  );
-  ClickableText saveText = ClickableText(
-    onPress: ,
-    textWidget: Text(
-      "Save",
-      style: TextStyle(color: Colors.greenAccent),
-    ),
-  );
+  //Late in all vars because i hate the framework decision of not being able to initialize in constructors!
 
   //Will change these variables in future to change appbar look
-  Widget appBarLeftWidget;
-  Wiget appBarRightWidget;
+  late Widget appBarLeftWidget;
+  late Text appBarTitle;
+  late Widget appBarRightWidget;
+  //App bar variables, if filter modal sheet is closed then discover widgets otherwise filter widgets
+  ///DISCOVER WIDGETS
+  late IconButton hamburgerButton;
+  late Text discoverText;
+  late IconButton filterButton;
 
+  ///FILTER WIDGETS
+  late ClickableText cancelText;
+  late Text filtersText;
+  late ClickableText saveText;
 
+  _DiscoverPageState(){
+    //Init variables
+    _initDiscoverWidgets();
+    _initFilterWidgets();
 
+    //Initially they are set to discover page vars
+    appBarLeftWidget = hamburgerButton;
+    appBarTitle = discoverText;
+    appBarRightWidget = filterButton;
+  }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false, //stupid go back button
-        actions: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-
-
-
-            ],
-          )
-        ],
+  void _initDiscoverWidgets(){
+    ///DISCOVER WIDGETS
+    hamburgerButton = IconButton(
+      onPressed: (){},
+      icon: Icon(
+          Icons.menu,
+        size: 25,
       ),
-      body: SafeArea(
+    );
 
+    filterButton = IconButton( //filter button
+      onPressed: _toFilterScreen,
+      icon: Icon(
+          Icons.sort,
+        size: 25,
+      ),
+    );
+    discoverText = Text(
+      "Discover",
+      style: TextStyle(
+        fontSize: 20,
       ),
     );
   }
 
-  void filterScreen(BuildContext context){
-    showModalBottomSheet(
-      context: context,
-      builder: (context) => ,
+  void _initFilterWidgets(){
+    ///FILTER WIDGETS
+    cancelText = ClickableText(
+      onPress: (){},
+      textWidget: Text(
+        "Cancel",
+        style: TextStyle(color : Colors.black45),
+      ),
+    );
+    filtersText = Text(
+        "Filters"
+    );
+    saveText = ClickableText(
+      onPress: (){},
+      textWidget: Text(
+        "Save",
+        style: TextStyle(color: Colors.greenAccent),
+      ),
+    );
+  }
 
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      body: SafeArea(
+        child: Column(
+          children: [
+            ///TOP BAR
+            Expanded(
+              flex: 1,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  appBarLeftWidget,
+                  appBarTitle,
+                  appBarRightWidget
+                ],
+              ),
+            ),
+            ///Show actual places
+            Expanded(
+              flex: 9,
+              child: ListView.builder(
+                itemCount: 1,
+                itemBuilder: (context, index){
+                  return Container();
+                },
+              ),
+            ),
+          ]
+        ),
+      ),
+    );
+  }
+
+  void _toFilterScreen(){
+    showGeneralDialog(
+        context: context, // Flutter has built in getter for context, LOVELY!
+        barrierDismissible: true,
+        barrierLabel: MaterialLocalizations.of(context).dialogLabel,
+        transitionDuration: Duration(milliseconds: 500),
+        pageBuilder: (context, _, __) => FilterSheet(),
+        barrierColor: Colors.black.withOpacity(0.0),
+        transitionBuilder: _transitFilterSheet,
+    ).whenComplete( //When complete is when dialog is dismissed
+            () => null
+    );
+  }
+
+  SlideTransition _transitFilterSheet(context, animation, secondaryAnimation, child ){
+    //Copied from https://stackoverflow.com/questions/56440920/how-to-set-bottom-sheet-position-to-top
+    return SlideTransition(
+      position: CurvedAnimation(
+        parent: animation,
+        curve: Curves.easeOut,
+      ).drive(Tween<Offset>(
+        begin: Offset(0, -1.0),
+        end: Offset.zero,
+      )),
+      child: child,
     );
   }
 }

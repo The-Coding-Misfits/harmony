@@ -10,10 +10,21 @@ class FilterSheet extends StatefulWidget {
 class _FilterSheetState extends State<FilterSheet> {
   @override
 
+  int farValue;
+
+
 
   Widget build(BuildContext context) {
     return Container(
+      child: Column(
+        children: [
+          Expanded( //To make space for the top bar
+            flex: 1,
+            child: SizedBox(),
+          ),
 
+        ],
+      ),
     );
   }
 }
