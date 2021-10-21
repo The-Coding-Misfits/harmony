@@ -1,10 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:harmony/register.dart';
 import 'package:harmony/services/auth_service.dart';
 import 'package:harmony/utilites/constants.dart';
 import 'package:harmony/views/discover/discover_page.dart';
 import 'package:harmony/views/login&register/login.dart';
+import 'package:harmony/views/login&register/register.dart';
 import 'package:harmony/views/state_pages/something_went_wrong.dart';
 
 
@@ -38,6 +38,7 @@ class _MyAppState extends State<MyApp> {
           String initialRoute = auth.currentUser == null ? kLoginPageRouteName : kMainPageRouteName;
           return MaterialApp(
             title: "Harmony",
+            debugShowCheckedModeBanner: false,
             initialRoute: initialRoute,
             routes: {
               kLoginPageRouteName : (context) => LoginPage(),
@@ -53,9 +54,7 @@ class _MyAppState extends State<MyApp> {
           child: Center(
             child: Hero(
                 tag: "harmony_logo",
-                child: Image.asset("assets/images/harmony.png") /*SvgPicture.asset(
-                  "assets/images/harmony.svg"
-                )*/
+                child: Image.asset("assets/images/harmony.png")
             ),
           ),
         );

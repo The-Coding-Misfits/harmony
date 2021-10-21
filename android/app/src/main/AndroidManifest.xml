@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.EGstudios.harmony">
    <application
-        android:label="harmony"
+        android:label="Harmony"
         android:icon="@mipmap/ic_launcher">
 
         <activity

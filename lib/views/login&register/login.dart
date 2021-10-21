@@ -3,6 +3,7 @@ import 'package:harmony/services/auth_service.dart';
 import 'package:harmony/services/kdtree_service.dart';
 import 'package:harmony/utilites/constants.dart';
 import 'package:harmony/utilites/login_state.dart';
+import 'package:harmony/views/login&register/register.dart';
 import 'package:harmony/widgets/login_register/harmony_shiny_button.dart';
 import 'package:harmony/widgets/login_register/harmony_log_input_field.dart';
 
@@ -42,7 +43,7 @@ class LoginPageState extends State<LoginPage> {
             flex: 4,
             child: Hero(
               tag: "harmony_logo",
-              child: Image.asset("assets/images/harmony.png"),
+              child: Image.asset("assets/images/harmony.png", scale: 5),
             ),
           ),
           ///Input section
@@ -69,16 +70,24 @@ class LoginPageState extends State<LoginPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                SizedBox(height: 20,),
-                Text(
+                const SizedBox(height: 20,),
+                const Text(
                   "Not a member yet?",
                   style: TextStyle(
                     fontSize: 14,
                   ) ,
                 ),
-                SizedBox(height: 5,),
+                const SizedBox(height: 5,),
                 GestureDetector(
-                  child: Text(
+                  onTap: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (BuildContext context) => const RegisterPage(),
+                      ),
+                    );
+                  },
+                  child: const Text(
                     "Register",
                     style: TextStyle(
                       fontSize: 20,
