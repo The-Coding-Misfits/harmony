@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:harmony/register.dart';
 
 import 'home.dart';
+import 'login.dart';
 
-class LoginPage extends StatefulWidget {
+class RegisterPage extends StatefulWidget {
   @override
-  State<LoginPage> createState() => LoginPageState();
+  RegisterPageState createState() => RegisterPageState();
 }
 
-class LoginPageState extends State<LoginPage> {
+class RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,7 +51,7 @@ class LoginPageState extends State<LoginPage> {
                   )
                 },
                 child: const Text(
-                  "Login",
+                  "Register",
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 20
@@ -63,17 +63,17 @@ class LoginPageState extends State<LoginPage> {
               padding: const EdgeInsets.only(top: 20),
               child: Column(
                 children: [
-                  const Text("Don't have an account?", style: TextStyle(fontSize: 17)),
+                  const Text("Already have an account?", style: TextStyle(fontSize: 17)),
                   GestureDetector(
                     onTap: () {
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                          builder: (BuildContext context) => RegisterPage(),
+                          builder: (BuildContext context) => LoginPage(),
                         ),
                       );
                     },
-                    child: const Text("Register", style: TextStyle(color: Color(0xff00CA9D), fontSize: 17)),
+                    child: const Text("Log in", style: TextStyle(color: Color(0xff00CA9D), fontSize: 17)),
                   )
                 ],
               ),

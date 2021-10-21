@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
         fontFamily: "Montserrat",
         primaryColor: const Color(0xff00CA9D)
       ),
-      home: const HomePage(),
+      home: LoginPage(),
     );
   }
 }
