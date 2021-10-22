@@ -20,8 +20,6 @@ class AuthService {
       } else if (e.code == 'email-already-in-use') {
         return REGISTER_STATE.EMAIL_ALREADY_IN_USE;
       }
-    } catch (e) {
-      print(e);
     }
     return REGISTER_STATE.UNKNOWN_ERROR;
   }
