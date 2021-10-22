@@ -6,7 +6,7 @@ class HarmonyShinyButton extends StatelessWidget {
   final double size;
 
 
-  HarmonyShinyButton(this.text, this.onPress, {this.size : 60});
+  HarmonyShinyButton(this.text, this.onPress, {this.size = 60});
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,7 @@ class HarmonyShinyButton extends StatelessWidget {
         onPressed: onPress,
         child: Text(
           text,
-          style: TextStyle(
+          style: const TextStyle(
               color: Colors.white,
               fontSize: 20
           ),
