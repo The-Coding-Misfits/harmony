@@ -43,7 +43,7 @@ class _MyAppState extends State<MyApp> {
             routes: {
               kLoginPageRouteName : (context) => LoginPage(),
               kMainPageRouteName : (context) => DiscoverPage(),
-              kRegisterPageRouteName : (context) => RegisterPage(),
+              kRegisterPageRouteName : (context) => const RegisterPage(),
             },
           );
         }

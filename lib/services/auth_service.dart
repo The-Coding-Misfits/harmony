@@ -42,6 +42,4 @@ class AuthService {
     }
     return LOGIN_STATE.UNKNOWN;
   }
-
-
 }

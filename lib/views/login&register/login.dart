@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:harmony/services/auth_service.dart';
-import 'package:harmony/services/kdtree_service.dart';
 import 'package:harmony/utilites/constants.dart';
 import 'package:harmony/utilites/login_state.dart';
-import 'package:harmony/views/login&register/register.dart';
 import 'package:harmony/widgets/login_register/harmony_shiny_button.dart';
 import 'package:harmony/widgets/login_register/harmony_log_input_field.dart';
 
@@ -14,7 +12,7 @@ class LoginPage extends StatefulWidget {
 
 class LoginPageState extends State<LoginPage> {
 
-  final AuthService authService = new AuthService();
+  final AuthService authService = AuthService();
 
   HarmonyLogInput emailInputField = HarmonyLogInput(
       const Icon(Icons.person, size: 25, color: Colors.grey),
@@ -80,11 +78,9 @@ class LoginPageState extends State<LoginPage> {
                 const SizedBox(height: 5,),
                 GestureDetector(
                   onTap: () {
-                    Navigator.pushReplacement(
+                    Navigator.pushReplacementNamed(
                       context,
-                      MaterialPageRoute(
-                        builder: (BuildContext context) => const RegisterPage(),
-                      ),
+                      kRegisterPageRouteName
                     );
                   },
                   child: const Text(
@@ -95,8 +91,6 @@ class LoginPageState extends State<LoginPage> {
                     ),
                   ),
                 ),
-
-
               ],
             ),
           )
@@ -104,11 +98,12 @@ class LoginPageState extends State<LoginPage> {
       ),
     );
   }
-  void tapOnLogButton(BuildContext context) async{
+
+  void tapOnLogButton(BuildContext context) async {
     LOGIN_STATE loginState = await authService.logUser(emailInputField.currText, passwordInputField.currText);
-    if(loginState == LOGIN_STATE.SUCCESSFUL){
+
+    if (loginState == LOGIN_STATE.SUCCESSFUL) {
       Navigator.pushNamedAndRemoveUntil(context, kMainPageRouteName, (route) => false);
     }
   }
-
 }

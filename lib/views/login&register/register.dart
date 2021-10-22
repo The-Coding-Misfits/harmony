@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:harmony/services/auth_service.dart';
+import 'package:harmony/utilites/constants.dart';
+import 'package:harmony/utilites/register_state.dart';
 import 'package:harmony/widgets/login_register/harmony_log_input_field.dart';
 import 'package:harmony/widgets/login_register/harmony_shiny_button.dart';
 
-import 'login.dart';
 
-
-//TODO Left for you comrade
-//Dont forget to register using viewmodel and authservice
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
 
@@ -28,6 +27,7 @@ class _RegisterPageState extends State<RegisterPage> {
       true
   );
 
+  final AuthService authService = AuthService();
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +61,7 @@ class _RegisterPageState extends State<RegisterPage> {
               flex: 2,
               child: HarmonyShinyButton(
                 "Register",
-                    () => tapOnLogButton(context),
+                    () => tapOnRegisterButton(context),
               )
           ),
           ///Register
@@ -80,11 +80,9 @@ class _RegisterPageState extends State<RegisterPage> {
                 const SizedBox(height: 5,),
                 GestureDetector(
                   onTap: () {
-                    Navigator.pushReplacement(
+                    Navigator.pushReplacementNamed(
                       context,
-                      MaterialPageRoute(
-                        builder: (BuildContext context) => LoginPage(),
-                      ),
+                      kRegisterPageRouteName
                     );
                   },
                   child: const Text(
@@ -95,8 +93,6 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                   ),
                 ),
-
-
               ],
             ),
           )
@@ -104,10 +100,12 @@ class _RegisterPageState extends State<RegisterPage> {
       ),
     );
   }
-  void tapOnLogButton(BuildContext context) async{
-    // LOGIN_STATE loginState = await authService.logUser(emailInputField.currText, passwordInputField.currText);
-    // if(loginState == LOGIN_STATE.SUCCESSFUL){
-    //   Navigator.pushNamedAndRemoveUntil(context, kMainPageRouteName, (route) => false);
-    // }
+
+  void tapOnRegisterButton(BuildContext context) async {
+    REGISTER_STATE loginState = await authService.registerUser(emailInputField.currText, passwordInputField.currText);
+
+    if (loginState == REGISTER_STATE.SUCCESSFUL) {
+      Navigator.pushNamedAndRemoveUntil(context, kMainPageRouteName, (route) => false);
+    }
   }
 }
