@@ -12,6 +12,18 @@ class AddPlaceState extends State<AddPlace> {
       appBar: AppBar(
         centerTitle: true,
         title: const Text("Add new spot"),
+        actions: [
+          TextButton(
+            onPressed: () {
+
+            },
+            child: const Text("Save"),
+            style: ButtonStyle(
+              foregroundColor: MaterialStateProperty.all(const Color(0xff00CA9D)),
+              backgroundColor: MaterialStateProperty.all(Colors.transparent)
+            ),
+          )
+        ],
       ),
     );
   }
