@@ -19,8 +19,8 @@ class _RegisterPageState extends State<RegisterPage> {
     const Icon(Icons.person, size: 25, color: Colors.grey),
     "Email Address",
     false,
-
   );
+
   HarmonyLogInput passwordInputField = HarmonyLogInput(
       const Icon(Icons.lock, size: 25, color: Colors.grey),
       "Password",
