@@ -49,13 +49,21 @@ class _MyAppState extends State<MyApp> {
         }
 
         // Otherwise, show something whilst waiting for initialization to complete
-        return  Container(
+        return Container(
           color: Colors.white,
           child: Center(
-            child: Hero(
-                tag: "harmony_logo",
-                child: Image.asset("assets/images/harmony.png")
-            ),
+            child: Column(
+              children: [
+                Hero(
+                    tag: "harmony_logo",
+                    child: Image.asset("assets/images/harmony.png")
+                ),
+                const Padding(
+                  padding: EdgeInsets.only(top: 20),
+                  child: CircularProgressIndicator(),
+                )
+              ],
+            )
           ),
         );
       },
