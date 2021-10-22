@@ -9,7 +9,7 @@ class AuthService {
 
   Future<REGISTER_STATE> registerUser(String email, String password) async{
     try {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      await auth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
