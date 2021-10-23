@@ -21,7 +21,7 @@ class _PlaceBuilderState extends State<PlaceBuilder> {
 
     return ListView.builder(
       itemBuilder: (BuildContext context, int index){
-
+        return Container();
       },
     );
   }

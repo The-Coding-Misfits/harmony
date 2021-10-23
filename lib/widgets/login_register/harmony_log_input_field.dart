@@ -10,7 +10,7 @@ class HarmonyLogInput extends StatelessWidget {
   final TextEditingController _controller = TextEditingController();
   String get currText => _controller.text;
 
-  HarmonyLogInput(this.prefixIcon, this.hintText, this.isPassword);
+  HarmonyLogInput(this.prefixIcon, this.hintText, this.isPassword, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

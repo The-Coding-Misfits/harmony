@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:harmony/utilites/login_state.dart';
-import 'package:harmony/utilites/register_state.dart';
+import 'package:harmony/utilites/login_register_states/login_state.dart';
+import 'package:harmony/utilites/login_register_states/register_state.dart';
 
 FirebaseAuth auth = FirebaseAuth.instance;
 
@@ -9,7 +9,7 @@ class AuthService {
 
   Future<REGISTER_STATE> registerUser(String email, String password) async{
     try {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      await auth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
@@ -20,8 +20,6 @@ class AuthService {
       } else if (e.code == 'email-already-in-use') {
         return REGISTER_STATE.EMAIL_ALREADY_IN_USE;
       }
-    } catch (e) {
-      print(e);
     }
     return REGISTER_STATE.UNKNOWN_ERROR;
   }
@@ -42,6 +40,4 @@ class AuthService {
     }
     return LOGIN_STATE.UNKNOWN;
   }
-
-
 }
