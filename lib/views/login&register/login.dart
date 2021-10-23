@@ -6,6 +6,8 @@ import 'package:harmony/widgets/login_register/harmony_shiny_button.dart';
 import 'package:harmony/widgets/login_register/harmony_log_input_field.dart';
 
 class LoginPage extends StatefulWidget {
+  const LoginPage({Key? key}) : super(key: key);
+
   @override
   State<LoginPage> createState() => LoginPageState();
 }

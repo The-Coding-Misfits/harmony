@@ -6,7 +6,7 @@ import 'package:harmony/views/discover/discover_page.dart';
 import 'package:harmony/views/login&register/login.dart';
 import 'package:harmony/views/login&register/register.dart';
 import 'package:harmony/views/state_pages/something_went_wrong.dart';
-
+import 'package:harmony/views/add_place/add_place.dart';
 
 void main() {
   runApp(const MyApp());
@@ -36,14 +36,20 @@ class _MyAppState extends State<MyApp> {
         // Once complete, show your application
         if (snapshot.connectionState == ConnectionState.done) {
           String initialRoute = auth.currentUser == null ? kLoginPageRouteName : kMainPageRouteName;
+
           return MaterialApp(
             title: "Harmony",
+            theme: ThemeData(
+              fontFamily: "Montserrat",
+              primaryColor: const Color(0xff00CA9D)
+            ),
             debugShowCheckedModeBanner: false,
             initialRoute: initialRoute,
             routes: {
-              kLoginPageRouteName : (context) => LoginPage(),
+              kLoginPageRouteName : (context) => const LoginPage(),
               kMainPageRouteName : (context) => DiscoverPage(),
               kRegisterPageRouteName : (context) => const RegisterPage(),
+              kAddPlacePageRouteName : (context) => const AddPlace()
             },
           );
         }
