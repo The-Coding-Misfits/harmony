@@ -37,7 +37,7 @@ class DiscoverPageState extends State<DiscoverPage> {
   late Text filtersText;
   late ClickableText saveText;
 
-  _DiscoverPageState(){
+  DiscoverPageState(){
     //Init variables
     _initDiscoverWidgets();
     _initFilterWidgets();

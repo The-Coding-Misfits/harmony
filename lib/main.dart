@@ -6,7 +6,6 @@ import 'package:harmony/utilites/constants.dart';
 import 'package:harmony/viewmodel/discover/discover_page_viewmodel.dart';
 import 'package:harmony/views/discover/discover_page.dart';
 import 'package:harmony/views/login&register/login.dart';
-import 'package:harmony/views/login&register/register.dart';
 import 'package:harmony/views/state_pages/something_went_wrong.dart';
 import 'package:harmony/views/add_place/add_place.dart';
 import 'package:provider/provider.dart';
