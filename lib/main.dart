@@ -1,6 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:harmony/register.dart';
+import 'package:harmony/views/login&register/register.dart';
 import 'package:harmony/services/auth_service.dart';
 import 'package:harmony/utilites/constants.dart';
 import 'package:harmony/viewmodel/discover/discover_page_viewmodel.dart';
