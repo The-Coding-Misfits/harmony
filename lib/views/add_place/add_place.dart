@@ -1,31 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:harmony/utilites/gridviewitem.dart';
+import 'package:harmony/utilites/places/place_category_enum.dart';
+import 'package:harmony/widgets/filter/category_widgets/CategoryGrid.dart';
 
 class AddPlace extends StatefulWidget {
-  const AddPlace({Key? key}) : super(key: key);
+  final CategoryGrid _categoryGrid = CategoryGrid();
+
+
+  PlaceCategory? get selectedCategory => _categoryGrid.selectedCategory;
 
   @override
   AddPlaceState createState() => AddPlaceState();
 }
 
 class AddPlaceState extends State<AddPlace> {
-  int optionSelected = 0;
 
-  void checkOption(int index) {
-    setState(() {
-      optionSelected = index;
-    });
-  }
-
-  List items = [
-    const Icon(Icons.backpack),
-    const FaIcon(FontAwesomeIcons.bicycle),
-    const FaIcon(FontAwesomeIcons.swimmer),
-    const FaIcon(FontAwesomeIcons.running),
-    const FaIcon(FontAwesomeIcons.campground),
-    const FaIcon(FontAwesomeIcons.paw)
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +47,7 @@ class AddPlaceState extends State<AddPlace> {
             ),
             Padding(
               padding: const EdgeInsets.only(left: 5, right: 5),
-              child:
+              child: widget._categoryGrid
             )
           ],
         ),
