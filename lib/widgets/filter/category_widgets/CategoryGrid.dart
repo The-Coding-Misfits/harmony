@@ -27,6 +27,7 @@ class _CategoryGridState extends State<CategoryGrid> {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
+      shrinkWrap: true,
       itemCount: items.length,
       scrollDirection: Axis.horizontal,
       itemBuilder: (context, index){

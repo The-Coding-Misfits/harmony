@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:harmony/utilites/places/place_category_enum.dart';
 import 'package:harmony/widgets/filter/category_widgets/CategoryGrid.dart';
+import 'package:harmony/widgets/general_use/HarmonyBottomNavigationBar.dart';
 
 class AddPlace extends StatefulWidget {
   final CategoryGrid _categoryGrid = CategoryGrid();
@@ -45,13 +46,14 @@ class AddPlaceState extends State<AddPlace> {
                 child: Text("What can you do here?", style: TextStyle(fontSize: 18)),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: 5, right: 5),
-              child: widget._categoryGrid
-            )
+            Expanded(
+              flex: 1,
+                child: widget._categoryGrid
+            ),
           ],
         ),
       ),
+      bottomNavigationBar: HarmonyBottomNavigationBar(),
     );
   }
 }

@@ -105,7 +105,7 @@ class _RegisterPageState extends State<RegisterPage> {
     REGISTER_STATE loginState = await authService.registerUser(emailInputField.currText, passwordInputField.currText);
 
     if (loginState == REGISTER_STATE.SUCCESSFUL) {
-      Navigator.pushNamedAndRemoveUntil(context, kMainPageRouteName, (route) => false);
+      Navigator.pushNamedAndRemoveUntil(context, kDiscoverPageRouteName, (route) => false);
     }
   }
 }
