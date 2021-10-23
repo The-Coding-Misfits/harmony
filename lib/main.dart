@@ -6,7 +6,9 @@ import 'package:harmony/utilites/constants.dart';
 import 'package:harmony/viewmodel/discover/discover_page_viewmodel.dart';
 import 'package:harmony/views/discover/discover_page.dart';
 import 'package:harmony/views/login&register/login.dart';
+import 'package:harmony/views/login&register/register.dart';
 import 'package:harmony/views/state_pages/something_went_wrong.dart';
+import 'package:harmony/views/add_place/add_place.dart';
 import 'package:provider/provider.dart';
 
 
@@ -38,6 +40,7 @@ class _MyAppState extends State<MyApp> {
         // Once complete, show your application
         if (snapshot.connectionState == ConnectionState.done) {
           String initialRoute = auth.currentUser == null ? kLoginPageRouteName : kMainPageRouteName;
+          
           return MultiProvider(
             providers: [
               ChangeNotifierProvider(
@@ -46,26 +49,38 @@ class _MyAppState extends State<MyApp> {
             ],
             child: MaterialApp(
               title: "Harmony",
+              theme: ThemeData(
+                fontFamily: "Montserrat",
+                primaryColor: const Color(0xff00CA9D)
+              ),
+              debugShowCheckedModeBanner: false,
               initialRoute: initialRoute,
               routes: {
-                kLoginPageRouteName : (context) => LoginPage(),
-                kMainPageRouteName : (context) =>  DiscoverPage(),
-                kRegisterPageRouteName : (context) => RegisterPage(),
+                kLoginPageRouteName : (context) => const LoginPage(),
+                kMainPageRouteName : (context) => DiscoverPage(),
+                kRegisterPageRouteName : (context) => const RegisterPage(),
+                kAddPlacePageRouteName : (context) => const AddPlace()
               },
             ),
           );
         }
 
         // Otherwise, show something whilst waiting for initialization to complete
-        return  Container(
+        return Container(
           color: Colors.white,
           child: Center(
-            child: Hero(
-                tag: "harmony_logo",
-                child: Image.asset("assets/images/harmony.png") /*SvgPicture.asset(
-                  "assets/images/harmony.svg"
-                )*/
-            ),
+            child: Column(
+              children: [
+                Hero(
+                    tag: "harmony_logo",
+                    child: Image.asset("assets/images/harmony.png")
+                ),
+                const Padding(
+                  padding: EdgeInsets.only(top: 20),
+                  child: CircularProgressIndicator(),
+                )
+              ],
+            )
           ),
         );
       },

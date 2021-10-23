@@ -58,8 +58,8 @@ class KDTreeService{
   static void addTestPlace(List<double> coord){
     List<Image> dummyImage = [];
     List<String> dummyStringarr = [];
-   KDTreeService().insertPosition(
-        new Place(coord.toString(), PlaceCategory.TREKKING, coord, "description", dummyImage, "name", dummyStringarr, 1, dummyStringarr)
+    KDTreeService().insertPosition(
+      Place(coord.toString(), "category", coord, "description", dummyImage, "name", dummyStringarr, 1, dummyStringarr)
     );
   }
 

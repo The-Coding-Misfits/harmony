@@ -9,7 +9,7 @@ class SomethingWentWrong extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
-      children: [
+      children: const [
         Text(
           "OOPS!",
           style: TextStyle(

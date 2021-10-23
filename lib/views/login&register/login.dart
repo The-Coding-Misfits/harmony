@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:harmony/services/auth_service.dart';
-import 'package:harmony/services/kdtree_service.dart';
 import 'package:harmony/utilites/constants.dart';
 import 'package:harmony/utilites/login_register_states/login_state.dart';
 import 'package:harmony/widgets/login_register/harmony_shiny_button.dart';
 import 'package:harmony/widgets/login_register/harmony_log_input_field.dart';
 
 class LoginPage extends StatefulWidget {
+  const LoginPage({Key? key}) : super(key: key);
+
   @override
   State<LoginPage> createState() => LoginPageState();
 }
 
 class LoginPageState extends State<LoginPage> {
 
-  final AuthService authService = new AuthService();
+  final AuthService authService = AuthService();
 
   HarmonyLogInput emailInputField = HarmonyLogInput(
       const Icon(Icons.person, size: 25, color: Colors.grey),
@@ -42,7 +43,7 @@ class LoginPageState extends State<LoginPage> {
             flex: 4,
             child: Hero(
               tag: "harmony_logo",
-              child: Image.asset("assets/images/harmony.png"),
+              child: Image.asset("assets/images/harmony.png", scale: 5),
             ),
           ),
           ///Input section
@@ -69,16 +70,22 @@ class LoginPageState extends State<LoginPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                SizedBox(height: 20,),
-                Text(
+                const SizedBox(height: 20,),
+                const Text(
                   "Not a member yet?",
                   style: TextStyle(
                     fontSize: 14,
                   ) ,
                 ),
-                SizedBox(height: 5,),
+                const SizedBox(height: 5,),
                 GestureDetector(
-                  child: Text(
+                  onTap: () {
+                    Navigator.pushReplacementNamed(
+                      context,
+                      kRegisterPageRouteName
+                    );
+                  },
+                  child: const Text(
                     "Register",
                     style: TextStyle(
                       fontSize: 20,
@@ -86,8 +93,6 @@ class LoginPageState extends State<LoginPage> {
                     ),
                   ),
                 ),
-
-
               ],
             ),
           )
@@ -95,11 +100,12 @@ class LoginPageState extends State<LoginPage> {
       ),
     );
   }
-  void tapOnLogButton(BuildContext context) async{
+
+  void tapOnLogButton(BuildContext context) async {
     LOGIN_STATE loginState = await authService.logUser(emailInputField.currText, passwordInputField.currText);
-    if(loginState == LOGIN_STATE.SUCCESSFUL){
+
+    if (loginState == LOGIN_STATE.SUCCESSFUL) {
       Navigator.pushNamedAndRemoveUntil(context, kMainPageRouteName, (route) => false);
     }
   }
-
 }

@@ -2,22 +2,24 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:harmony/services/kdtree_service.dart';
+import 'package:harmony/utilites/constants.dart';
 import 'package:harmony/views/discover/filter/filter_sheet.dart';
 import 'package:harmony/widgets/general_use/clickable_text.dart';
 
 class DiscoverPage extends StatefulWidget {
   static bool initTree = false;
-  DiscoverPage(){
-    if (!initTree){
+
+  DiscoverPage({Key? key}) : super(key: key) {
+    if (!initTree) {
       KDTreeService.initTree();
       initTree = true;
     }
-
   }
 
   @override
-  _DiscoverPageState createState() => _DiscoverPageState();
+  DiscoverPageState createState() => DiscoverPageState();
 }
+
 
 class _DiscoverPageState extends State<DiscoverPage> {
   //Late in all vars because i hate the framework decision of not being able to initialize in constructors!
