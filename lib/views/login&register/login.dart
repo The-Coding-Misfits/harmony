@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:harmony/services/auth_service.dart';
 import 'package:harmony/utilites/constants.dart';
-import 'package:harmony/utilites/login_state.dart';
+import 'package:harmony/utilites/login_register_states/login_state.dart';
 import 'package:harmony/widgets/login_register/harmony_shiny_button.dart';
 import 'package:harmony/widgets/login_register/harmony_log_input_field.dart';
 
