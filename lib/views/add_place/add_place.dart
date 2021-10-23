@@ -59,19 +59,7 @@ class AddPlaceState extends State<AddPlace> {
             ),
             Padding(
               padding: const EdgeInsets.only(left: 5, right: 5),
-              child: GridView.count(
-                crossAxisCount: 6,
-                mainAxisSpacing: 6,
-                crossAxisSpacing: 6,
-                shrinkWrap: true,
-                children: [
-                  for (int i = 0; i < items.length; i++) GridViewItem(
-                      icon: items[i],
-                      selected: i + 1 == optionSelected,
-                      onTap: () => checkOption(i + 1)
-                  )
-                ],
-              ),
+              child:
             )
           ],
         ),
