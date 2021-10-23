@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:harmony/services/kdtree_service.dart';
 import 'package:harmony/utilites/constants.dart';
@@ -21,7 +19,7 @@ class DiscoverPage extends StatefulWidget {
 }
 
 
-class _DiscoverPageState extends State<DiscoverPage> {
+class DiscoverPageState extends State<DiscoverPage> {
   //Late in all vars because i hate the framework decision of not being able to initialize in constructors!
 
   //Will change these variables in future to change appbar look
