@@ -6,7 +6,7 @@ import 'package:harmony/models/user.dart';
 import 'package:harmony/utilites/places/place_category_enum.dart';
 
 class Place{
-  late final String id;
+  final String id;
   PlaceCategory category;
   List<double> coordinate; //Requires cartesian coordinates
   List<Image> images;
