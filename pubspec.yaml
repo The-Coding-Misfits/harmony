@@ -32,6 +32,7 @@ flutter:
 
   assets:
     - assets/images/harmony.png
+    - assets/images/dummy-profile-pic.png
 
   fonts:
      - family: Montserrat
