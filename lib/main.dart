@@ -40,28 +40,21 @@ class _MyAppState extends State<MyApp> {
         if (snapshot.connectionState == ConnectionState.done) {
           String initialRoute = auth.currentUser == null ? kLoginPageRouteName : kDiscoverPageRouteName;
           
-          return MultiProvider(
-            providers: [
-              ChangeNotifierProvider(
-              create: (_) => DiscoverPageViewModel(),
-              ),
-            ],
-            child: MaterialApp(
-              title: "Harmony",
-              theme: ThemeData(
-                fontFamily: "Montserrat",
-                primaryColor: const Color(0xff00CA9D)
-              ),
-              debugShowCheckedModeBanner: false,
-              initialRoute: initialRoute,
-              routes: {
-                kLoginPageRouteName : (context) => const LoginPage(),
-                kDiscoverPageRouteName : (context) => DiscoverPage(),
-                kRegisterPageRouteName : (context) => const RegisterPage(),
-                kAddPlacePageRouteName : (context) => AddPlace(),
-                kErrorPageRouteName : (context) => const SomethingWentWrong(),
-              },
+          return MaterialApp(
+            title: "Harmony",
+            theme: ThemeData(
+              fontFamily: "Montserrat",
+              primaryColor: const Color(0xff00CA9D)
             ),
+            debugShowCheckedModeBanner: false,
+            initialRoute: initialRoute,
+            routes: {
+              kLoginPageRouteName : (context) => const LoginPage(),
+              kDiscoverPageRouteName : (context) => DiscoverPage(),
+              kRegisterPageRouteName : (context) => const RegisterPage(),
+              kAddPlacePageRouteName : (context) => AddPlace(),
+              kErrorPageRouteName : (context) => const SomethingWentWrong(),
+            },
           );
         }
 

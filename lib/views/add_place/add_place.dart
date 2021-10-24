@@ -1,6 +1,8 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:harmony/utilites/constants.dart';
+import 'package:harmony/utilites/page_enum.dart';
 import 'package:harmony/utilites/places/place_category_enum.dart';
 import 'package:harmony/widgets/filter/category_widgets/category_grid.dart';
 import 'package:harmony/widgets/general_use/harmony_bottom_navigation_bar.dart';
@@ -101,7 +103,9 @@ class AddPlaceState extends State<AddPlace> {
           ),
         ),
       ),
-      bottomNavigationBar: const HarmonyBottomNavigationBar(),
+      bottomNavigationBar: HarmonyBottomNavigationBar(
+        PAGE_ENUM.NEARBY_PAGE
+      ),
     );
   }
 }

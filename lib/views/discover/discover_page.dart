@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:harmony/services/kdtree_service.dart';
+import 'package:harmony/utilites/page_enum.dart';
+import 'package:harmony/viewmodel/discover/discover_page_viewmodel.dart';
 import 'package:harmony/views/discover/filter/filter_sheet.dart';
 import 'package:harmony/widgets/general_use/harmony_bottom_navigation_bar.dart';
 import 'package:harmony/widgets/general_use/clickable_text.dart';
 
 class DiscoverPage extends StatefulWidget {
   static bool initTree = false;
+
+  final DiscoverPageViewModel _discoverPageViewModel = DiscoverPageViewModel();
 
   DiscoverPage({Key? key}) : super(key: key) {
     if (!initTree) {
@@ -126,14 +130,19 @@ class DiscoverPageState extends State<DiscoverPage> {
           ]
         ),
       ),
-      bottomNavigationBar: const HarmonyBottomNavigationBar(),
+      bottomNavigationBar: HarmonyBottomNavigationBar(
+        PAGE_ENUM.DISCOVER_PAGE
+      ),
     );
   }
 
   void _toFilterScreen(){
     showModalBottomSheet(
         context: context,
-        builder: (context) => FilterSheet(context),
+        builder: (context) => FilterSheet(
+            context,
+          widget._discoverPageViewModel
+        ),
     ).whenComplete(() => null);
   }
 }
