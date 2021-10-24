@@ -1,7 +1,16 @@
+
+import 'dart:io';
+import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:harmony/utilites/kdtree_implementation/kdtree.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:harmony/services/kdtree_service.dart';
+import 'package:harmony/utilites/custom_exception.dart';
 import 'package:harmony/utilites/kdtree_implementation/kdtree.dart';
 import 'package:harmony/models/place.dart';
+import 'package:harmony/utilites/places/place_category_enum.dart';
+import 'package:path/path.dart';
+
+
 
 class FireStoreService{
   static FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -10,6 +19,8 @@ class FireStoreService{
   static CollectionReference places = FirebaseFirestore.instance.collection('places');
   static CollectionReference reviews = FirebaseFirestore.instance.collection('reviews');
   static CollectionReference place_kdtree = FirebaseFirestore.instance.collection("place-kdtree");
+
+
 
   Future<KDTree> initKDTree() async{
     return await place_kdtree.
@@ -24,18 +35,45 @@ class FireStoreService{
     return places.snapshots();
   }
 
-
-
-
-
-  void addPlace(){
-    //IMPLEMENTATION AND SO WHAT
-    //Add to place kd tree for optimization
-    ///addToPlaceKDTree();
+  String uploadPlaceImageToDatabase(File image, Place place){
+    String firestoragePath = place.id + "/" + basename(image.path);
+    Reference storageRef =
+        FirebaseStorage.instance.ref().child(firestoragePath);
+    UploadTask uploadTask = storageRef.putFile(image);
+    TaskSnapshot taskSnapshot = uploadTask.snapshot;
+    taskSnapshot.ref.getDownloadURL().then(
+        (value) => null
+    );
+    return firestoragePath;
   }
 
-  void addToPlaceKDTree(Place place){
-    //TODO
+
+
+  Future<String> addPlace(String name, PlaceCategory category, File imageFile, List<double> coordinates) async{
+    ///Returns id
+    //ADDING TO FIREBASE
+    String placeID = "";
+    dynamic result = await places.add(
+      {
+        'category' : category.toString(),
+        'coordinate': [
+          coordinates[0].toInt(),
+          coordinates[1].toInt(),
+          coordinates[2].toInt()
+        ],
+        'imagePaths' : [], // first as an empty array, will init later
+        'name' : name,
+        'pastUserIds' : [],
+        'rating' : 0,
+        'reviewIds' : []
+      });
+    return result.id;
   }
+
+  void updateKDTree(KDTree tree){
+    place_kdtree.doc('TREE').update(tree.toJson());
+  }
+
+
 
 }

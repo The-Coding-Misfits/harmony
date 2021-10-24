@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:harmony/utilites/places/place_category_enum.dart';
 import 'package:harmony/viewmodel/discover/discover_page_viewmodel.dart';
 import 'package:harmony/widgets/filter/harmony_slider.dart';
-import 'package:provider/provider.dart';
 
 class FilterSheet extends StatefulWidget {
   final BuildContext context;
@@ -25,7 +24,7 @@ class _FilterSheetState extends State<FilterSheet> {
     return Container(
       child: Column(
         children: [
-          Flexible( //To make space for the top bar
+          const Flexible( //To make space for the top bar
             flex: 1,
             child: SizedBox(),
           ),
@@ -43,13 +42,13 @@ class _FilterSheetState extends State<FilterSheet> {
   Column getFilterSlider(){
     return Column(
       children: [
-        Text(
+        const Text(
           "How far from you?",
           style: TextStyle(
             fontWeight: FontWeight.w300
           ),
         ),
-        SizedBox(height: 7,),
+        const SizedBox(height: 7,),
         HarmonySlider(
             widget.discoverPageViewModel.setSliderValue,
             1,

@@ -1,4 +1,4 @@
-import 'dart:ui';
+import 'package:flutter/material.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:harmony/models/review.dart';
@@ -6,21 +6,22 @@ import 'package:harmony/models/user.dart';
 import 'package:harmony/utilites/places/place_category_enum.dart';
 
 class Place{
-  final String id;
+  late final String id;
   PlaceCategory category;
   List<double> coordinate; //Requires cartesian coordinates
-  String description;
   List<Image> images;
   String name;
   List<String> _pastUserIds;
   int rating;
   List<String> _reviewsIds;
 
+  Image get coverImage => images[0];
 
-  Place(this.id, this.category, this.coordinate, this.description, this.images,
+  ///FROM DB
+  Place(this.id, this.category, this.coordinate, this.images,
       this.name, this._pastUserIds, this.rating, this._reviewsIds);
 
-  factory Place.fromJson(Map<String, dynamic> data){
+  factory Place.fromJson(String id, Map<String, dynamic> data){
 
     List<Image> parseImages(dynamic imagePathArray){
       List<DocumentReference> references= imagePathArray;
@@ -38,15 +39,14 @@ class Place{
 
     //TODO
     return Place(
-      data["id"] as String,
+      id,
       parsePlaceCategory(data["category"] as String),
       data["coordinate"] as List<double>,
-      data["description"] as String,
       parseImages(data["imagePaths"]),
       data["name"] as String,
-      data["pastUsers"] as List<String>,
+      data["pastUserIds"] as List<String>,
       data["rating"] as int,
-      data["review"] as List<String>,
+      data["reviewIds"] as List<String>,
     );
   }
 
