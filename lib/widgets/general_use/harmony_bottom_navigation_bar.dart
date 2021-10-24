@@ -11,16 +11,16 @@ class HarmonyBottomNavigationBar extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         IconButton(
-          icon: Icon(FontAwesomeIcons.compass),
+          icon: const Icon(FontAwesomeIcons.compass),
           onPressed: () => Navigator.pushReplacementNamed(context, kDiscoverPageRouteName),
         ),
         IconButton(
-          icon: Icon(FontAwesomeIcons.globe),
+          icon: const Icon(FontAwesomeIcons.globe),
           onPressed: () => Navigator.pushReplacementNamed(context, kAddPlacePageRouteName), //TODO NOT ADD PLACE TO NEARBY ACTULY
         ),
         IconButton(
-          icon: Icon(FontAwesomeIcons.user),
-          onPressed: () => null,//Navigator.pushReplacementNamed(context, routeName),
+          icon: const Icon(FontAwesomeIcons.user),
+          onPressed: () {},//Navigator.pushReplacementNamed(context, routeName),
         )
       ],
     );

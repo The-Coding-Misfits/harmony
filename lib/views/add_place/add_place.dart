@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:harmony/utilites/places/place_category_enum.dart';
 import 'package:harmony/widgets/filter/category_widgets/category_grid.dart';
-import 'package:harmony/widgets/general_use/HarmonyBottomNavigationBar.dart';
+import 'package:harmony/widgets/general_use/harmony_bottom_navigation_bar.dart';
 
 class AddPlace extends StatefulWidget {
   final CategoryGrid _categoryGrid = CategoryGrid();
