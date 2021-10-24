@@ -1,9 +1,11 @@
+import 'dart:io';
 import 'dart:ui';
-
+import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:harmony/utilites/constants.dart';
 import 'package:harmony/utilites/page_enum.dart';
 import 'package:harmony/utilites/places/place_category_enum.dart';
+import 'package:harmony/viewmodel/add_place/add_place_viewmodel.dart';
 import 'package:harmony/widgets/filter/category_widgets/category_grid.dart';
 import 'package:harmony/widgets/general_use/harmony_bottom_navigation_bar.dart';
 import 'package:harmony/widgets/login_register/harmony_shiny_button.dart';
@@ -11,6 +13,9 @@ import 'package:image_picker/image_picker.dart';
 
 class AddPlace extends StatefulWidget {
   final CategoryGrid _categoryGrid = CategoryGrid();
+  final AddPlaceViewModel _viewModel = AddPlaceViewModel();
+
+  AddPlace({Key? key}) : super(key: key);
 
 
   PlaceCategory? get selectedCategory => _categoryGrid.selectedCategory;
@@ -23,10 +28,21 @@ class AddPlaceState extends State<AddPlace> {
 
   TextEditingController nameController = TextEditingController();
   final ImagePicker _picker = ImagePicker();
+  File? selectedImage;
+  bool canAdd = false;
+
+  @override
+  void initState() {
+    super.initState();
+    nameController.addListener(() {setState(() {
+      canAdd = isEligibleAdd();
+    });}); // listen for change and change eligible
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         elevation: 0,
         centerTitle: true,
@@ -68,13 +84,22 @@ class AddPlaceState extends State<AddPlace> {
               SizedBox(
                 height: 50,
                 width: 500,
-                child: widget._categoryGrid,
+                child: GestureDetector( //Re evaulate can add when touched category grid
+                    child: widget._categoryGrid,
+                  onTap: (){canAdd = isEligibleAdd();},
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 15),
                 child: GestureDetector(
                   onTap: () async {
-                    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+                    final XFile? pickedImage = await _picker.pickImage(source: ImageSource.gallery);
+                    if(pickedImage != null) {
+                      setState(() {
+                        selectedImage = File(pickedImage.path);
+                        canAdd = isEligibleAdd();
+                      });
+                    }
                   },
                   child: Container(
                     height: 200,
@@ -94,9 +119,9 @@ class AddPlaceState extends State<AddPlace> {
               // Save Button
               HarmonyShinyButton(
                 "ADD NEW SPOT",
-                () { // onPress
 
-                },
+                addPlace,
+                isActive: canAdd, //is active
                 size: 50,
               )
             ],
@@ -107,5 +132,28 @@ class AddPlaceState extends State<AddPlace> {
         PAGE_ENUM.NEARBY_PAGE
       ),
     );
+  }
+  void addPlace(){
+    if(isEligibleAdd()){
+      widget._viewModel.createPlace(
+        nameController.value.text,
+        widget._categoryGrid.categoryGridController.selectedCategory!,
+        selectedImage!,
+        getCoordinates()
+
+      );
+    }
+  }
+
+  bool isEligibleAdd(){
+    return (selectedImage != null && nameController.value.text.isNotEmpty && widget._categoryGrid.categoryGridController.selectedCategory != null);
+  }
+
+  List<double> getCoordinates(){
+    return [
+      math.Random().nextInt(10000).toDouble(),
+      math.Random().nextInt(10000).toDouble(),
+      math.Random().nextInt(10000).toDouble(),
+    ];
   }
 }
