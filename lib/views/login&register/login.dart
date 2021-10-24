@@ -105,7 +105,7 @@ class LoginPageState extends State<LoginPage> {
     LOGIN_STATE loginState = await authService.logUser(emailInputField.currText, passwordInputField.currText);
 
     if (loginState == LOGIN_STATE.SUCCESSFUL) {
-      Navigator.pushNamedAndRemoveUntil(context, kMainPageRouteName, (route) => false);
+      Navigator.pushNamedAndRemoveUntil(context, kDiscoverPageRouteName, (route) => false);
     }
   }
 }

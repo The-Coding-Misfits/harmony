@@ -38,7 +38,7 @@ class _MyAppState extends State<MyApp> {
 
         // Once complete, show your application
         if (snapshot.connectionState == ConnectionState.done) {
-          String initialRoute = auth.currentUser == null ? kLoginPageRouteName : kMainPageRouteName;
+          String initialRoute = auth.currentUser == null ? kLoginPageRouteName : kDiscoverPageRouteName;
           
           return MultiProvider(
             providers: [
@@ -56,9 +56,10 @@ class _MyAppState extends State<MyApp> {
               initialRoute: initialRoute,
               routes: {
                 kLoginPageRouteName : (context) => const LoginPage(),
-                kMainPageRouteName : (context) => DiscoverPage(),
+                kDiscoverPageRouteName : (context) => DiscoverPage(),
                 kRegisterPageRouteName : (context) => const RegisterPage(),
-                kAddPlacePageRouteName : (context) => const AddPlace()
+                kAddPlacePageRouteName : (context) => AddPlace(),
+                kErrorPageRouteName : (context) => const SomethingWentWrong(),
               },
             ),
           );

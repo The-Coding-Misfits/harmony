@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:harmony/services/kdtree_service.dart';
 import 'package:harmony/utilites/constants.dart';
 import 'package:harmony/views/discover/filter/filter_sheet.dart';
+import 'package:harmony/widgets/general_use/HarmonyBottomNavigationBar.dart';
 import 'package:harmony/widgets/general_use/clickable_text.dart';
 
 class DiscoverPage extends StatefulWidget {
@@ -126,6 +127,7 @@ class DiscoverPageState extends State<DiscoverPage> {
           ]
         ),
       ),
+      bottomNavigationBar: HarmonyBottomNavigationBar(),
     );
   }
 
