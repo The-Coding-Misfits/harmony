@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:harmony/utilites/places/place_category_enum.dart';
-import 'package:harmony/widgets/filter/category_widgets/CategoryGrid.dart';
+import 'package:harmony/widgets/filter/category_widgets/category_grid.dart';
 import 'package:harmony/widgets/general_use/HarmonyBottomNavigationBar.dart';
 
 class AddPlace extends StatefulWidget {
@@ -53,7 +53,7 @@ class AddPlaceState extends State<AddPlace> {
           ],
         ),
       ),
-      bottomNavigationBar: HarmonyBottomNavigationBar(),
+      bottomNavigationBar: const HarmonyBottomNavigationBar(),
     );
   }
 }

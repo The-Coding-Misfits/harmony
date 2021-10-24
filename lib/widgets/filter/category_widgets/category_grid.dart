@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:harmony/utilites/places/place_category_enum.dart';
-import 'package:harmony/widgets/filter/category_widgets/CategoryGridController.dart';
-import 'package:harmony/widgets/filter/category_widgets/CategoryItem.dart';
-import 'package:harmony/widgets/filter/category_widgets/CategoryModel.dart';
+import 'package:harmony/widgets/filter/category_widgets/category_grid_controller.dart';
+import 'package:harmony/widgets/filter/category_widgets/category_item.dart';
+import 'package:harmony/widgets/filter/category_widgets/category_model.dart';
 
 class CategoryGrid extends StatefulWidget {
   final CategoryGridController categoryGridController = CategoryGridController();

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:harmony/widgets/filter/category_widgets/CategoryModel.dart';
+import 'package:harmony/widgets/filter/category_widgets/category_model.dart';
 
 class CategoryItem extends StatelessWidget {
   final CategoryModel _item;
