@@ -72,7 +72,7 @@ class AddPlaceState extends State<AddPlace> {
                 padding: const EdgeInsets.only(top: 15),
                 child: GestureDetector(
                   onTap: () async {
-                    final List<XFile>? images = await _picker.pickMultiImage();
+                    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
                   },
                   child: Container(
                     height: 200,
