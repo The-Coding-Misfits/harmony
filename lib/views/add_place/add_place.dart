@@ -97,6 +97,7 @@ class AddPlaceState extends State<AddPlace> {
                     if(pickedImage != null) {
                       setState(() {
                         selectedImage = File(pickedImage.path);
+                        canAdd = isEligibleAdd();
                       });
                     }
                   },

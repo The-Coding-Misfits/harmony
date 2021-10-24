@@ -36,14 +36,11 @@ class FireStoreService{
   }
 
   String uploadPlaceImageToDatabase(File image, Place place){
+    image.renameSync(DateTime.now().millisecondsSinceEpoch.toString());
     String firestoragePath = place.id + "/" + basename(image.path);
     Reference storageRef =
         FirebaseStorage.instance.ref().child(firestoragePath);
-    UploadTask uploadTask = storageRef.putFile(image);
-    TaskSnapshot taskSnapshot = uploadTask.snapshot;
-    taskSnapshot.ref.getDownloadURL().then(
-        (value) => null
-    );
+    storageRef.putFile(image);
     return firestoragePath;
   }
 
@@ -61,13 +58,17 @@ class FireStoreService{
           coordinates[1].toInt(),
           coordinates[2].toInt()
         ],
-        'imagePaths' : [], // first as an empty array, will init later
         'name' : name,
         'pastUserIds' : [],
         'rating' : 0,
         'reviewIds' : []
       });
     return result.id;
+  }
+
+  Future<List<Reference>> imageUrlsPlace(String id) async{
+    ListResult result =  await FirebaseStorage.instance.ref().child(id).listAll();
+    return result.items;
   }
 
   void updateKDTree(KDTree tree){

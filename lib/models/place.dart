@@ -1,3 +1,4 @@
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -9,30 +10,19 @@ class Place{
   final String id;
   PlaceCategory category;
   List<double> coordinate; //Requires cartesian coordinates
-  List<Image> images;
   String name;
   List<String> _pastUserIds;
   int rating;
   List<String> _reviewsIds;
 
-  Image get coverImage => images[0];
-
   ///FROM DB
-  Place(this.id, this.category, this.coordinate, this.images,
+  Place(this.id, this.category, this.coordinate,
       this.name, this._pastUserIds, this.rating, this._reviewsIds);
 
-  factory Place.fromJson(String id, Map<String, dynamic> data){
+  factory Place.fromJson(String id, Map<String, dynamic> data) {
 
-    List<Image> parseImages(dynamic imagePathArray){
-      List<DocumentReference> references= imagePathArray;
-      print(references.toString());
-      List<Image> images = [];
-      for(DocumentReference reference in references){
-        //TODO
-        //Figure getting snaphsot first
-      }
-      return images;
-    }
+
+
     PlaceCategory parsePlaceCategory(String sPlaceCategory){
       return PlaceCategory.values.firstWhere((e) => e.toString() == sPlaceCategory); //from string to enum
     }
@@ -42,7 +32,6 @@ class Place{
       id,
       parsePlaceCategory(data["category"] as String),
       data["coordinate"] as List<double>,
-      parseImages(data["imagePaths"]),
       data["name"] as String,
       data["pastUserIds"] as List<String>,
       data["rating"] as int,

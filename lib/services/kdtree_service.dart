@@ -15,51 +15,6 @@ class KDTreeService{
 
   static void  initTree() async{
     tree = await FireStoreService().initKDTree();
-
-
-    //TESTS
-    addTestPlace([1,1,1]);
-    addTestPlace([1,5,7]);
-    addTestPlace([3,5,7]);
-    addTestPlace([4,5,6]);
-    addTestPlace([8,9,2]);
-    addTestPlace([8,12,3]);
-    addTestPlace([1,7,3]);
-    addTestPlace([6,1,4]);
-    addTestPlace([6,7,7]);
-    addTestPlace([7,5,2]);
-    addTestPlace([12,15,16]);
-    addTestPlace([13,15,16]);
-    addTestPlace([13,12,16]);
-    addTestPlace([17,12,19]);
-    addTestPlace([65,23,176]);
-    addTestPlace([6135,131,14124]);
-    addTestPlace([21213,123112,1231515]);
-    addTestPlace([1,8,6]);
-
-
-    tree!.toStringTree(tree!.rootNode);
-    print(tree!.str);
-
-    /*List<String> neighbours = KDTreeService().findNearPlaces(
-        [3,3,3],
-        3
-    );*/
-    List<String> neighbours = KDTreeService().findNearPlaces(
-        [2,7,7],
-        5
-    );
-
-    print(neighbours);
-
-
-  }
-  static void addTestPlace(List<double> coord){
-    List<Image> dummyImage = [];
-    List<String> dummyStringarr = [];
-    KDTreeService().insertPosition(
-        Place(coord.toString(), PlaceCategory.TREKKING, coord, dummyImage, "name", dummyStringarr, 1, dummyStringarr)
-    );
   }
 
   void insertPosition(Place place){

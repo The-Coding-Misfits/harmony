@@ -18,7 +18,6 @@ class AddPlaceViewModel{
         id,
         category,
         coordinates,
-        [convertFileToImage(imageFile)], //init with first image as cover
         name,
         [],
         0,
