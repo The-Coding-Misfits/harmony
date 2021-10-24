@@ -24,6 +24,7 @@ class AddPlaceViewModel{
         0,
         []);
     _addToPlaceKDTree(newPlace);
+    FireStoreService().uploadPlaceImageToDatabase(imageFile, newPlace);
   }
 
   Image convertFileToImage(File picture) {
