@@ -6,9 +6,9 @@ import 'package:provider/provider.dart';
 
 class FilterSheet extends StatefulWidget {
   final BuildContext context;
+  final DiscoverPageViewModel discoverPageViewModel;
 
-
-  FilterSheet(this.context);
+  FilterSheet(this.context, this.discoverPageViewModel);
 
   @override
   _FilterSheetState createState() => _FilterSheetState();
@@ -51,7 +51,7 @@ class _FilterSheetState extends State<FilterSheet> {
         ),
         SizedBox(height: 7,),
         HarmonySlider(
-            Provider.of<DiscoverPageViewModel>(widget.context, listen: false).setSliderValue,
+            widget.discoverPageViewModel.setSliderValue,
             1,
             15,
             5
