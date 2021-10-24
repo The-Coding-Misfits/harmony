@@ -32,7 +32,7 @@ class _CategoryGridState extends State<CategoryGrid> {
       scrollDirection: Axis.horizontal,
       itemBuilder: (context, index){
         return Padding(
-          padding: const EdgeInsets.only(left: 5),
+          padding: const EdgeInsets.only(right: 5),
           child: SizedBox(
             width: 50,
             height: 30,
