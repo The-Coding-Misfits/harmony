@@ -55,7 +55,8 @@ class _FilterSheetState extends State<FilterSheet> {
             1,
             15,
             5
-        )
+        ),
+        SizedBox(height: 7,)
       ],
     );
   }
