@@ -1,6 +1,5 @@
-import 'dart:ffi';
 import 'dart:math' as math;
-import 'dart:ui';
+import 'package:flutter/material.dart';
 
 import 'package:harmony/models/place.dart';
 import 'package:harmony/utilites/custom_exception.dart';
@@ -16,64 +15,20 @@ class KDTreeService{
 
   static void  initTree() async{
     tree = await FireStoreService().initKDTree();
-
-
-    //TESTS
-    addTestPlace([1,1,1]);
-    addTestPlace([1,5,7]);
-    addTestPlace([3,5,7]);
-    addTestPlace([4,5,6]);
-    addTestPlace([8,9,2]);
-    addTestPlace([8,12,3]);
-    addTestPlace([1,7,3]);
-    addTestPlace([6,1,4]);
-    addTestPlace([6,7,7]);
-    addTestPlace([7,5,2]);
-    addTestPlace([12,15,16]);
-    addTestPlace([13,15,16]);
-    addTestPlace([13,12,16]);
-    addTestPlace([17,12,19]);
-    addTestPlace([65,23,176]);
-    addTestPlace([6135,131,14124]);
-    addTestPlace([21213,123112,1231515]);
-    addTestPlace([1,8,6]);
-
-
-    tree!.toStringTree(tree!.rootNode);
-    print(tree!.str);
-
-    /*List<String> neighbours = KDTreeService().findNearPlaces(
-        [3,3,3],
-        3
-    );*/
-    List<String> neighbours = KDTreeService().findNearPlaces(
-        [2,7,7],
-        5
-    );
-
-    print(neighbours);
-
-
-  }
-  static void addTestPlace(List<double> coord){
-    List<Image> dummyImage = [];
-    List<String> dummyStringarr = [];
-    KDTreeService().insertPosition(
-        Place(coord.toString(), PlaceCategory.TREKKING, coord, "description", dummyImage, "name", dummyStringarr, 1, dummyStringarr)
-    );
   }
 
   void insertPosition(Place place){
     ///Requires a Cartesian Coordinate, an x,y coordinate
     ///May be time expensive, wait for it
     if(place.coordinate.length != 3){
-      throw new CustomException("Cartesian Coordinate list must include 3 vars, x,y,z");
+      throw CustomException("Cartesian Coordinate list must include 3 vars, x,y,z");
     }
     try{
       tree!.rootNode = _insert(place, tree!.rootNode);
     } catch(e){
         print(e.toString());
     }
+
   }
 
   void deletePosition(Place place){
@@ -81,7 +36,7 @@ class KDTreeService{
     ///May be time expensive, wait for it
     List<double> cartesianCoordinate = place.coordinate;
     if(cartesianCoordinate.length != 3){
-      throw new CustomException("Cartesian Coordinate list must include 3 vars, x,y,z");
+      throw CustomException("Cartesian Coordinate list must include 3 vars, x,y,z");
     }
     try{
       tree!.rootNode = _delete(cartesianCoordinate, tree!.rootNode, 3);
@@ -93,7 +48,7 @@ class KDTreeService{
 
 
 
-  Node _insert(Place place, Node? node, {int cd : 0}){
+  Node _insert(Place place, Node? node, {int cd = 0}){
     List<double> point = place.coordinate;
     int k = point.length;
     if (node == null) {
@@ -103,7 +58,7 @@ class KDTreeService{
       );
     }
     else if(point == node.point){
-      return throw new CustomException("Duplicate Node!");
+      return throw CustomException("Duplicate Node!");
     }
     else if(point[cd] < node.point[cd]) {
       node.leftChild = _insert(place, node.leftChild, cd : (cd+1) % k);
@@ -115,7 +70,7 @@ class KDTreeService{
   }
 
   List<double> _findmin(Node? T, int dim, int cd){
-    if (T == null) return throw new CustomException("Empty tree!"); //empty tree
+    if (T == null) return throw CustomException("Empty tree!"); //empty tree
 
     // T splits on the dimension we’re searching
     // => only visit left subtree
@@ -138,7 +93,7 @@ class KDTreeService{
   }
 
   Node? _delete(List<double> x, Node? T,int dim, {int cd : 0}){
-    if (T == null) return throw new CustomException("Empty tree!");
+    if (T == null) return throw CustomException("Empty tree!");
     int next_cd = (cd+1) % dim;
 
     // This is the point to delete:

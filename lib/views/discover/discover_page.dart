@@ -65,7 +65,7 @@ class DiscoverPageState extends State<DiscoverPage> {
     filterButton = IconButton( //filter button
       onPressed: _toFilterScreen,
       icon: const Icon(
-          Icons.sort,
+          Icons.filter_alt_sharp,
         size: 25,
       ),
     );

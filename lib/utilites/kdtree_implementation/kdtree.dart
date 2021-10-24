@@ -1,3 +1,4 @@
+import 'package:harmony/utilites/custom_exception.dart';
 import 'package:harmony/utilites/kdtree_implementation/node.dart';
 
 class KDTree{
@@ -10,7 +11,7 @@ class KDTree{
 
 
   factory KDTree.fromJson(Map<String, dynamic> treeData){
-    if (treeData == null){
+    if (treeData.isEmpty){
       return KDTree();
     }
     return KDTree(
@@ -21,7 +22,6 @@ class KDTree{
   static List<double> parseCoordinate(List<dynamic> coord){
     List<double> coordDouble = [];
     for (dynamic coor in coord){
-      int coorint = coor as int;
       double coordouble = coor.toDouble();
       coordDouble.add(coordouble);
     }
@@ -45,11 +45,17 @@ class KDTree{
     return node;
   }
 
+  Map<String, dynamic> toJson(){
+    if(rootNode == null) return throw CustomException("empty tree");
+    return {
+      'root_node': rootNode!.toJson()
+    };
+  }
 
   void toStringTree(Node? node){
     if (node == null){
       return;
-    };
+    }
 
     str += node.point.toString();
     //LEAF

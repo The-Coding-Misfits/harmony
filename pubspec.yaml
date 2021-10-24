@@ -21,6 +21,7 @@ dependencies:
   provider: ^6.0.1
   image_picker: ^0.8.4+3
 
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -32,6 +33,7 @@ flutter:
 
   assets:
     - assets/images/harmony.png
+    - assets/images/dummy-profile-pic.png
 
   fonts:
      - family: Montserrat

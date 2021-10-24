@@ -6,3 +6,9 @@ enum PlaceCategory{
   CAMPING,
   WILDLIFE
 }
+
+extension ParseToString on PlaceCategory{
+  String toShortString() {
+    return toString().split('.').last;
+  }
+}
