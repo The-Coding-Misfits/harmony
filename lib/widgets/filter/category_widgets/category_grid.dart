@@ -31,16 +31,23 @@ class _CategoryGridState extends State<CategoryGrid> {
       itemCount: items.length,
       scrollDirection: Axis.horizontal,
       itemBuilder: (context, index){
-        return InkWell(
-          splashColor: CategoryItem.activeColor,
-          onTap: (){
-            setState(() {
-              items.forEach((element) => element.isSelected = false);
-              items[index].isSelected = true;
-              widget.categoryGridController.selectedCategory = items[index].category;
-            });
-          },
-          child: CategoryItem(items[index]),
+        return Padding(
+          padding: const EdgeInsets.only(left: 5),
+          child: SizedBox(
+            width: 50,
+            height: 30,
+            child: InkWell(
+              splashColor: CategoryItem.activeColor,
+              onTap: (){
+                setState(() {
+                  items.forEach((element) => element.isSelected = false);
+                  items[index].isSelected = true;
+                  widget.categoryGridController.selectedCategory = items[index].category;
+                });
+              },
+              child: CategoryItem(items[index]),
+            ),
+          )
         );
       },
     );

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:harmony/services/kdtree_service.dart';
-import 'package:harmony/utilites/constants.dart';
 import 'package:harmony/views/discover/filter/filter_sheet.dart';
 import 'package:harmony/widgets/general_use/harmony_bottom_navigation_bar.dart';
 import 'package:harmony/widgets/general_use/clickable_text.dart';
@@ -53,7 +52,7 @@ class DiscoverPageState extends State<DiscoverPage> {
     ///DISCOVER WIDGETS
     hamburgerButton = IconButton(
       onPressed: (){},
-      icon: Icon(
+      icon: const Icon(
           Icons.menu,
         size: 25,
       ),
@@ -61,12 +60,12 @@ class DiscoverPageState extends State<DiscoverPage> {
 
     filterButton = IconButton( //filter button
       onPressed: _toFilterScreen,
-      icon: Icon(
+      icon: const Icon(
           Icons.sort,
         size: 25,
       ),
     );
-    discoverText = Text(
+    discoverText = const Text(
       "Discover",
       style: TextStyle(
         fontSize: 20,
@@ -78,17 +77,17 @@ class DiscoverPageState extends State<DiscoverPage> {
     ///FILTER WIDGETS
     cancelText = ClickableText(
       onPress: (){},
-      textWidget: Text(
+      textWidget: const Text(
         "Cancel",
         style: TextStyle(color : Colors.black45),
       ),
     );
-    filtersText = Text(
+    filtersText = const Text(
         "Filters"
     );
     saveText = ClickableText(
       onPress: (){},
-      textWidget: Text(
+      textWidget: const Text(
         "Save",
         style: TextStyle(color: Colors.greenAccent),
       ),
@@ -127,7 +126,7 @@ class DiscoverPageState extends State<DiscoverPage> {
           ]
         ),
       ),
-      bottomNavigationBar: HarmonyBottomNavigationBar(),
+      bottomNavigationBar: const HarmonyBottomNavigationBar(),
     );
   }
 

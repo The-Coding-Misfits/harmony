@@ -15,7 +15,7 @@ class HarmonyBottomNavigationBar extends StatelessWidget {
           onPressed: () => Navigator.pushReplacementNamed(context, kDiscoverPageRouteName),
         ),
         IconButton(
-          icon: const Icon(FontAwesomeIcons.globe),
+          icon: const Icon(Icons.add_box_outlined),
           onPressed: () => Navigator.pushReplacementNamed(context, kAddPlacePageRouteName), //TODO NOT ADD PLACE TO NEARBY ACTULY
         ),
         IconButton(

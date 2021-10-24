@@ -15,14 +15,14 @@ class AddPlace extends StatefulWidget {
 
 class AddPlaceState extends State<AddPlace> {
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
         centerTitle: true,
-        title: const Text("Add new spot"),
-        backgroundColor: const Color(0xff00CA9D),
+        title: const Text("Add new spot", style: TextStyle(color: Colors.black)),
+        backgroundColor: Colors.transparent,
         actions: [
           TextButton(
             onPressed: () {
@@ -30,7 +30,7 @@ class AddPlaceState extends State<AddPlace> {
             },
             child: const Text("Save", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
             style: ButtonStyle(
-              foregroundColor: MaterialStateProperty.all(Colors.white),
+              foregroundColor: MaterialStateProperty.all(Colors.black),
               backgroundColor: MaterialStateProperty.all(Colors.transparent)
             ),
           )
@@ -46,10 +46,11 @@ class AddPlaceState extends State<AddPlace> {
                 child: Text("What can you do here?", style: TextStyle(fontSize: 18)),
               ),
             ),
-            Expanded(
-              flex: 1,
-                child: widget._categoryGrid
-            ),
+            SizedBox(
+              height: 50,
+              width: 500,
+              child: widget._categoryGrid,
+            )
           ],
         ),
       ),
