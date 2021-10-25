@@ -10,13 +10,13 @@ class SideBar extends StatefulWidget {
 
 
   final Widget child;
-
+  final Function(Function()) menuCallback;
 
 
   @override
   _SideBarState createState() => _SideBarState();
 
-  SideBar({required this.child});
+  SideBar({required this.child, required this.menuCallback});
 }
 
 class _SideBarState extends State<SideBar> {
@@ -28,9 +28,10 @@ class _SideBarState extends State<SideBar> {
     super.initState();
     WidgetsBinding.instance!.addPostFrameCallback((_) {
         if(discoverItem.onMenuPressed != null){
-          print("Hurray");
+          widget.menuCallback(
+            discoverItem.onMenuPressed!
+          );
         } else{
-          print("FUCK");
         }
     });
   }

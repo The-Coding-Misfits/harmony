@@ -3,6 +3,7 @@ import 'package:harmony/services/kdtree_service.dart';
 import 'package:harmony/utilites/page_enum.dart';
 import 'package:harmony/viewmodel/discover/discover_page_viewmodel.dart';
 import 'package:harmony/views/discover/filter/filter_sheet.dart';
+import 'package:harmony/views/mixin/uses_sidebar_mixin.dart';
 import 'package:harmony/widgets/general_use/harmony_bottom_navigation_bar.dart';
 import 'package:harmony/widgets/general_use/clickable_text.dart';
 import 'package:harmony/widgets/side_bar/side_bar.dart';
@@ -24,44 +25,22 @@ class DiscoverPage extends StatefulWidget {
 }
 
 
-class DiscoverPageState extends State<DiscoverPage> {
+class DiscoverPageState extends State<DiscoverPage> with UsesSideBar {
   //Late in all vars because i hate the framework decision of not being able to initialize in constructors!
 
-  //Will change these variables in future to change appbar look
-  late Widget appBarLeftWidget;
-  late Text appBarTitle;
-  late Widget appBarRightWidget;
-  //App bar variables, if filter modal sheet is closed then discover widgets otherwise filter widgets
+
   ///DISCOVER WIDGETS
-  late IconButton hamburgerButton;
+  IconButton? hamburgerButton;
   late Text discoverText;
   late IconButton filterButton;
-
-  ///FILTER WIDGETS
-  late ClickableText cancelText;
-  late Text filtersText;
-  late ClickableText saveText;
-
   DiscoverPageState(){
     //Init variables
     _initDiscoverWidgets();
-    _initFilterWidgets();
-
-    //Initially they are set to discover page vars
-    appBarLeftWidget = hamburgerButton;
-    appBarTitle = discoverText;
-    appBarRightWidget = filterButton;
   }
 
   void _initDiscoverWidgets(){
     ///DISCOVER WIDGETS
-    hamburgerButton = IconButton(
-      onPressed: (){},
-      icon: const Icon(
-          Icons.menu,
-        size: 25,
-      ),
-    );
+    hamburgerButton = null; // WILL BE ASSIGNED WHEN MENU CALLBACK AVAILABLE
 
     filterButton = IconButton( //filter button
       onPressed: _toFilterScreen,
@@ -78,33 +57,13 @@ class DiscoverPageState extends State<DiscoverPage> {
     );
   }
 
-  void _initFilterWidgets(){
-    ///FILTER WIDGETS
-    cancelText = ClickableText(
-      onPress: (){},
-      textWidget: const Text(
-        "Cancel",
-        style: TextStyle(color : Colors.black45),
-      ),
-    );
-    filtersText = const Text(
-        "Filters"
-    );
-    saveText = ClickableText(
-      onPress: (){},
-      textWidget: const Text(
-        "Save",
-        style: TextStyle(color: Colors.greenAccent),
-      ),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SideBar(
-
+        menuCallback: menuCallback,
         child: SafeArea(
           child: Column(
             children: [
@@ -114,9 +73,9 @@ class DiscoverPageState extends State<DiscoverPage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    appBarLeftWidget,
-                    appBarTitle,
-                    appBarRightWidget
+                    hamburgerButton ?? const SizedBox(), // if null currently
+                    discoverText,
+                    filterButton
                   ],
                 ),
               ),
@@ -148,5 +107,11 @@ class DiscoverPageState extends State<DiscoverPage> {
           widget._discoverPageViewModel
         ),
     ).whenComplete(() => null);
+  }
+
+  void menuCallback(Function() onPress){
+    setState(() {
+      hamburgerButton = onMenuCallback(onPress);
+    });
   }
 }
