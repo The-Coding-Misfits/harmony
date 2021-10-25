@@ -5,6 +5,7 @@ import 'package:harmony/viewmodel/discover/discover_page_viewmodel.dart';
 import 'package:harmony/views/discover/filter/filter_sheet.dart';
 import 'package:harmony/widgets/general_use/harmony_bottom_navigation_bar.dart';
 import 'package:harmony/widgets/general_use/clickable_text.dart';
+import 'package:harmony/widgets/side_bar/side_bar.dart';
 
 class DiscoverPage extends StatefulWidget {
   static bool initTree = false;
@@ -102,32 +103,35 @@ class DiscoverPageState extends State<DiscoverPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: SafeArea(
-        child: Column(
-          children: [
-            ///TOP BAR
-            Expanded(
-              flex: 1,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  appBarLeftWidget,
-                  appBarTitle,
-                  appBarRightWidget
-                ],
+      body: SideBar(
+
+        child: SafeArea(
+          child: Column(
+            children: [
+              ///TOP BAR
+              Expanded(
+                flex: 1,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    appBarLeftWidget,
+                    appBarTitle,
+                    appBarRightWidget
+                  ],
+                ),
               ),
-            ),
-            ///Show actual places
-            Expanded(
-              flex: 9,
-              child: ListView.builder(
-                itemCount: 1,
-                itemBuilder: (context, index){
-                  return Container();
-                },
+              ///Show actual places
+              Expanded(
+                flex: 9,
+                child: ListView.builder(
+                  itemCount: 1,
+                  itemBuilder: (context, index){
+                    return Container();
+                  },
+                ),
               ),
-            ),
-          ]
+            ]
+          ),
         ),
       ),
       bottomNavigationBar: HarmonyBottomNavigationBar(

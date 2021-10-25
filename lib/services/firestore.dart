@@ -49,7 +49,6 @@ class FireStoreService{
   Future<String> addPlace(String name, PlaceCategory category, File imageFile, List<double> coordinates) async{
     ///Returns id
     //ADDING TO FIREBASE
-    String placeID = "";
     dynamic result = await places.add(
       {
         'category' : category.toString(),
