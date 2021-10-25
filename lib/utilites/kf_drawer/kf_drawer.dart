@@ -39,12 +39,10 @@ class KFDrawer extends StatefulWidget {
     this.scrollable = true,
     this.menuPadding,
     this.disableContentTap = true,
-    required this.child,
   }) : super(key: key);
 
   Widget? header;
   Widget? footer;
-  Widget child;
   BoxDecoration? decoration;
   List<KFDrawerItem> items;
   KFDrawerController? controller;
@@ -114,9 +112,15 @@ class _KFDrawerState extends State<KFDrawer> with TickerProviderStateMixin {
   }
 
   List<KFDrawerItem> _getDrawerItems() {
-    if (widget.items.isNotEmpty) {
-      return widget.items.map((KFDrawerItem item) {
-        item.onMenuPressed = _onMenuPressed;
+    if (widget.controller?.items != null) {
+      return widget.controller!.items.map((KFDrawerItem item) {
+        if (item.onPressed == null) {
+          item.onPressed = () {
+            widget.controller!.page = item.page;
+            if (widget.controller!.close != null) widget.controller!.close!();
+          };
+        }
+        item.page?.onMenuPressed = _onMenuPressed;
         return item;
       }).toList();
     }
@@ -234,7 +238,7 @@ class _KFDrawerState extends State<KFDrawer> with TickerProviderStateMixin {
                         borderRadius: radiusAnimation.value!,
                         child: Container(
                           color: Colors.white,
-                          child: widget.child,
+                          child: widget.controller?.page,
                         ),
                       ),
                     ),
@@ -345,7 +349,6 @@ class KFDrawerItem extends StatelessWidget {
   Widget? icon;
 
   String? alias;
-  Function()? onMenuPressed;
   KFDrawerContent? page;
 
   @override

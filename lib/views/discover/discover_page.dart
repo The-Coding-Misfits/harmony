@@ -3,10 +3,8 @@ import 'package:harmony/services/kdtree_service.dart';
 import 'package:harmony/utilites/page_enum.dart';
 import 'package:harmony/viewmodel/discover/discover_page_viewmodel.dart';
 import 'package:harmony/views/discover/filter/filter_sheet.dart';
-import 'package:harmony/views/mixin/uses_sidebar_mixin.dart';
 import 'package:harmony/widgets/general_use/harmony_bottom_navigation_bar.dart';
 import 'package:harmony/widgets/general_use/clickable_text.dart';
-import 'package:harmony/widgets/side_bar/side_bar.dart';
 
 class DiscoverPage extends StatefulWidget {
   static bool initTree = false;
@@ -25,7 +23,7 @@ class DiscoverPage extends StatefulWidget {
 }
 
 
-class DiscoverPageState extends State<DiscoverPage> with UsesSideBar {
+class DiscoverPageState extends State<DiscoverPage> {
   //Late in all vars because i hate the framework decision of not being able to initialize in constructors!
 
 
@@ -62,9 +60,7 @@ class DiscoverPageState extends State<DiscoverPage> with UsesSideBar {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: SideBar(
-        menuCallback: menuCallback,
-        child: SafeArea(
+      body: SafeArea(
           child: Column(
             children: [
               ///TOP BAR
@@ -92,10 +88,9 @@ class DiscoverPageState extends State<DiscoverPage> with UsesSideBar {
             ]
           ),
         ),
-      ),
       bottomNavigationBar: HarmonyBottomNavigationBar(
         PAGE_ENUM.DISCOVER_PAGE
-      ),
+    ),
     );
   }
 
@@ -109,9 +104,4 @@ class DiscoverPageState extends State<DiscoverPage> with UsesSideBar {
     ).whenComplete(() => null);
   }
 
-  void menuCallback(Function() onPress){
-    setState(() {
-      hamburgerButton = onMenuCallback(onPress);
-    });
-  }
 }
