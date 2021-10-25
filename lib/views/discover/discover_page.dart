@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:harmony/services/kdtree_service.dart';
+
 import 'package:harmony/utilites/page_enum.dart';
 import 'package:harmony/viewmodel/discover/discover_page_viewmodel.dart';
 import 'package:harmony/views/discover/filter/filter_sheet.dart';
 import 'package:harmony/widgets/general_use/harmony_bottom_navigation_bar.dart';
 import 'package:harmony/widgets/general_use/clickable_text.dart';
+import 'package:kf_drawer/kf_drawer.dart';
 
-class DiscoverPage extends StatefulWidget {
+class DiscoverPage extends KFDrawerContent {
   static bool initTree = false;
 
   final DiscoverPageViewModel _discoverPageViewModel = DiscoverPageViewModel();
 
-  DiscoverPage({Key? key}) : super(key: key) {
+  DiscoverPage({Key? key}){
     if (!initTree) {
       KDTreeService.initTree();
       initTree = true;
@@ -28,7 +30,7 @@ class DiscoverPageState extends State<DiscoverPage> {
 
 
   ///DISCOVER WIDGETS
-  IconButton? hamburgerButton;
+  IconButton? hamburgerButton; //null early
   late Text discoverText;
   late IconButton filterButton;
   DiscoverPageState(){
@@ -36,9 +38,10 @@ class DiscoverPageState extends State<DiscoverPage> {
     _initDiscoverWidgets();
   }
 
+
   void _initDiscoverWidgets(){
     ///DISCOVER WIDGETS
-    hamburgerButton = null; // WILL BE ASSIGNED WHEN MENU CALLBACK AVAILABLE
+    hamburgerButton = null;
 
     filterButton = IconButton( //filter button
       onPressed: _toFilterScreen,
@@ -53,6 +56,16 @@ class DiscoverPageState extends State<DiscoverPage> {
         fontSize: 20,
       ),
     );
+    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+      setState(() {
+        hamburgerButton = IconButton(
+          onPressed: widget.onMenuPressed!,
+          icon: const Icon(
+              Icons.menu
+          ),
+        );
+      });
+    });
   }
 
 

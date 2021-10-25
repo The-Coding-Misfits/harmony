@@ -8,10 +8,13 @@ import 'package:harmony/views/discover/discover_page.dart';
 import 'package:harmony/views/login&register/login.dart';
 import 'package:harmony/views/state_pages/something_went_wrong.dart';
 import 'package:harmony/views/add_place/add_place.dart';
+import 'package:harmony/widgets/kd_drawer_main_widget.dart';
+import 'package:kf_drawer/kf_drawer.dart';
 import 'package:provider/provider.dart';
 
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 
@@ -38,7 +41,8 @@ class _MyAppState extends State<MyApp> {
 
         // Once complete, show your application
         if (snapshot.connectionState == ConnectionState.done) {
-          String initialRoute = auth.currentUser == null ? kLoginPageRouteName : kDiscoverPageRouteName;
+          String initialRouteName = auth.currentUser == null ? kLoginPageRouteName : kDiscoverPageRouteName;
+         KFDrawerContent initialPage = auth.currentUser == null ? LoginPage() : DiscoverPage();
 
           return MaterialApp(
             title: "Harmony",
@@ -47,14 +51,9 @@ class _MyAppState extends State<MyApp> {
               primaryColor: const Color(0xff00CA9D)
             ),
             debugShowCheckedModeBanner: false,
-            initialRoute: initialRoute,
-            routes: {
-              kLoginPageRouteName : (context) => const LoginPage(),
-              kDiscoverPageRouteName : (context) => DiscoverPage(),
-              kRegisterPageRouteName : (context) => const RegisterPage(),
-              kAddPlacePageRouteName : (context) => AddPlace(),
-              kErrorPageRouteName : (context) => const SomethingWentWrong(),
-            },
+            home: MainWidget(
+                initialPage
+            ),
           );
         }
 
