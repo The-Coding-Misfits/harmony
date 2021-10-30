@@ -3,6 +3,7 @@ import 'package:harmony/services/kdtree_service.dart';
 import 'package:harmony/utilites/page_enum.dart';
 import 'package:harmony/viewmodel/discover/discover_page_viewmodel.dart';
 import 'package:harmony/views/discover/filter/filter_sheet.dart';
+import 'package:harmony/widgets/general_use/discover_card.dart';
 import 'package:harmony/widgets/general_use/harmony_bottom_navigation_bar.dart';
 import 'package:harmony/widgets/general_use/clickable_text.dart';
 
@@ -123,30 +124,10 @@ class DiscoverPageState extends State<DiscoverPage> {
               child: ListView.builder(
                 itemCount: 1,
                 itemBuilder: (context, index){
-                  return Card(
-                    clipBehavior: Clip.antiAlias,
-                    child: GestureDetector(
-                      onTap: () {},
-                      child: Column(
-                        children: [
-                          Image.asset('assets/images/dummy-national-park.jpg'),
-                          const Align(
-                            alignment: Alignment.centerLeft,
-                            child: Padding(
-                              padding: EdgeInsets.only(top: 10, bottom: 5, left: 10),
-                              child: Text('Great place for a picnic!', style: TextStyle(fontSize: 20)),
-                            ),
-                          ),
-                          const Align(
-                            alignment: Alignment.centerLeft,
-                            child: Padding(
-                              padding: EdgeInsets.only(bottom: 5, left: 10),
-                              child: Text('4.2/5.0 • 1.3KM Nearby', style: TextStyle(fontSize: 14)),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
+                  return const DiscoverCard(
+                    rating: 4.2,
+                    imageUrl: "assets/images/dummy-national-park.jpg",
+                    distance: 1.2
                   );
                 },
               ),
