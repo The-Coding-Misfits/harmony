@@ -6,7 +6,7 @@ import 'package:harmony/viewmodel/discover/discover_page_viewmodel.dart';
 import 'package:harmony/views/discover/filter/filter_sheet.dart';
 import 'package:harmony/widgets/general_use/harmony_bottom_navigation_bar.dart';
 import 'package:harmony/widgets/general_use/clickable_text.dart';
-import 'package:kf_drawer/kf_drawer.dart';
+import 'package:harmony/kf_drawer/kf_drawer.dart';
 
 class DiscoverPage extends KFDrawerContent {
   static bool initTree = false;
