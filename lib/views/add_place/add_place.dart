@@ -1,8 +1,8 @@
 import 'dart:io';
+import 'dart:typed_data';
 import 'dart:ui';
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
-import 'package:harmony/utilites/constants.dart';
 import 'package:harmony/utilites/page_enum.dart';
 import 'package:harmony/utilites/places/place_category_enum.dart';
 import 'package:harmony/viewmodel/add_place/add_place_viewmodel.dart';
@@ -28,6 +28,8 @@ class AddPlaceState extends State<AddPlace> {
   final ImagePicker _picker = ImagePicker();
   File? selectedImage;
   bool canAdd = false;
+  bool imageUploaded = false;
+  Uint8List? imageBytes;
 
   @override
   void initState() {
@@ -92,12 +94,15 @@ class AddPlaceState extends State<AddPlace> {
                 child: GestureDetector(
                   onTap: () async {
                     final XFile? pickedImage = await _picker.pickImage(source: ImageSource.gallery);
-                    if(pickedImage != null) {
-                      setState(() {
-                        selectedImage = File(pickedImage.path);
-                        canAdd = isEligibleAdd();
-                      });
-                    }
+
+                    var bytes = await pickedImage!.readAsBytes();
+
+                    setState(() {
+                      selectedImage = File(pickedImage.path);
+                      canAdd = isEligibleAdd();
+                      imageUploaded = true;
+                      imageBytes = bytes;
+                    });
                   },
                   child: Container(
                     height: 200,
@@ -105,9 +110,21 @@ class AddPlaceState extends State<AddPlace> {
                     color: const Color(0xffececec),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
-                        Icon(Icons.camera_alt_outlined, color: Color(0xff8d8d8d)),
-                        Text("ADD COVER PHOTO", style: TextStyle(color: Color(0xff8d8d8d), fontWeight: FontWeight.bold))
+                      children: [
+                        Visibility(
+                          visible: imageUploaded ? false : true,
+                          child: const Icon(Icons.camera_alt_outlined, color: Color(0xff8d8d8d)),
+                        ),
+                        Visibility(
+                          visible: imageUploaded ? false : true,
+                          child: const Text("ADD COVER PHOTO", style: TextStyle(color: Color(0xff8d8d8d), fontWeight: FontWeight.bold)),
+                        ),
+                        ConstrainedBox(
+                          constraints: const BoxConstraints(
+                            maxHeight: 180
+                          ),
+                          child: imageUploaded ? Image.memory(imageBytes!) : const SizedBox(width: 0, height: 0),
+                        )
                       ],
                     ),
                   ),

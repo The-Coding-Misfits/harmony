@@ -32,6 +32,9 @@ class HarmonyShinyButton extends StatelessWidget {
       ),
       child: TextButton(
         onPressed: onPress,
+        style: ButtonStyle(
+          overlayColor: MaterialStateProperty.all(Colors.transparent),
+        ),
         child: Text(
           text,
           style: const TextStyle(

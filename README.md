@@ -1,6 +1,6 @@
 # harmony
 
-A new Flutter project.
+Share hiking places around you.
 
 ## Getting Started
 

@@ -1,5 +1,5 @@
 name: harmony
-description: A new Flutter project.
+description: Share hiking places around you.
 
 publish_to: 'none'
 
@@ -32,6 +32,7 @@ flutter:
 
   assets:
     - assets/images/harmony.png
+    - assets/images/dummy-profile-pic.png
 
   fonts:
      - family: Montserrat
