@@ -10,9 +10,8 @@ import 'package:harmony/widgets/filter/category_widgets/category_grid.dart';
 import 'package:harmony/widgets/general_use/harmony_bottom_navigation_bar.dart';
 import 'package:harmony/widgets/login_register/harmony_shiny_button.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:harmony/kf_drawer/kf_drawer.dart';
 
-class AddPlace extends KFDrawerContent {
+class AddPlace extends StatefulWidget {
   final CategoryGrid _categoryGrid = CategoryGrid();
   final AddPlaceViewModel _viewModel = AddPlaceViewModel();
 

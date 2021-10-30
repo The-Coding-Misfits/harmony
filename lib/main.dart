@@ -3,18 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:harmony/views/login&register/register.dart';
 import 'package:harmony/services/auth_service.dart';
 import 'package:harmony/utilites/constants.dart';
-import 'package:harmony/viewmodel/discover/discover_page_viewmodel.dart';
 import 'package:harmony/views/discover/discover_page.dart';
 import 'package:harmony/views/login&register/login.dart';
 import 'package:harmony/views/state_pages/something_went_wrong.dart';
 import 'package:harmony/views/add_place/add_place.dart';
-import 'package:harmony/widgets/kd_drawer_main_widget.dart';
-import 'package:harmony/kf_drawer/kf_drawer.dart';
-import 'package:provider/provider.dart';
 
 
 void main() {
-  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 
@@ -41,19 +36,23 @@ class _MyAppState extends State<MyApp> {
 
         // Once complete, show your application
         if (snapshot.connectionState == ConnectionState.done) {
-          String initialRouteName = auth.currentUser == null ? kLoginPageRouteName : kDiscoverPageRouteName;
-         KFDrawerContent initialPage = auth.currentUser == null ? LoginPage() : DiscoverPage();
+          String initialRoute = auth.currentUser == null ? kLoginPageRouteName : kDiscoverPageRouteName;
 
           return MaterialApp(
             title: "Harmony",
             theme: ThemeData(
-              fontFamily: "Montserrat",
-              primaryColor: const Color(0xff00CA9D)
+                fontFamily: "Montserrat",
+                primaryColor: const Color(0xff00CA9D)
             ),
             debugShowCheckedModeBanner: false,
-            home: MainWidget(
-                initialPage
-            ),
+            initialRoute: initialRoute,
+            routes: {
+              kLoginPageRouteName : (context) => LoginPage(),
+              kDiscoverPageRouteName : (context) => DiscoverPage(),
+              kRegisterPageRouteName : (context) => const RegisterPage(),
+              kAddPlacePageRouteName : (context) => AddPlace(),
+              kErrorPageRouteName : (context) => const SomethingWentWrong(),
+            },
           );
         }
 
@@ -61,18 +60,18 @@ class _MyAppState extends State<MyApp> {
         return Container(
           color: Colors.white,
           child: Center(
-            child: Column(
-              children: [
-                Hero(
-                    tag: "harmony_logo",
-                    child: Image.asset("assets/images/harmony.png")
-                ),
-                const Padding(
-                  padding: EdgeInsets.only(top: 20),
-                  child: CircularProgressIndicator(),
-                )
-              ],
-            )
+              child: Column(
+                children: [
+                  Hero(
+                      tag: "harmony_logo",
+                      child: Image.asset("assets/images/harmony.png")
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.only(top: 20),
+                    child: CircularProgressIndicator(),
+                  )
+                ],
+              )
           ),
         );
       },
