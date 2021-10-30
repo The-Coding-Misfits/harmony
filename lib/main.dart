@@ -42,7 +42,8 @@ class _MyAppState extends State<MyApp> {
             title: "Harmony",
             theme: ThemeData(
                 fontFamily: "Montserrat",
-                primaryColor: const Color(0xff00CA9D)
+                primaryColor: const Color(0xff00CA9D),
+                colorScheme: ColorScheme.fromSwatch().copyWith(secondary: const Color(0xff00CA9D))
             ),
             debugShowCheckedModeBanner: false,
             initialRoute: initialRoute,

@@ -129,8 +129,21 @@ class DiscoverPageState extends State<DiscoverPage> {
                       onTap: () {},
                       child: Column(
                         children: [
-                          Image.asset('assets/card-sample-image.jpg'),
-                          const Text('Great place for a picnic!'),
+                          Image.asset('assets/images/dummy-national-park.jpg'),
+                          const Align(
+                            alignment: Alignment.centerLeft,
+                            child: Padding(
+                              padding: EdgeInsets.only(top: 10, bottom: 5, left: 10),
+                              child: Text('Great place for a picnic!', style: TextStyle(fontSize: 20)),
+                            ),
+                          ),
+                          const Align(
+                            alignment: Alignment.centerLeft,
+                            child: Padding(
+                              padding: EdgeInsets.only(bottom: 5, left: 10),
+                              child: Text('4.2/5.0 • 1.3KM Nearby', style: TextStyle(fontSize: 14)),
+                            ),
+                          )
                         ],
                       ),
                     ),

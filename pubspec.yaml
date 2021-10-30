@@ -33,6 +33,7 @@ flutter:
   assets:
     - assets/images/harmony.png
     - assets/images/dummy-profile-pic.png
+    - assets/images/dummy-national-park.jpg
 
   fonts:
      - family: Montserrat
