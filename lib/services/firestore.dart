@@ -1,8 +1,11 @@
 
 import 'dart:io';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:harmony/models/review.dart';
+import 'package:harmony/models/user.dart';
 import 'package:harmony/services/kdtree_service.dart';
 import 'package:harmony/utilites/custom_exception.dart';
 import 'package:harmony/utilites/kdtree_implementation/kdtree.dart';
@@ -64,6 +67,35 @@ class FireStoreService{
       });
     return result.id;
   }
+
+  Future<bool> deleteUser() async {
+
+  }
+
+
+  Future<bool> _deleteDBOBject(Object object) async {
+    ///Returns whether successfully deleted
+
+    //delete method throws error if cannot delete
+    try{
+      if(object is HarmonyUser){
+        await users.doc(object.id).delete();
+      } else if(object is Place){
+        await places.doc(object.id).delete();
+      } else if (object is Review){
+        await reviews.doc(object.id).delete();
+      }
+      else {
+        return false;
+      }
+      return true;
+    } catch (e){
+      return false;
+    }
+  }
+
+
+
 
   Future<List<Reference>> imageUrlsPlace(String id) async{
     ListResult result =  await FirebaseStorage.instance.ref().child(id).listAll();
