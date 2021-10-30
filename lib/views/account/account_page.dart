@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:kf_drawer/kf_drawer.dart';
 import 'package:harmony/utilites/page_enum.dart';
 import 'package:harmony/widgets/general_use/harmony_bottom_navigation_bar.dart';
 
-class AccountPage extends StatelessWidget {
-  const AccountPage({Key? key}) : super(key: key);
 
+class AccountPage extends KFDrawerContent {
+
+  @override
+  _AccountPageState createState() => _AccountPageState();
+}
+
+class _AccountPageState extends State<AccountPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,3 +39,4 @@ class AccountPage extends StatelessWidget {
     );
   }
 }
+

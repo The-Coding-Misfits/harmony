@@ -4,9 +4,9 @@ import 'package:harmony/utilites/constants.dart';
 import 'package:harmony/utilites/login_register_states/login_state.dart';
 import 'package:harmony/widgets/login_register/harmony_shiny_button.dart';
 import 'package:harmony/widgets/login_register/harmony_log_input_field.dart';
+import 'package:kf_drawer/kf_drawer.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+class LoginPage extends KFDrawerContent {
 
   @override
   State<LoginPage> createState() => LoginPageState();

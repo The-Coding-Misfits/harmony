@@ -18,48 +18,17 @@ class HarmonyBottomNavigationBar extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        IconButton(
-          icon: Icon(
+        Icon(
               FontAwesomeIcons.compass,
             color: currPage == PAGE_ENUM.DISCOVER_PAGE ? _activeColor : _inactiveColor,
-
-          ),
-          onPressed: () =>  Navigator.pushReplacement(
-
-            context,
-            PageRouteBuilder(
-              pageBuilder: (context, animation1, animation2) => DiscoverPage(),
-              transitionDuration: Duration(seconds: 1),
-            ),
-          ),
         ),
-        IconButton(
-          icon: Icon(
-              Icons.add_box_outlined,
-            color: currPage == PAGE_ENUM.NEARBY_PAGE ? _activeColor : _inactiveColor,
-          ),
-          onPressed: () =>  Navigator.pushReplacement(
-
-            context,
-            PageRouteBuilder(
-              pageBuilder: (context, animation1, animation2) => AddPlace(), //TODO ACTUALLY NEARBY!!!
-              transitionDuration: Duration(seconds: 1),
-            ),
-          )
+        Icon(
+          Icons.add_box_outlined,
+          color: currPage == PAGE_ENUM.NEARBY_PAGE ? _activeColor : _inactiveColor,
         ),
-        IconButton(
-          icon: Icon(
+        Icon(
               FontAwesomeIcons.user,
             color: currPage == PAGE_ENUM.ACCOUNT_PAGE ? _activeColor : _inactiveColor,
-          ),
-          onPressed: () =>  Navigator.pushReplacement(
-
-            context,
-            PageRouteBuilder(
-              pageBuilder: (context, animation1, animation2) => AccountPage(),
-              transitionDuration: Duration(seconds: 1),
-            ),
-          ),//Navigator.pushReplacementNamed(context, routeName),
         )
       ],
     );
