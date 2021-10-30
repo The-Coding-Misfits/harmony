@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:harmony/views/account/account_page.dart';
 import 'package:harmony/views/add_place/add_place.dart';
 import 'package:harmony/views/discover/discover_page.dart';
-import 'package:kf_drawer/kf_drawer.dart';
+import 'package:harmony/kf_drawer/kf_drawer.dart';
 
 class MainWidget extends StatefulWidget {
   final KFDrawerContent initialPage;

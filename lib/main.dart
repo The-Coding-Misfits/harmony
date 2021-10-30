@@ -9,7 +9,7 @@ import 'package:harmony/views/login&register/login.dart';
 import 'package:harmony/views/state_pages/something_went_wrong.dart';
 import 'package:harmony/views/add_place/add_place.dart';
 import 'package:harmony/widgets/kd_drawer_main_widget.dart';
-import 'package:kf_drawer/kf_drawer.dart';
+import 'package:harmony/kf_drawer/kf_drawer.dart';
 import 'package:provider/provider.dart';
 
 
