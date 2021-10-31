@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class DiscoverCard extends StatelessWidget {
+class PlaceCard extends StatelessWidget {
   final double rating;
   final String imageUrl;
   final double distance;
 
-  const DiscoverCard({Key? key, required this.rating, required this.imageUrl, required this.distance}) : super(key: key);
+  const PlaceCard({Key? key, required this.rating, required this.imageUrl, required this.distance}) : super(key: key);
 
   createRatingIcons() {
     if (1 <= rating && 2 > rating) {
