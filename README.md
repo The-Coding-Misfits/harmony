@@ -1,16 +1,15 @@
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/70e91b7a445c4bc79b5f59cb0a147580)](https://www.codacy.com/gh/MakufonSkifto/harmony/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=MakufonSkifto/harmony&amp;utm_campaign=Badge_Grade)
+[![GitHub stars](https://img.shields.io/github/stars/MakufonSkifto/harmony)](https://github.com/MakufonSkifto/harmony/stargazers)
+
+
 # harmony
 
 Share hiking places around you.
 
-## Getting Started
+## Usage
 
-This project is a starting point for a Flutter application.
+To use Harmony, you will need to [clone](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository) or install this repository and then follow these steps:
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+1) [Install Flutter](https://flutter.dev/docs/get-started/install) if you don't have it installed
+2) Run `flutter pub get` in the root directory of Harmony
+3) Run the `lib/main.dart` file in [Android Studio](https://developer.android.com/studio) or [VS Code](https://code.visualstudio.com/)
