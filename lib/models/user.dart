@@ -5,35 +5,29 @@ class HarmonyUser{
   String username;//May change in profile settings etc.
   List<String> _pastPlaceIDs;
   List<String> _reviewIds;
+  List<String> _favoritesID;
 
 
   HarmonyUser(this.id, this.username,
-      this._pastPlaceIDs, this._reviewIds);
+      this._pastPlaceIDs, this._reviewIds, this._favoritesID);
 
   factory HarmonyUser.fromJson(Map<String, dynamic> data){
     return HarmonyUser(
       data["id"] as String,
       data["username"] as String,
       data["past_places"] as List<String>,
-      data["reviews"] as List<String>
+      data["reviews"] as List<String>,
+      data['favorite_places'] as List<String>
     );
   }
 
-  List<Review> getReviews(){
-    return _reviewIds.map((id) => Review.findFromID(id)) as List<Review>;
+  Map<String, dynamic> toJson(){
+    return {
+      'favorite_places': _favoritesID,
+      'past_places': _pastPlaceIDs,
+      'reviews': _reviewIds,
+      'username': username,
+    };
   }
 
-  List<Place> getPastPlaces(){
-    return _pastPlaceIDs.map((id) => Place.findFromID(id)) as List<Place>;
-  }
-
-  ///NOT BEST PRACTICE BUT WHO CARES
-  static Map<String, HarmonyUser> users = {}; //Hash map, constant lookup n'stuff
-  static HarmonyUser findUserFromID(String id){
-    HarmonyUser? user = users[id];
-    if(user == null){
-      return throw("No user exists with this id!");
-    }
-    return user;
-  }
 }

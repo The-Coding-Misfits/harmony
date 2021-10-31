@@ -11,13 +11,13 @@ class Place{
   PlaceCategory category;
   List<double> coordinate; //Requires cartesian coordinates
   String name;
-  List<String> _pastUserIds;
+  List<String> pastUserIds;
   int rating;
-  List<String> _reviewsIds;
+  List<String> reviewsIds;
 
   ///FROM DB
   Place(this.id, this.category, this.coordinate,
-      this.name, this._pastUserIds, this.rating, this._reviewsIds);
+      this.name, this.pastUserIds, this.rating, this.reviewsIds);
 
   factory Place.fromJson(String id, Map<String, dynamic> data) {
 
@@ -26,7 +26,6 @@ class Place{
     PlaceCategory parsePlaceCategory(String sPlaceCategory){
       return PlaceCategory.values.firstWhere((e) => e.toString() == sPlaceCategory); //from string to enum
     }
-
     //TODO
     return Place(
       id,
@@ -39,22 +38,15 @@ class Place{
     );
   }
 
-  List<Review> getReviews(){
-    return _reviewsIds.map((id) => Review.findFromID(id)) as List<Review>;
+  Map<String, dynamic> toJson(){
+    return {
+      'category': category.toString(),
+      'coordinate': coordinate,
+      'name': name,
+      'pastUserIds': pastUserIds,
+      'rating': rating,
+      'reviewIds' : reviewsIds
+    };
   }
 
-  List<HarmonyUser> getPastUsers(){
-    return _pastUserIds.map((id) => HarmonyUser.findUserFromID(id)) as List<HarmonyUser>;
-  }
-
-
-  ///Class stuff
-  static Map<String, Place> places = {};
-  static Place findFromID(String id){
-    Place? place = places[id];
-    if(place == null){
-      return throw("No place exists with this id!");
-    }
-    return place;
-  }
 }

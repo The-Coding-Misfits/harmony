@@ -27,21 +27,17 @@ class Review{
       parseTimestamp(data["timeAdded"]),
     );
 
-
   }
 
-  HarmonyUser getUser(){
-    return HarmonyUser.findUserFromID(_authorID);
-  }
 
-  ///Class stuff
-  static Map<String, Review> reviews = {};
-  static Review findFromID(String id){
-    Review? review = reviews[id];
-    if(review == null){
-      return throw("No review exists with this id!");
-    }
-    return review;
+  Map<String, dynamic> toJson(){
+    return {
+      'authorId': _authorID,
+      'content': content,
+      'likes': likes,
+      'rating': rating,
+      'timeAdded': Timestamp.fromDate(timeAdded),
+    };
   }
 }
 

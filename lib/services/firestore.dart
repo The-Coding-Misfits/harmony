@@ -68,22 +68,48 @@ class FireStoreService{
     return result.id;
   }
 
-  Future<bool> deleteUser() async {
+  ///These deletes are called from outside
+
+
+  //PLACE DELETING
+  Future<bool> deletePlace(Place place) async {
+    ///Returns whether successfully deleted
+
+
+
+
 
   }
 
 
-  Future<bool> _deleteDBOBject(Object object) async {
+
+  //ACCOUNT DELETING
+  Future<bool> deleteAccount(HarmonyUser user) async {
     ///Returns whether successfully deleted
+
+
+  }
+
+
+  //REVIEW DELETING
+  Future<bool> deleteReview(Review review) async {
+    ///Returns whether successfully deleted
+
+
+  }
+
+
+  //for deleting documents!
+  Future<bool> _deleteDBObjectDoc(Type objectType, String id) async {
 
     //delete method throws error if cannot delete
     try{
-      if(object is HarmonyUser){
-        await users.doc(object.id).delete();
-      } else if(object is Place){
-        await places.doc(object.id).delete();
-      } else if (object is Review){
-        await reviews.doc(object.id).delete();
+      if(objectType == HarmonyUser){
+        await users.doc(id).delete();
+      } else if(objectType == Place){
+        await places.doc(id).delete();
+      } else if (objectType == Review){
+        await reviews.doc(id).delete();
       }
       else {
         return false;
