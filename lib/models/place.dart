@@ -32,9 +32,9 @@ class Place{
       parsePlaceCategory(data["category"] as String),
       data["coordinate"] as List<double>,
       data["name"] as String,
-      data["pastUserIds"] as List<String>,
+      data["past_user_ids"] as List<String>,
       data["rating"] as int,
-      data["reviewIds"] as List<String>,
+      data["review_ids"] as List<String>,
     );
   }
 
@@ -43,9 +43,9 @@ class Place{
       'category': category.toString(),
       'coordinate': coordinate,
       'name': name,
-      'pastUserIds': pastUserIds,
+      'past_user_ids': pastUserIds,
       'rating': rating,
-      'reviewIds' : reviewsIds
+      'review_ids' : reviewsIds
     };
   }
 

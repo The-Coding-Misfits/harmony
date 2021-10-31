@@ -61,9 +61,9 @@ class FireStoreService{
           coordinates[2].toInt()
         ],
         'name' : name,
-        'pastUserIds' : [],
+        'past_user_ids' : [],
         'rating' : 0,
-        'reviewIds' : []
+        'review_ids' : []
       });
     return result.id;
   }
@@ -79,6 +79,51 @@ class FireStoreService{
 
 
 
+  }
+
+  void _deleteReviewFromUser(String reviewId){
+    reviews.doc(reviewId).get().then(
+            (reviewDoc){
+              Map<String, dynamic> reviewData = reviewDoc.data() as Map<String, dynamic>;
+              users.doc(reviewData['author_id']).get().then(
+                      (userDoc){
+                        _gotUserDocReview(userDoc, reviewId);
+                      }
+              );
+        }
+    );
+  }
+
+  void _gotUserDocReview(DocumentSnapshot userSnapshot, String reviewId){
+    Map<String, dynamic> data = userSnapshot.data() as Map<String, dynamic>;
+    List<String> reviews = data['reviews'];
+    reviews.remove(reviewId);
+    userSnapshot.reference.update(
+        {
+          'reviews': reviews
+        }
+    );
+  }
+  
+  void _deletePlaceFromFavorites(String placeID){
+    users.where(
+        'favorite_places', arrayContains: placeID
+    ).get().then((userDoc){
+        for( DocumentSnapshot userSnapshot in userDoc.docs){
+          _gotUserDocFavoritePlace(userSnapshot, placeID);
+        }
+    });
+  }
+
+  void _gotUserDocFavoritePlace(DocumentSnapshot userSnapshot, String placeID){
+    Map<String, dynamic> data = userSnapshot.data() as Map<String, dynamic>;
+    List<String> favorites = data['favorite_places'];
+    favorites.remove(placeID);
+    userSnapshot.reference.update(
+        {
+          'favorite_places': favorites
+        }
+    );
   }
 
 

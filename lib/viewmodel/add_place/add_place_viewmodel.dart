@@ -11,7 +11,7 @@ import 'package:harmony/utilites/places/place_category_enum.dart';
 
 class AddPlaceViewModel{
 
-  void createPlace(String name, PlaceCategory category, File imageFile, List<double> coordinates) async{
+  Future<Place> createPlace(String name, PlaceCategory category, File imageFile, List<double> coordinates) async{
     String id = await FireStoreService().addPlace(name, category, imageFile, coordinates);
 
     Place newPlace = Place(
@@ -24,6 +24,7 @@ class AddPlaceViewModel{
         []);
     _addToPlaceKDTree(newPlace);
     FireStoreService().uploadPlaceImageToDatabase(imageFile, newPlace);
+    return newPlace;
   }
 
   Image convertFileToImage(File picture) {

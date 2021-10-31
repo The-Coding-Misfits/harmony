@@ -19,12 +19,12 @@ class Review{
     }
 
     return Review(
-      data["authorID"] as String,
+      data["author_id"] as String,
       data["id"] as String,
       data["content"] as String,
       data["likes"] as int,
       data["rating"] as int,
-      parseTimestamp(data["timeAdded"]),
+      parseTimestamp(data["time_added"]),
     );
 
   }
@@ -32,11 +32,11 @@ class Review{
 
   Map<String, dynamic> toJson(){
     return {
-      'authorId': _authorID,
+      'author_id': _authorID,
       'content': content,
       'likes': likes,
       'rating': rating,
-      'timeAdded': Timestamp.fromDate(timeAdded),
+      'time_added': Timestamp.fromDate(timeAdded),
     };
   }
 }
