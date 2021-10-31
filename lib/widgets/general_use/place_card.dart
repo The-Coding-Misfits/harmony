@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:harmony/widgets/general_use/rating_widget.dart';
 
 class PlaceCard extends StatelessWidget {
   final double rating;
@@ -6,50 +7,6 @@ class PlaceCard extends StatelessWidget {
   final double distance;
 
   const PlaceCard({Key? key, required this.rating, required this.imageUrl, required this.distance}) : super(key: key);
-
-  createRatingIcons() {
-    if (1 <= rating && 2 > rating) {
-      return const [
-        Icon(Icons.circle, color: Colors.red, size: 20),
-        Icon(Icons.circle, color: Colors.grey, size: 20),
-        Icon(Icons.circle, color: Colors.grey, size: 20),
-        Icon(Icons.circle, color: Colors.grey, size: 20),
-        Icon(Icons.circle, color: Colors.grey, size: 20),
-      ];
-    } else if (2 <= rating && 3 > rating) {
-      return const [
-        Icon(Icons.circle, color: Colors.red, size: 20),
-        Icon(Icons.circle, color: Colors.red, size: 20),
-        Icon(Icons.circle, color: Colors.grey, size: 20),
-        Icon(Icons.circle, color: Colors.grey, size: 20),
-        Icon(Icons.circle, color: Colors.grey, size: 20),
-      ];
-    } else if (3 <= rating && 4 > rating) {
-      return const [
-        Icon(Icons.circle, color: Color(0xff00CA9D), size: 20),
-        Icon(Icons.circle, color: Color(0xff00CA9D), size: 20),
-        Icon(Icons.circle, color: Color(0xff00CA9D), size: 20),
-        Icon(Icons.circle, color: Colors.grey, size: 20),
-        Icon(Icons.circle, color: Colors.grey, size: 20),
-      ];
-    } else if (4 <= rating && 5 > rating) {
-      return const [
-        Icon(Icons.circle, color: Color(0xff00CA9D), size: 20),
-        Icon(Icons.circle, color: Color(0xff00CA9D), size: 20),
-        Icon(Icons.circle, color: Color(0xff00CA9D), size: 20),
-        Icon(Icons.circle, color: Color(0xff00CA9D), size: 20),
-        Icon(Icons.circle, color: Colors.grey, size: 20),
-      ];
-    } else if (4 <= rating && 5 > rating) {
-      return const [
-        Icon(Icons.circle, color: Color(0xff00CA9D), size: 20),
-        Icon(Icons.circle, color: Color(0xff00CA9D), size: 20),
-        Icon(Icons.circle, color: Color(0xff00CA9D), size: 20),
-        Icon(Icons.circle, color: Color(0xff00CA9D), size: 20),
-        Icon(Icons.circle, color: Color(0xff00CA9D), size: 20),
-      ];
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -73,9 +30,7 @@ class PlaceCard extends StatelessWidget {
                   padding: const EdgeInsets.only(bottom: 5, left: 10),
                   child: Row(
                     children: [
-                      Row(
-                        children: createRatingIcons()
-                      ),
+                      RatingWidget(rating),
                       Text(' $rating/5.0 • ${distance}KM Nearby',
                           style: const TextStyle(
                               fontSize: 16,

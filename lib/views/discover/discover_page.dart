@@ -125,7 +125,7 @@ class DiscoverPageState extends State<DiscoverPage> {
                 itemCount: 1,
                 itemBuilder: (context, index){
                   return const PlaceCard(
-                    rating: 4.2,
+                    rating: 2.8,
                     imageUrl: "assets/images/dummy-national-park.jpg",
                     distance: 1.2
                   );

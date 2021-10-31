@@ -69,7 +69,8 @@ class FireStoreService{
   }
 
   Future<bool> deleteUser() async {
-
+    return false;
+    //TODO
   }
 
 
