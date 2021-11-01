@@ -3,12 +3,12 @@ import 'package:harmony/models/place.dart';
 class HarmonyUser{
   final String id; // Not designated by us as all other classes, comes from firestore when creating document
   String username;//May change in profile settings etc.
-  List<String> _reviewIds;
-  List<String> _favoritesID;
+  List<String> reviewIds;
+  List<String> favoritesID;
 
 
   HarmonyUser(this.id, this.username,
-      this._reviewIds, this._favoritesID);
+      this.reviewIds, this.favoritesID);
 
   factory HarmonyUser.fromJson(Map<String, dynamic> data){
     return HarmonyUser(
@@ -21,8 +21,8 @@ class HarmonyUser{
 
   Map<String, dynamic> toJson(){
     return {
-      'favorite_places': _favoritesID,
-      'reviews': _reviewIds,
+      'favorite_places': favoritesID,
+      'reviews': reviewIds,
       'username': username,
     };
   }

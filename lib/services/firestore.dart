@@ -77,33 +77,10 @@ class FireStoreService{
 
 
 
-
+    places.doc(place.id).delete();
 
   }
 
-  void _deleteReviewFromUser(String reviewId){
-    reviews.doc(reviewId).get().then(
-            (reviewDoc){
-              Map<String, dynamic> reviewData = reviewDoc.data() as Map<String, dynamic>;
-              users.doc(reviewData['author_id']).get().then(
-                      (userDoc){
-                        _gotUserDocReview(userDoc, reviewId);
-                      }
-              );
-        }
-    );
-  }
-
-  void _gotUserDocReview(DocumentSnapshot userSnapshot, String reviewId){
-    Map<String, dynamic> data = userSnapshot.data() as Map<String, dynamic>;
-    List<String> reviews = data['reviews'];
-    reviews.remove(reviewId);
-    userSnapshot.reference.update(
-        {
-          'reviews': reviews
-        }
-    );
-  }
   
   void _deletePlaceFromFavorites(String placeID){
     users.where(
@@ -137,36 +114,56 @@ class FireStoreService{
 
 
   //REVIEW DELETING
-  Future<bool> deleteReview(Review review) async {
+  Future<void> deleteReview(Review review) async {
     ///Returns whether successfully deleted
-
+    _deleteReviewFromUser(review.id);
+    await reviews.doc(review.id).delete();
 
   }
 
 
-  //for deleting documents!
-  Future<bool> _deleteDBObjectDoc(Type objectType, String id) async {
-
-    //delete method throws error if cannot delete
-    try{
-      if(objectType == HarmonyUser){
-        await users.doc(id).delete();
-      } else if(objectType == Place){
-        await places.doc(id).delete();
-      } else if (objectType == Review){
-        await reviews.doc(id).delete();
-      }
-      else {
-        return false;
-      }
-      return true;
-    } catch (e){
-      return false;
-    }
+  void _deleteReviewFromUser(String reviewId){
+    reviews.doc(reviewId).get().then(
+            (reviewDoc){
+          Review review = Review.fromJson(reviewDoc.data() as Map<String, dynamic>);
+          users.doc(review.authorID).get().then(
+                  (userDoc){
+                _gotUserDocReview(userDoc, reviewId);
+              }
+          );
+        }
+    );
   }
 
+  void _gotUserDocReview(DocumentSnapshot userSnapshot, String reviewId){
+    HarmonyUser user = HarmonyUser.fromJson(userSnapshot.data() as Map<String, dynamic>);
+    List<String> reviews = user.reviewIds;
+    reviews.remove(reviewId);
+    userSnapshot.reference.update(
+        {
+          'reviews': reviews
+        }
+    );
+  }
 
+  void _deleteReviewFromPlace(String reviewId){
+    reviews.doc(reviewId).get().then(
+            (reviewDoc){
+          Review review = Review.fromJson(reviewDoc.data() as Map<String, dynamic>);
+          places.doc(review.placeID).get().then(
+                  (placeDoc){
+                _gotUserDocReview(userDoc, reviewId);
+              }
+          );
+        }
+    );
+  }
 
+  void _gotPlaceReview(DocumentSnapshot placeSnapshot, String reviewId) {
+    Place place = Place.fromJson(
+        placeSnapshot.id, placeSnapshot.data() as Map<String, dynamic>);
+
+  }
 
   Future<List<Reference>> imageUrlsPlace(String id) async{
     ListResult result =  await FirebaseStorage.instance.ref().child(id).listAll();

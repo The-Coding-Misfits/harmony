@@ -1,9 +1,3 @@
-import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/material.dart';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:harmony/models/review.dart';
-import 'package:harmony/models/user.dart';
 import 'package:harmony/utilites/places/place_category_enum.dart';
 
 class Place{
@@ -13,11 +7,10 @@ class Place{
   String name;
   List<String> pastUserIds;
   int rating;
-  List<String> reviewsIds;
 
   ///FROM DB
   Place(this.id, this.category, this.coordinate,
-      this.name, this.pastUserIds, this.rating, this.reviewsIds);
+      this.name, this.pastUserIds, this.rating);
 
   factory Place.fromJson(String id, Map<String, dynamic> data) {
 
@@ -34,7 +27,6 @@ class Place{
       data["name"] as String,
       data["past_user_ids"] as List<String>,
       data["rating"] as int,
-      data["review_ids"] as List<String>,
     );
   }
 
@@ -45,7 +37,6 @@ class Place{
       'name': name,
       'past_user_ids': pastUserIds,
       'rating': rating,
-      'review_ids' : reviewsIds
     };
   }
 
