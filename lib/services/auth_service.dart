@@ -15,12 +15,18 @@ class AuthService {
     currHarmonyUser = await FireStoreService().getUserFromUID(uid);
   }
 
-  Future<REGISTER_STATE> registerUser(String email, String password) async{
+  static void createHarmonyUser(User newUser, String username) async{
+    currHarmonyUser = await FireStoreService().createUser(newUser.uid, username);
+  }
+
+
+  Future<REGISTER_STATE> registerUser(String email, String username, String password) async{
     try {
-      await auth.createUserWithEmailAndPassword(
+      UserCredential userCredential = await auth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
+      createHarmonyUser(userCredential.user!, username);
       return REGISTER_STATE.SUCCESSFUL;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
@@ -34,10 +40,11 @@ class AuthService {
 
   Future<LOGIN_STATE> logUser(String email, String password) async {
     try {
-      await auth.signInWithEmailAndPassword(
+      UserCredential userCredential = await auth.signInWithEmailAndPassword(
           email: email,
           password: password
       );
+      initCurrUser(userCredential.user!.uid);
       return LOGIN_STATE.SUCCESSFUL;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {

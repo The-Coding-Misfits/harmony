@@ -32,10 +32,10 @@ class FireStoreService{
 
 
 
-  Future<String> addPlace(String name, PlaceCategory category, File imageFile, List<double> coordinates) async{
+  Future<Place> addPlace(String name, PlaceCategory category, File imageFile, List<double> coordinates) async{
     ///Returns id
     //ADDING TO FIREBASE
-    dynamic result = await places.add(
+    DocumentReference result = await places.add(
       {
         'category' : category.toString(),
         'coordinate': [
@@ -48,7 +48,23 @@ class FireStoreService{
         'rating' : 0,
         'review_ids' : []
       });
-    return result.id;
+    DocumentSnapshot placeSnapshot = await result.get();
+    Map<String, dynamic> data = placeSnapshot.data() as Map<String, dynamic>;
+    Place newPlace = Place.fromJson(data);
+    return newPlace ;
+  }
+
+  Future<HarmonyUser> createUser(String uid, String username) async{
+    DocumentReference result = await users.add(
+        {
+          'favorite_places' : [],
+          'reviews' : [],
+          'uid' : uid,
+          'username' : username
+        });
+    DocumentSnapshot userSnapshot = await result.get();
+    Map<String, dynamic> data = userSnapshot.data() as Map<String, dynamic>;
+    return HarmonyUser.fromJson(data);
   }
 
   ///These deletes are called from outside
