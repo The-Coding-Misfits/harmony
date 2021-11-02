@@ -53,7 +53,6 @@ class FireStoreService{
 
   ///These deletes are called from outside
 
-
   //PLACE DELETING
   Future<void> deletePlace(Place place) async {
     ///Returns whether successfully deleted

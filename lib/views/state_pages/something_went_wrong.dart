@@ -6,28 +6,32 @@ class SomethingWentWrong extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: const [
-        Text(
-          "OOPS!",
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 35,
+    return Directionality(
+      textDirection: TextDirection.ltr,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: const [
+          Text(
+            "OOPS!",
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 35,
+            ),
           ),
-        ),
-        SizedBox(
-          height: 30,
-          width: 10,
-        ),
-        Text(
-          "Something went wrong, please try again later",
-          style: TextStyle(
-            fontSize: 20,
+          SizedBox(
+            height: 30,
+            width: 10,
           ),
-        )
-      ],
+          Text(
+            "Something went wrong, please try again later",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 20,
+            ),
+          )
+        ],
+      ),
     );
   }
 }
