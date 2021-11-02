@@ -30,7 +30,7 @@ class _RegisterPageState extends State<RegisterPage> {
   HarmonyLogInput usernameInputField = HarmonyLogInput(
       const Icon(Icons.person, size: 25, color: Colors.grey),
       "Username",
-      true
+      false
   );
 
   final AuthService authService = AuthService();
@@ -39,7 +39,6 @@ class _RegisterPageState extends State<RegisterPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      resizeToAvoidBottomInset: false,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -54,7 +53,7 @@ class _RegisterPageState extends State<RegisterPage> {
           ),
           ///Input section
           Expanded(
-            flex: 3,
+            flex: 4,
             child: Column(
               children: [
                 usernameInputField,
@@ -89,7 +88,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   onTap: () {
                     Navigator.pushReplacementNamed(
                       context,
-                      kRegisterPageRouteName
+                      kLoginPageRouteName
                     );
                   },
                   child: const Text(

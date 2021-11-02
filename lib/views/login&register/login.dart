@@ -16,7 +16,7 @@ class LoginPageState extends State<LoginPage> {
   final AuthService authService = AuthService();
 
   HarmonyLogInput emailInputField = HarmonyLogInput(
-      const Icon(Icons.person, size: 25, color: Colors.grey),
+      const Icon(Icons.alternate_email, size: 25, color: Colors.grey),
       "Email Address",
       false,
 
@@ -32,7 +32,6 @@ class LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      resizeToAvoidBottomInset: false,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
