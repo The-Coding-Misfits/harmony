@@ -1,10 +1,10 @@
-
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:harmony/models/review.dart';
 import 'package:harmony/models/user.dart';
 import 'package:harmony/models/place.dart';
+import 'package:harmony/utilites/custom_exception.dart';
 import 'package:harmony/utilites/places/place_category_enum.dart';
 import 'package:path/path.dart';
 
@@ -159,4 +159,18 @@ class FireStoreService{
     ListResult result =  await FirebaseStorage.instance.ref().child(id).listAll();
     return result.items;
   }
+
+  Future<HarmonyUser> getUserFromUID(String uid) async{
+    QuerySnapshot snapshot = await users.where(
+      'uid', isEqualTo: uid
+    ).get();
+    if(snapshot.docs.isNotEmpty){
+      return HarmonyUser.fromJson(
+        snapshot.docs.first.data() as Map<String, dynamic>
+      );
+    }else{
+      return throw CustomException("No account exists like this!");
+    }
+  }
+
 }
