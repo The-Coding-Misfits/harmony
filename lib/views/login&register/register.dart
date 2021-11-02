@@ -16,7 +16,7 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPageState extends State<RegisterPage> {
 
   HarmonyLogInput emailInputField = HarmonyLogInput(
-    const Icon(Icons.person, size: 25, color: Colors.grey),
+    const Icon(Icons.alternate_email, size: 25, color: Colors.grey),
     "Email Address",
     false,
   );
@@ -24,6 +24,12 @@ class _RegisterPageState extends State<RegisterPage> {
   HarmonyLogInput passwordInputField = HarmonyLogInput(
       const Icon(Icons.lock, size: 25, color: Colors.grey),
       "Password",
+      true
+  );
+
+  HarmonyLogInput usernameInputField = HarmonyLogInput(
+      const Icon(Icons.person, size: 25, color: Colors.grey),
+      "Username",
       true
   );
 
@@ -51,6 +57,7 @@ class _RegisterPageState extends State<RegisterPage> {
             flex: 3,
             child: Column(
               children: [
+                usernameInputField,
                 emailInputField,
                 passwordInputField,
               ],
@@ -102,7 +109,11 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   void tapOnRegisterButton(BuildContext context) async {
-    REGISTER_STATE registerState = await authService.registerUser(emailInputField.currText, passwordInputField.currText);
+    REGISTER_STATE registerState = await authService.registerUser(
+      emailInputField.currText,
+      usernameInputField.currText,
+      passwordInputField.currText
+    );
 
     if (registerState == REGISTER_STATE.SUCCESSFUL) {
       Navigator.pushNamedAndRemoveUntil(context, kDiscoverPageRouteName, (route) => false);

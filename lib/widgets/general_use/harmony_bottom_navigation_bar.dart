@@ -15,53 +15,55 @@ class HarmonyBottomNavigationBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: [
-        IconButton(
-          icon: Icon(
-            FontAwesomeIcons.compass,
-            color: currPage == PAGE_ENUM.DISCOVER_PAGE ? _activeColor : _inactiveColor,
-
-          ),
-          onPressed: () =>  Navigator.pushReplacement(
-
-            context,
-            PageRouteBuilder(
-              pageBuilder: (context, animation1, animation2) => DiscoverPage(),
-              transitionDuration: Duration(seconds: 1),
-            ),
-          ),
-        ),
-        IconButton(
+    return SafeArea(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          IconButton(
             icon: Icon(
-              Icons.add_box_outlined,
-              color: currPage == PAGE_ENUM.NEARBY_PAGE ? _activeColor : _inactiveColor,
+              FontAwesomeIcons.compass,
+              color: currPage == PAGE_ENUM.DISCOVER_PAGE ? _activeColor : _inactiveColor,
+
             ),
             onPressed: () =>  Navigator.pushReplacement(
 
               context,
               PageRouteBuilder(
-                pageBuilder: (context, animation1, animation2) => AddPlace(), //TODO ACTUALLY NEARBY!!!
+                pageBuilder: (context, animation1, animation2) => DiscoverPage(),
                 transitionDuration: Duration(seconds: 1),
               ),
-            )
-        ),
-        IconButton(
-          icon: Icon(
-            FontAwesomeIcons.user,
-            color: currPage == PAGE_ENUM.ACCOUNT_PAGE ? _activeColor : _inactiveColor,
-          ),
-          onPressed: () =>  Navigator.pushReplacement(
-
-            context,
-            PageRouteBuilder(
-              pageBuilder: (context, animation1, animation2) => AccountPage(AuthService.currHarmonyUser!),
-              transitionDuration: Duration(seconds: 1),
             ),
-          ),//Navigator.pushReplacementNamed(context, routeName),
-        )
-      ],
+          ),
+          IconButton(
+              icon: Icon(
+                Icons.add_box_outlined,
+                color: currPage == PAGE_ENUM.NEARBY_PAGE ? _activeColor : _inactiveColor,
+              ),
+              onPressed: () =>  Navigator.pushReplacement(
+
+                context,
+                PageRouteBuilder(
+                  pageBuilder: (context, animation1, animation2) => AddPlace(), //TODO ACTUALLY NEARBY!!!
+                  transitionDuration: Duration(seconds: 1),
+                ),
+              )
+          ),
+          IconButton(
+            icon: Icon(
+              FontAwesomeIcons.user,
+              color: currPage == PAGE_ENUM.ACCOUNT_PAGE ? _activeColor : _inactiveColor,
+            ),
+            onPressed: () =>  Navigator.pushReplacement(
+
+              context,
+              PageRouteBuilder(
+                pageBuilder: (context, animation1, animation2) => AccountPage(AuthService.currHarmonyUser!),
+                transitionDuration: Duration(seconds: 1),
+              ),
+            ),//Navigator.pushReplacementNamed(context, routeName),
+          )
+        ],
+      ),
     );
   }
 }
