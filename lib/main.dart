@@ -1,6 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:harmony/services/firestore.dart';
 import 'package:harmony/views/login&register/register.dart';
 import 'package:harmony/services/auth_service.dart';
 import 'package:harmony/utilites/constants.dart';
