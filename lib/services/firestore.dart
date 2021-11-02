@@ -4,7 +4,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:harmony/models/review.dart';
 import 'package:harmony/models/user.dart';
-import 'package:harmony/utilites/kdtree_implementation/kdtree.dart';
 import 'package:harmony/models/place.dart';
 import 'package:harmony/utilites/places/place_category_enum.dart';
 import 'package:path/path.dart';
@@ -16,18 +15,7 @@ class FireStoreService{
   static CollectionReference users = FirebaseFirestore.instance.collection('users');
   static CollectionReference places = FirebaseFirestore.instance.collection('places');
   static CollectionReference reviews = FirebaseFirestore.instance.collection('reviews');
-  static CollectionReference placeKdtree = FirebaseFirestore.instance.collection("place-kdtree");
 
-
-
-  Future<KDTree> initKDTree() async{
-    return await placeKdtree.
-    doc("TREE").
-    get().
-    then(
-            (value) => KDTree.fromJson(value.data()! as Map<String, dynamic>)
-    );
-  }
 
   Stream<QuerySnapshot> getPlacesStream(){
     return places.snapshots();
@@ -171,11 +159,4 @@ class FireStoreService{
     ListResult result =  await FirebaseStorage.instance.ref().child(id).listAll();
     return result.items;
   }
-
-  void updateKDTree(KDTree tree){
-    placeKdtree.doc('TREE').update(tree.toJson());
-  }
-
-
-
 }
