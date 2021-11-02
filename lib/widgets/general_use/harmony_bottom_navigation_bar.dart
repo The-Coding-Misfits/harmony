@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:harmony/services/auth_service.dart';
 import 'package:harmony/utilites/page_enum.dart';
 import 'package:harmony/views/account/account_page.dart';
 import 'package:harmony/views/add_place/add_place.dart';
@@ -55,7 +56,7 @@ class HarmonyBottomNavigationBar extends StatelessWidget {
 
             context,
             PageRouteBuilder(
-              pageBuilder: (context, animation1, animation2) => AccountPage(),
+              pageBuilder: (context, animation1, animation2) => AccountPage(AuthService.currHarmonyUser!),
               transitionDuration: Duration(seconds: 1),
             ),
           ),//Navigator.pushReplacementNamed(context, routeName),

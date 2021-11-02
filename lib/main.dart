@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:harmony/services/firestore.dart';
 import 'package:harmony/views/login&register/register.dart';
 import 'package:harmony/services/auth_service.dart';
 import 'package:harmony/utilites/constants.dart';
@@ -37,6 +38,7 @@ class _MyAppState extends State<MyApp> {
         // Once complete, show your application
         if (snapshot.connectionState == ConnectionState.done) {
           String initialRoute = auth.currentUser == null ? kLoginPageRouteName : kDiscoverPageRouteName;
+          if(auth.currentUser != null) AuthService.initCurrUser(auth.currentUser!.uid);
 
           return MaterialApp(
             title: "Harmony",

@@ -1,15 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:harmony/models/user.dart';
 
 class Review{
-  final String _authorID;
+  final String authorID;
+  final String placeID;
   final String id;
   String content;
   int likes;
   int rating;
   DateTime timeAdded;
 
-  Review(this._authorID, this.id, this.content, this.likes, this.rating, this.timeAdded);
+  Review(this.authorID, this.id, this.content, this.likes, this.rating, this.timeAdded, this.placeID);
 
   factory Review.fromJson(Map<String, dynamic> data){
 
@@ -19,29 +19,27 @@ class Review{
     }
 
     return Review(
-      data["authorID"] as String,
+      data["author_id"] as String,
       data["id"] as String,
       data["content"] as String,
       data["likes"] as int,
       data["rating"] as int,
-      parseTimestamp(data["timeAdded"]),
+      parseTimestamp(data["time_added"]),
+      data['place_id'] as String,
     );
 
-
   }
 
-  HarmonyUser getUser(){
-    return HarmonyUser.findUserFromID(_authorID);
-  }
 
-  ///Class stuff
-  static Map<String, Review> reviews = {};
-  static Review findFromID(String id){
-    Review? review = reviews[id];
-    if(review == null){
-      return throw("No review exists with this id!");
-    }
-    return review;
+  Map<String, dynamic> toJson(){
+    return {
+      'author_id': authorID,
+      'content': content,
+      'likes': likes,
+      'rating': rating,
+      'time_added': Timestamp.fromDate(timeAdded),
+      'place_id': placeID
+    };
   }
 }
 

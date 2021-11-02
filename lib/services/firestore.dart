@@ -1,38 +1,21 @@
-
 import 'dart:io';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:harmony/models/review.dart';
 import 'package:harmony/models/user.dart';
-import 'package:harmony/services/kdtree_service.dart';
-import 'package:harmony/utilites/custom_exception.dart';
-import 'package:harmony/utilites/kdtree_implementation/kdtree.dart';
 import 'package:harmony/models/place.dart';
+import 'package:harmony/utilites/custom_exception.dart';
 import 'package:harmony/utilites/places/place_category_enum.dart';
 import 'package:path/path.dart';
 
 
 
 class FireStoreService{
-  static FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   static CollectionReference users = FirebaseFirestore.instance.collection('users');
   static CollectionReference places = FirebaseFirestore.instance.collection('places');
   static CollectionReference reviews = FirebaseFirestore.instance.collection('reviews');
-  static CollectionReference place_kdtree = FirebaseFirestore.instance.collection("place-kdtree");
 
-
-
-  Future<KDTree> initKDTree() async{
-    return await place_kdtree.
-    doc("TREE").
-    get().
-    then(
-            (value) => KDTree.fromJson(value.data()! as Map<String, dynamic>)
-    );
-  }
 
   Stream<QuerySnapshot> getPlacesStream(){
     return places.snapshots();
@@ -61,52 +44,132 @@ class FireStoreService{
           coordinates[2].toInt()
         ],
         'name' : name,
-        'pastUserIds' : [],
+        'past_user_ids' : [],
         'rating' : 0,
-        'reviewIds' : []
+        'review_ids' : []
       });
     return result.id;
   }
 
-  Future<bool> deleteUser() async {
-    return false;
-    //TODO
-  }
+  ///These deletes are called from outside
 
-
-  Future<bool> _deleteDBOBject(Object object) async {
+  //PLACE DELETING
+  Future<void> deletePlace(Place place) async {
     ///Returns whether successfully deleted
-
-    //delete method throws error if cannot delete
-    try{
-      if(object is HarmonyUser){
-        await users.doc(object.id).delete();
-      } else if(object is Place){
-        await places.doc(object.id).delete();
-      } else if (object is Review){
-        await reviews.doc(object.id).delete();
-      }
-      else {
-        return false;
-      }
-      return true;
-    } catch (e){
-      return false;
+    _deletePlaceFromFavorites(place.id);
+    for(String reviewId in place.reviewIds){
+      deleteReview(reviewId, deleteFromPlaceToo: false);
     }
+    await places.doc(place.id).delete();
+  }
+
+  
+  void _deletePlaceFromFavorites(String placeID){
+    users.where(
+        'favorite_places', arrayContains: placeID
+    ).get().then((userDoc){
+        for( DocumentSnapshot userSnapshot in userDoc.docs){
+          _gotUserDocFavoritePlace(userSnapshot, placeID);
+        }
+    });
+  }
+
+  void _gotUserDocFavoritePlace(DocumentSnapshot userSnapshot, String placeID){
+    Map<String, dynamic> data = userSnapshot.data() as Map<String, dynamic>;
+    List<String> favorites = data['favorite_places'];
+    favorites.remove(placeID);
+    userSnapshot.reference.update(
+        {
+          'favorite_places': favorites
+        }
+    );
   }
 
 
 
+  //ACCOUNT DELETING
+  Future<void> deleteAccount(HarmonyUser user) async {
+    ///Returns whether successfully deleted
+    //not sure if we gonna do this
+    throw UnimplementedError();
+  }
+
+
+  //REVIEW DELETING
+  Future<void> deleteReview(String reviewId, {bool deleteFromPlaceToo = true}) async { //delete from place is because when i delete place i dont want to update place again and again for every comment
+    ///Returns whether successfully deleted
+    _deleteReviewFromUser(reviewId);
+    if(deleteFromPlaceToo) _deleteReviewFromPlace(reviewId);
+    await reviews.doc(reviewId).delete();
+
+  }
+
+
+  void _deleteReviewFromUser(String reviewId){
+    reviews.doc(reviewId).get().then(
+            (reviewDoc){
+          Review review = Review.fromJson(reviewDoc.data() as Map<String, dynamic>);
+          users.doc(review.authorID).get().then(
+                  (userDoc){
+                _gotUserDocReview(userDoc, reviewId);
+              }
+          );
+        }
+    );
+  }
+
+  void _gotUserDocReview(DocumentSnapshot userSnapshot, String reviewId){
+    HarmonyUser user = HarmonyUser.fromJson(userSnapshot.data() as Map<String, dynamic>);
+    List<String> reviews = user.reviewIds;
+    reviews.remove(reviewId);
+    userSnapshot.reference.update(
+        {
+          'reviews': reviews
+        }
+    );
+  }
+
+  void _deleteReviewFromPlace(String reviewId){
+    reviews.doc(reviewId).get().then(
+            (reviewDoc){
+          Review review = Review.fromJson(reviewDoc.data() as Map<String, dynamic>);
+          places.doc(review.placeID).get().then(
+                  (placeDoc){
+                _gotPlaceReview(placeDoc, reviewId);
+              }
+          );
+        }
+    );
+  }
+
+  void _gotPlaceReview(DocumentSnapshot placeSnapshot, String reviewId) {
+    Place place = Place.fromJson(
+        placeSnapshot.data() as Map<String, dynamic>);
+    List<String> reviews = place.reviewIds;
+    reviews.remove(reviewId);
+    placeSnapshot.reference.update(
+      {
+        'review_ids' : reviews
+      }
+    );
+  }
 
   Future<List<Reference>> imageUrlsPlace(String id) async{
     ListResult result =  await FirebaseStorage.instance.ref().child(id).listAll();
     return result.items;
   }
 
-  void updateKDTree(KDTree tree){
-    place_kdtree.doc('TREE').update(tree.toJson());
+  Future<HarmonyUser> getUserFromUID(String uid) async{
+    QuerySnapshot snapshot = await users.where(
+      'uid', isEqualTo: uid
+    ).get();
+    if(snapshot.docs.isNotEmpty){
+      return HarmonyUser.fromJson(
+        snapshot.docs.first.data() as Map<String, dynamic>
+      );
+    }else{
+      return throw CustomException("No account exists like this!");
+    }
   }
-
-
 
 }

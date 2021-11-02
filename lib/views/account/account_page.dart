@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:harmony/models/user.dart';
 import 'package:harmony/utilites/page_enum.dart';
 import 'package:harmony/widgets/general_use/harmony_bottom_navigation_bar.dart';
 
 
 class AccountPage extends StatefulWidget {
+
+  final HarmonyUser user;
+  const AccountPage(this.user, {Key? key}) : super(key: key);
 
   @override
   _AccountPageState createState() => _AccountPageState();
