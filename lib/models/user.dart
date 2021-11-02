@@ -6,10 +6,11 @@ class HarmonyUser{
   String username;//May change in profile settings etc.
   List<String> reviewIds;
   List<String> favoritesID;
+  int checkIn;
 
 
-  HarmonyUser(
-      this.id, this.uid, this.username, this.reviewIds, this.favoritesID);
+  HarmonyUser(this.id, this.uid, this.username, this.reviewIds,
+      this.favoritesID, this.checkIn);
 
   factory HarmonyUser.fromJson(Map<String, dynamic> data){
     return HarmonyUser(
@@ -17,7 +18,8 @@ class HarmonyUser{
       data["uid"] as String,
       data["username"] as String,
       data["reviews"] as List<String>,
-      data['favorite_places'] as List<String>
+      data['favorite_places'] as List<String>,
+      data['check_in'] as int,
     );
   }
 
@@ -26,6 +28,7 @@ class HarmonyUser{
       'favorite_places': favoritesID,
       'reviews': reviewIds,
       'username': username,
+      'check_in': checkIn
     };
   }
 
