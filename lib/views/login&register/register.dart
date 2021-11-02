@@ -102,10 +102,19 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   void tapOnRegisterButton(BuildContext context) async {
-    REGISTER_STATE loginState = await authService.registerUser(emailInputField.currText, passwordInputField.currText);
+    REGISTER_STATE registerState = await authService.registerUser(emailInputField.currText, passwordInputField.currText);
 
-    if (loginState == REGISTER_STATE.SUCCESSFUL) {
+    if (registerState == REGISTER_STATE.SUCCESSFUL) {
       Navigator.pushNamedAndRemoveUntil(context, kDiscoverPageRouteName, (route) => false);
+    } else if (registerState == REGISTER_STATE.EMAIL_ALREADY_IN_USE) {
+      var snackbar = const SnackBar(content: Text("That email is alredy being used!"));
+      ScaffoldMessenger.of(context).showSnackBar(snackbar);
+    } else if (registerState == REGISTER_STATE.WEAK_PASSWORD) {
+      var snackbar = const SnackBar(content: Text("Password is too weak!"));
+      ScaffoldMessenger.of(context).showSnackBar(snackbar);
+    } else if (registerState == REGISTER_STATE.UNKNOWN_ERROR) {
+      var snackbar = const SnackBar(content: Text("Unknown error!"));
+      ScaffoldMessenger.of(context).showSnackBar(snackbar);
     }
   }
 }

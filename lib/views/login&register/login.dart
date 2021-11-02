@@ -105,6 +105,15 @@ class LoginPageState extends State<LoginPage> {
 
     if (loginState == LOGIN_STATE.SUCCESSFUL) {
       Navigator.pushNamedAndRemoveUntil(context, kDiscoverPageRouteName, (route) => false);
+    } else if (loginState == LOGIN_STATE.WRONG_PASSWORD) {
+      var snackbar = const SnackBar(content: Text("Wrong password!"));
+      ScaffoldMessenger.of(context).showSnackBar(snackbar);
+    } else if (loginState == LOGIN_STATE.USER_NOT_FOUND) {
+      var snackbar = const SnackBar(content: Text("User not found!"));
+      ScaffoldMessenger.of(context).showSnackBar(snackbar);
+    } else if (loginState == LOGIN_STATE.UNKNOWN) {
+      var snackbar = const SnackBar(content: Text("Unknown error!"));
+      ScaffoldMessenger.of(context).showSnackBar(snackbar);
     }
   }
 }
