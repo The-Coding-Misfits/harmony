@@ -15,6 +15,8 @@ class AddPlace extends StatefulWidget {
   final CategoryGrid _categoryGrid = CategoryGrid();
   final AddPlaceViewModel _viewModel = AddPlaceViewModel();
 
+  AddPlace({Key? key}) : super(key: key);
+
   PlaceCategory? get selectedCategory => _categoryGrid.selectedCategory;
 
   @override

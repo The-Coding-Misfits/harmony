@@ -1,13 +1,9 @@
 
 import 'dart:io';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:harmony/models/review.dart';
 import 'package:harmony/models/user.dart';
-import 'package:harmony/services/kdtree_service.dart';
-import 'package:harmony/utilites/custom_exception.dart';
 import 'package:harmony/utilites/kdtree_implementation/kdtree.dart';
 import 'package:harmony/models/place.dart';
 import 'package:harmony/utilites/places/place_category_enum.dart';
@@ -16,17 +12,16 @@ import 'package:path/path.dart';
 
 
 class FireStoreService{
-  static FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   static CollectionReference users = FirebaseFirestore.instance.collection('users');
   static CollectionReference places = FirebaseFirestore.instance.collection('places');
   static CollectionReference reviews = FirebaseFirestore.instance.collection('reviews');
-  static CollectionReference place_kdtree = FirebaseFirestore.instance.collection("place-kdtree");
+  static CollectionReference placeKdtree = FirebaseFirestore.instance.collection("place-kdtree");
 
 
 
   Future<KDTree> initKDTree() async{
-    return await place_kdtree.
+    return await placeKdtree.
     doc("TREE").
     get().
     then(
@@ -72,13 +67,13 @@ class FireStoreService{
 
 
   //PLACE DELETING
-  Future<bool> deletePlace(Place place) async {
+  Future<void> deletePlace(Place place) async {
     ///Returns whether successfully deleted
-
-
-
-    places.doc(place.id).delete();
-
+    _deletePlaceFromFavorites(place.id);
+    for(String reviewId in place.reviewIds){
+      deleteReview(reviewId, deleteFromPlaceToo: false);
+    }
+    await places.doc(place.id).delete();
   }
 
   
@@ -106,18 +101,19 @@ class FireStoreService{
 
 
   //ACCOUNT DELETING
-  Future<bool> deleteAccount(HarmonyUser user) async {
+  Future<void> deleteAccount(HarmonyUser user) async {
     ///Returns whether successfully deleted
-
-
+    //not sure if we gonna do this
+    throw UnimplementedError();
   }
 
 
   //REVIEW DELETING
-  Future<void> deleteReview(Review review) async {
+  Future<void> deleteReview(String reviewId, {bool deleteFromPlaceToo = true}) async { //delete from place is because when i delete place i dont want to update place again and again for every comment
     ///Returns whether successfully deleted
-    _deleteReviewFromUser(review.id);
-    await reviews.doc(review.id).delete();
+    _deleteReviewFromUser(reviewId);
+    if(deleteFromPlaceToo) _deleteReviewFromPlace(reviewId);
+    await reviews.doc(reviewId).delete();
 
   }
 
@@ -152,7 +148,7 @@ class FireStoreService{
           Review review = Review.fromJson(reviewDoc.data() as Map<String, dynamic>);
           places.doc(review.placeID).get().then(
                   (placeDoc){
-                _gotUserDocReview(userDoc, reviewId);
+                _gotPlaceReview(placeDoc, reviewId);
               }
           );
         }
@@ -161,8 +157,14 @@ class FireStoreService{
 
   void _gotPlaceReview(DocumentSnapshot placeSnapshot, String reviewId) {
     Place place = Place.fromJson(
-        placeSnapshot.id, placeSnapshot.data() as Map<String, dynamic>);
-
+        placeSnapshot.data() as Map<String, dynamic>);
+    List<String> reviews = place.reviewIds;
+    reviews.remove(reviewId);
+    placeSnapshot.reference.update(
+      {
+        'review_ids' : reviews
+      }
+    );
   }
 
   Future<List<Reference>> imageUrlsPlace(String id) async{
@@ -171,7 +173,7 @@ class FireStoreService{
   }
 
   void updateKDTree(KDTree tree){
-    place_kdtree.doc('TREE').update(tree.toJson());
+    placeKdtree.doc('TREE').update(tree.toJson());
   }
 
 
