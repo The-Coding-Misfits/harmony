@@ -60,7 +60,8 @@ class FireStoreService{
           'favorite_places' : [],
           'reviews' : [],
           'uid' : uid,
-          'username' : username
+          'username' : username,
+          'check_in': 0
         });
     DocumentSnapshot userSnapshot = await result.get();
     Map<String, dynamic> data = userSnapshot.data() as Map<String, dynamic>;

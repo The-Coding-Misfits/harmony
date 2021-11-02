@@ -37,7 +37,8 @@ class _MyAppState extends State<MyApp> {
 
         // Once complete, show your application
         if (snapshot.connectionState == ConnectionState.done) {
-          String initialRoute = auth.currentUser == null ? kLoginPageRouteName : kDiscoverPageRouteName;
+          //String initialRoute = auth.currentUser == null ? kLoginPageRouteName : kDiscoverPageRouteName;
+          String initialRoute = kLoginPageRouteName;
           if(auth.currentUser != null) AuthService.initCurrUser(auth.currentUser!.uid);
 
           return MaterialApp(
