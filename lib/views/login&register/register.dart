@@ -37,72 +37,76 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          ///Logo section
-          Expanded(
-            flex: 4,
-            child: Hero(
-              tag: "harmony_logo",
-              child: Image.asset("assets/images/harmony.png", scale: 5),
+    return GestureDetector(
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        backgroundColor: Colors.white,
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ///Logo section
+            Expanded(
+              flex: 4,
+              child: Hero(
+                tag: "harmony_logo",
+                child: Image.asset("assets/images/harmony.png", scale: 5),
+              ),
             ),
-          ),
-          ///Input section
-          Expanded(
-            flex: 4,
-            child: Column(
-              children: [
-                usernameInputField,
-                emailInputField,
-                passwordInputField,
-              ],
+            ///Input section
+            Expanded(
+              flex: 4,
+              child: Column(
+                children: [
+                  usernameInputField,
+                  emailInputField,
+                  passwordInputField,
+                ],
+              ),
             ),
-          ),
-          ///Button
-          Flexible(
+            ///Button
+            Flexible(
+                flex: 2,
+                child: HarmonyShinyButton(
+                  "Register",
+                      () => tapOnRegisterButton(context),
+                )
+            ),
+            ///Register
+            Expanded(
               flex: 2,
-              child: HarmonyShinyButton(
-                "Register",
-                    () => tapOnRegisterButton(context),
-              )
-          ),
-          ///Register
-          Expanded(
-            flex: 2,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                const SizedBox(height: 20,),
-                const Text(
-                  "Already have an account?",
-                  style: TextStyle(
-                    fontSize: 14,
-                  ) ,
-                ),
-                const SizedBox(height: 5,),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.pushReplacementNamed(
-                      context,
-                      kLoginPageRouteName
-                    );
-                  },
-                  child: const Text(
-                    "Login",
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  const SizedBox(height: 20,),
+                  const Text(
+                    "Already have an account?",
                     style: TextStyle(
-                        fontSize: 20,
-                        color: Color(0xff00CA9D)
+                      fontSize: 14,
+                    ) ,
+                  ),
+                  const SizedBox(height: 5,),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pushReplacementNamed(
+                          context,
+                          kLoginPageRouteName
+                      );
+                    },
+                    child: const Text(
+                      "Login",
+                      style: TextStyle(
+                          fontSize: 20,
+                          color: Color(0xff00CA9D)
+                      ),
                     ),
                   ),
-                ),
-              ],
-            ),
-          )
-        ],
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

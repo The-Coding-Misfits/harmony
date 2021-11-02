@@ -30,71 +30,75 @@ class LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          ///Logo section
-          Expanded(
-            flex: 4,
-            child: Hero(
-              tag: "harmony_logo",
-              child: Image.asset("assets/images/harmony.png", scale: 5),
+    return GestureDetector(
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        resizeToAvoidBottomInset: false,
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ///Logo section
+            Expanded(
+              flex: 4,
+              child: Hero(
+                tag: "harmony_logo",
+                child: Image.asset("assets/images/harmony.png", scale: 5),
+              ),
             ),
-          ),
-          ///Input section
-          Expanded(
-            flex: 3,
-            child: Column(
-              children: [
-                emailInputField,
-                passwordInputField,
-              ],
+            ///Input section
+            Expanded(
+              flex: 3,
+              child: Column(
+                children: [
+                  emailInputField,
+                  passwordInputField,
+                ],
+              ),
             ),
-          ),
-          ///Button
-          Flexible(
-            flex: 2,
-            child: HarmonyShinyButton(
-              "Login",
-                () => tapOnLogButton(context),
-            )
-          ),
-          ///Register
-          Expanded(
-            flex: 2,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                const SizedBox(height: 20,),
-                const Text(
-                  "Not a member yet?",
-                  style: TextStyle(
-                    fontSize: 14,
-                  ) ,
-                ),
-                const SizedBox(height: 5,),
-                GestureDetector(
-                  onTap: () {
-                    Navigator.pushReplacementNamed(
-                      context,
-                      kRegisterPageRouteName
-                    );
-                  },
-                  child: const Text(
-                    "Register",
+            ///Button
+            Flexible(
+                flex: 2,
+                child: HarmonyShinyButton(
+                  "Login",
+                      () => tapOnLogButton(context),
+                )
+            ),
+            ///Register
+            Expanded(
+              flex: 2,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  const SizedBox(height: 20,),
+                  const Text(
+                    "Not a member yet?",
                     style: TextStyle(
-                      fontSize: 20,
-                      color: Color(0xff00CA9D)
+                      fontSize: 14,
+                    ) ,
+                  ),
+                  const SizedBox(height: 5,),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pushReplacementNamed(
+                          context,
+                          kRegisterPageRouteName
+                      );
+                    },
+                    child: const Text(
+                      "Register",
+                      style: TextStyle(
+                          fontSize: 20,
+                          color: Color(0xff00CA9D)
+                      ),
                     ),
                   ),
-                ),
-              ],
-            ),
-          )
-        ],
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
