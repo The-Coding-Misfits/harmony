@@ -28,9 +28,9 @@ class _AccountPageState extends State<AccountPage> {
                   child: Image.asset("assets/images/dummy-profile-pic.png", scale: 3),
                 ),
               ),
-              const Padding(
-                padding: EdgeInsets.only(top: 10),
-                child: Text("Emir Sürmen", style: TextStyle(fontSize: 20)),
+              Padding(
+                padding: const EdgeInsets.only(top: 10),
+                child: Text(widget.user.username, style: const TextStyle(fontSize: 20)),
               )
             ],
           ),
