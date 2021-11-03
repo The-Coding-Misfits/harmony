@@ -65,7 +65,7 @@ class FireStoreService{
         });
     DocumentSnapshot userSnapshot = await result.get();
     Map<String, dynamic> data = userSnapshot.data() as Map<String, dynamic>;
-    return HarmonyUser.fromJson(data);
+    return HarmonyUser.fromJson(data, userSnapshot.id);
   }
 
   ///These deletes are called from outside
@@ -136,8 +136,8 @@ class FireStoreService{
   }
 
   void _gotUserDocReview(DocumentSnapshot userSnapshot, String reviewId){
-    HarmonyUser user = HarmonyUser.fromJson(userSnapshot.data() as Map<String, dynamic>);
-    List<String> reviews = user.reviewIds;
+    HarmonyUser user = HarmonyUser.fromJson(userSnapshot.data() as Map<String, dynamic>, userSnapshot.id);
+    List<dynamic> reviews = user.reviewIds;
     reviews.remove(reviewId);
     userSnapshot.reference.update(
         {
@@ -182,7 +182,7 @@ class FireStoreService{
     ).get();
     if(snapshot.docs.isNotEmpty){
       return HarmonyUser.fromJson(
-        snapshot.docs.first.data() as Map<String, dynamic>
+        snapshot.docs.first.data() as Map<String, dynamic>, snapshot.docs.first.id
       );
     }else{
       return throw CustomException("No account exists like this!");
