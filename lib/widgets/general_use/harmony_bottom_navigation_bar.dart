@@ -8,62 +8,71 @@ import 'package:harmony/views/discover/discover_page.dart';
 
 class HarmonyBottomNavigationBar extends StatelessWidget {
   final PAGE_ENUM currPage;
-  final Color _activeColor = Color(0xff00CA9D);
+  final Color _activeColor = const Color(0xff00CA9D);
   final Color _inactiveColor = Colors.black54;
 
-  HarmonyBottomNavigationBar(this.currPage);
+  HarmonyBottomNavigationBar(this.currPage, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          IconButton(
-            icon: Icon(
-              FontAwesomeIcons.compass,
-              color: currPage == PAGE_ENUM.DISCOVER_PAGE ? _activeColor : _inactiveColor,
+          const Divider(height: 1, thickness: 1),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              IconButton(
+                icon: Icon(
+                  FontAwesomeIcons.compass,
+                  color: currPage == PAGE_ENUM.DISCOVER_PAGE ? _activeColor : _inactiveColor,
 
-            ),
-            onPressed: () =>  Navigator.pushReplacement(
-
-              context,
-              PageRouteBuilder(
-                pageBuilder: (context, animation1, animation2) => DiscoverPage(),
-                transitionDuration: Duration(seconds: 1),
-              ),
-            ),
-          ),
-          IconButton(
-              icon: Icon(
-                Icons.add_box_outlined,
-                color: currPage == PAGE_ENUM.NEARBY_PAGE ? _activeColor : _inactiveColor,
-              ),
-              onPressed: () =>  Navigator.pushReplacement(
-
-                context,
-                PageRouteBuilder(
-                  pageBuilder: (context, animation1, animation2) => AddPlace(), //TODO ACTUALLY NEARBY!!!
-                  transitionDuration: Duration(seconds: 1),
                 ),
-              )
-          ),
-          IconButton(
-            icon: Icon(
-              FontAwesomeIcons.user,
-              color: currPage == PAGE_ENUM.ACCOUNT_PAGE ? _activeColor : _inactiveColor,
-            ),
-            onPressed: () =>  Navigator.pushReplacement(
+                onPressed: () =>  Navigator.pushReplacement(
 
-              context,
-              PageRouteBuilder(
-                pageBuilder: (context, animation1, animation2) => AccountPage(AuthService.currHarmonyUser!),
-                transitionDuration: Duration(seconds: 1),
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation1, animation2) => DiscoverPage(),
+                    transitionDuration: const Duration(seconds: 1),
+                  ),
+                ),
               ),
-            ),//Navigator.pushReplacementNamed(context, routeName),
-          )
+              IconButton(
+                  icon: Icon(
+                    Icons.add_box_outlined,
+                    size: 26,
+                    color: currPage == PAGE_ENUM.NEARBY_PAGE ? _activeColor : _inactiveColor,
+                  ),
+                  onPressed: () =>  Navigator.pushReplacement(
+
+                    context,
+                    PageRouteBuilder(
+                      pageBuilder: (context, animation1, animation2) => AddPlace(), //TODO ACTUALLY NEARBY!!!
+                      transitionDuration: const Duration(seconds: 1),
+                    ),
+                  )
+              ),
+              IconButton(
+                icon: Icon(
+                  FontAwesomeIcons.user,
+                  size: 22,
+                  color: currPage == PAGE_ENUM.ACCOUNT_PAGE ? _activeColor : _inactiveColor,
+                ),
+                onPressed: () =>  Navigator.pushReplacement(
+
+                  context,
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation1, animation2) => AccountPage(AuthService.currHarmonyUser!),
+                    transitionDuration: const Duration(seconds: 1),
+                  ),
+                ),//Navigator.pushReplacementNamed(context, routeName),
+              )
+            ],
+          ),
         ],
-      ),
+      )
     );
   }
 }
