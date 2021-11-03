@@ -14,6 +14,10 @@ class AccountPage extends StatefulWidget {
 }
 
 class _AccountPageState extends State<AccountPage> {
+  int selected = 0;
+
+  Widget bottomThing = Text("favorites");
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,7 +35,58 @@ class _AccountPageState extends State<AccountPage> {
               Padding(
                 padding: const EdgeInsets.only(top: 10),
                 child: Text(widget.user.username, style: const TextStyle(fontSize: 20)),
-              )
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 20),
+                child: Row(
+                  children: [
+                    SizedBox(
+                      child: TextButton(
+                        child: Text(
+                          "Favorite Spots",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: selected == 0 ? const Color(0xff00CA9D) : Colors.black
+                          ),
+                        ),
+                        style: ButtonStyle(
+                          overlayColor: MaterialStateProperty.all(Colors.transparent)
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            selected = 0;
+                            bottomThing = Text("favorites");
+                          });
+                        },
+                      ),
+                      width: MediaQuery.of(context).size.width / 2,
+                    ),
+                    SizedBox(
+                      child: TextButton(
+                        child: Text(
+                          "My Reviews",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: selected == 1 ? const Color(0xff00CA9D) : Colors.black
+                          ),
+                        ),
+                        style: ButtonStyle(
+                            overlayColor: MaterialStateProperty.all(Colors.transparent)
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            selected = 1;
+                            bottomThing = Text("reviews");
+                          });
+                        },
+                      ),
+                      width: MediaQuery.of(context).size.width / 2,
+                    )
+                  ],
+                ),
+              ),
+              const Divider(thickness: 2),
+              bottomThing
             ],
           ),
         )
