@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:harmony/models/user.dart';
+import 'package:harmony/utilites/constants.dart';
 import 'package:harmony/utilites/page_enum.dart';
 import 'package:harmony/widgets/general_use/harmony_bottom_navigation_bar.dart';
 
@@ -15,6 +16,7 @@ class AccountPage extends StatefulWidget {
 
 class _AccountPageState extends State<AccountPage> {
 
+  Color activeDividerColor = kHarmonyColor;
   // TODO
   Widget favoritesWidget = const Text("favorites");
   Widget reviewsWidget = const Text("reviews");
@@ -50,49 +52,68 @@ class _AccountPageState extends State<AccountPage> {
                 child: Row(
                   children: [
                     SizedBox(
-                      child: TextButton(
-                        child: Text(
-                          "Favorite Spots",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: selectedWidget == favoritesWidget ? const Color(0xff00CA9D) : Colors.black
+                      child: Column(
+                        children: [
+                          TextButton(
+                            child: Text(
+                              "Favorite Spots",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  color: selectedWidget == favoritesWidget ? const Color(0xff00CA9D) : Colors.black
+                              ),
+                            ),
+                            style: ButtonStyle(
+                              overlayColor: MaterialStateProperty.all(Colors.transparent)
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                selectedWidget = favoritesWidget;
+                              });
+                            },
                           ),
-                        ),
-                        style: ButtonStyle(
-                          overlayColor: MaterialStateProperty.all(Colors.transparent)
-                        ),
-                        onPressed: () {
-                          setState(() {
-                            selectedWidget = favoritesWidget;
-                          });
-                        },
+                          Divider(
+                              thickness: 2,
+                            indent: 40,
+                            endIndent: 40,
+                            color: selectedWidget == favoritesWidget ? activeDividerColor : Colors.transparent,
+                          ),
+                        ],
                       ),
                       width: MediaQuery.of(context).size.width / 2,
                     ),
                     SizedBox(
-                      child: TextButton(
-                        child: Text(
-                          "My Reviews",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: selectedWidget == reviewsWidget ? const Color(0xff00CA9D) : Colors.black
+                      child: Column(
+                        children: [
+                          TextButton(
+                            child: Text(
+                              "My Reviews",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  color: selectedWidget == reviewsWidget ? const Color(0xff00CA9D) : Colors.black
+                              ),
+                            ),
+                            style: ButtonStyle(
+                                overlayColor: MaterialStateProperty.all(Colors.transparent)
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                selectedWidget = reviewsWidget;
+                              });
+                            },
                           ),
-                        ),
-                        style: ButtonStyle(
-                            overlayColor: MaterialStateProperty.all(Colors.transparent)
-                        ),
-                        onPressed: () {
-                          setState(() {
-                            selectedWidget = reviewsWidget;
-                          });
-                        },
+                          Divider(
+                              thickness: 2,
+                            indent: 40,
+                            endIndent: 40,
+                            color: selectedWidget == reviewsWidget ? activeDividerColor : Colors.transparent,
+                          ),
+                        ],
                       ),
                       width: MediaQuery.of(context).size.width / 2,
                     )
                   ],
                 ),
               ),
-              const Divider(thickness: 2),
               selectedWidget,
             ],
           ),
