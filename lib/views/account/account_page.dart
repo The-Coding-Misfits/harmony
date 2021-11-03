@@ -59,7 +59,7 @@ class _AccountPageState extends State<AccountPage> {
                               "Favorite Spots",
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                  color: selectedWidget == favoritesWidget ? const Color(0xff00CA9D) : Colors.black
+                                  color: selectedWidget == favoritesWidget ? const Color(0xff00CA9D) : Colors.transparent
                               ),
                             ),
                             style: ButtonStyle(
@@ -89,7 +89,7 @@ class _AccountPageState extends State<AccountPage> {
                               "My Reviews",
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                  color: selectedWidget == reviewsWidget ? const Color(0xff00CA9D) : Colors.black
+                                  color: selectedWidget == reviewsWidget ? const Color(0xff00CA9D) : Colors.transparent
                               ),
                             ),
                             style: ButtonStyle(
