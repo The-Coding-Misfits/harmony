@@ -11,7 +11,7 @@ class Review{
 
   Review(this.authorID, this.id, this.content, this.likes, this.rating, this.timeAdded, this.placeID);
 
-  factory Review.fromJson(Map<String, dynamic> data){
+  factory Review.fromJson(Map<String, dynamic> data, String id){
 
     DateTime parseTimestamp(dynamic timeAdded){ //parse dynamic timestamp from firestore to datetime
       Timestamp t = timeAdded; //built-in timestamp class firestore
@@ -20,7 +20,7 @@ class Review{
 
     return Review(
       data["author_id"] as String,
-      data["id"] as String,
+      id,
       data["content"] as String,
       data["likes"] as int,
       data["rating"] as int,
