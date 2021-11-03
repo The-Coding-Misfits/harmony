@@ -19,12 +19,13 @@ class LoginPageState extends State<LoginPage> {
       const Icon(Icons.alternate_email, size: 25, color: Colors.grey),
       "Email Address",
       false,
-
+      true
   );
   HarmonyLogInput passwordInputField = HarmonyLogInput(
       const Icon(Icons.lock, size: 25, color: Colors.grey),
       "Password",
-      true
+      true,
+      false
   );
 
 

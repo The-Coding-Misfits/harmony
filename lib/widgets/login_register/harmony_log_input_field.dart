@@ -6,11 +6,12 @@ class HarmonyLogInput extends StatelessWidget {
   final bool isPassword;
   final String hintText;
   final Icon prefixIcon;
+  final bool isEmail;
 
   final TextEditingController _controller = TextEditingController();
   String get currText => _controller.text;
 
-  HarmonyLogInput(this.prefixIcon, this.hintText, this.isPassword, {Key? key}) : super(key: key);
+  HarmonyLogInput(this.prefixIcon, this.hintText, this.isPassword, this.isEmail, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,6 +19,7 @@ class HarmonyLogInput extends StatelessWidget {
       margin: const EdgeInsets.only(left: 10, right: 10),
       child: TextField(
         obscureText: isPassword,
+        keyboardType: isEmail ? TextInputType.emailAddress : TextInputType.text,
         controller: _controller,
         decoration: InputDecoration(
           contentPadding: const EdgeInsets.symmetric(vertical: 25),
