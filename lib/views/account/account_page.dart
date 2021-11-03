@@ -14,9 +14,18 @@ class AccountPage extends StatefulWidget {
 }
 
 class _AccountPageState extends State<AccountPage> {
-  int selected = 0;
 
-  Widget bottomThing = Text("favorites");
+  // TODO
+  Widget favoritesWidget = const Text("favorites");
+  Widget reviewsWidget = const Text("reviews");
+
+  late Widget selectedWidget;
+  @override
+  void initState() {
+    super.initState();
+    //Just a personal preference really
+    selectedWidget = favoritesWidget;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +55,7 @@ class _AccountPageState extends State<AccountPage> {
                           "Favorite Spots",
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                              color: selected == 0 ? const Color(0xff00CA9D) : Colors.black
+                              color: selectedWidget == favoritesWidget ? const Color(0xff00CA9D) : Colors.black
                           ),
                         ),
                         style: ButtonStyle(
@@ -54,8 +63,7 @@ class _AccountPageState extends State<AccountPage> {
                         ),
                         onPressed: () {
                           setState(() {
-                            selected = 0;
-                            bottomThing = Text("favorites");
+                            selectedWidget = favoritesWidget;
                           });
                         },
                       ),
@@ -67,7 +75,7 @@ class _AccountPageState extends State<AccountPage> {
                           "My Reviews",
                           textAlign: TextAlign.center,
                           style: TextStyle(
-                              color: selected == 1 ? const Color(0xff00CA9D) : Colors.black
+                              color: selectedWidget == reviewsWidget ? const Color(0xff00CA9D) : Colors.black
                           ),
                         ),
                         style: ButtonStyle(
@@ -75,8 +83,7 @@ class _AccountPageState extends State<AccountPage> {
                         ),
                         onPressed: () {
                           setState(() {
-                            selected = 1;
-                            bottomThing = Text("reviews");
+                            selectedWidget = reviewsWidget;
                           });
                         },
                       ),
@@ -86,7 +93,7 @@ class _AccountPageState extends State<AccountPage> {
                 ),
               ),
               const Divider(thickness: 2),
-              bottomThing
+              selectedWidget,
             ],
           ),
         )
