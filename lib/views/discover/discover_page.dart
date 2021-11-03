@@ -49,7 +49,24 @@ class DiscoverPageState extends State<DiscoverPage> {
   void _initDiscoverWidgets(){
     ///DISCOVER WIDGETS
     hamburgerButton = IconButton(
-      onPressed: (){},
+      onPressed: () {
+        showModalBottomSheet<void>(
+          context: context,
+          builder: (BuildContext context) {
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                ListTile(
+                  leading: const Icon(Icons.settings),
+                  title: const Text("Settings"),
+                  onTap: () {},
+                ),
+              ],
+            );
+          },
+        );
+      },
       icon: const Icon(
           Icons.menu,
         size: 25,
