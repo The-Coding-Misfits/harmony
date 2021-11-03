@@ -71,7 +71,7 @@ class _MyAppState extends State<MyApp> {
                 children: [
                   Hero(
                       tag: "harmony_logo",
-                      child: Image.asset("assets/images/harmony.png")
+                      child: Image.asset("assets/images/harmony.png", scale: 3)
                   ),
                   const Padding(
                     padding: EdgeInsets.only(top: 20),
