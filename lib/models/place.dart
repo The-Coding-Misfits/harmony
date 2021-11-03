@@ -15,13 +15,13 @@ class Place{
   ///FROM DB
 
 
-  factory Place.fromJson(Map<String, dynamic> data) {
+  factory Place.fromJson(Map<String, dynamic> data, String id) {
     PlaceCategory parsePlaceCategory(String sPlaceCategory){
       return PlaceCategory.values.firstWhere((e) => e.toString() == sPlaceCategory); //from string to enum
     }
     //TODO
     return Place(
-      data['id'] as String,
+      id,
       parsePlaceCategory(data["category"] as String),
       data["coordinate"] as List<double>,
       data["name"] as String,

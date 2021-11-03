@@ -1,5 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:harmony/services/firestore.dart';
 import 'package:harmony/views/login&register/register.dart';
 import 'package:harmony/services/auth_service.dart';
 import 'package:harmony/utilites/constants.dart';
@@ -42,9 +44,12 @@ class _MyAppState extends State<MyApp> {
           return MaterialApp(
             title: "Harmony",
             theme: ThemeData(
-                fontFamily: "Montserrat",
-                primaryColor: const Color(0xff00CA9D),
-                colorScheme: ColorScheme.fromSwatch().copyWith(secondary: const Color(0xff00CA9D))
+              appBarTheme: const AppBarTheme(
+                foregroundColor: Colors.black,
+              ),
+              fontFamily: "Montserrat",
+              primaryColor: const Color(0xff00CA9D),
+              colorScheme: ColorScheme.fromSwatch().copyWith(secondary: const Color(0xff00CA9D))
             ),
             debugShowCheckedModeBanner: false,
             initialRoute: initialRoute,
