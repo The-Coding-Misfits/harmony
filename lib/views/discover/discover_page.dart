@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:harmony/utilites/page_enum.dart';
 import 'package:harmony/viewmodel/discover/discover_page_viewmodel.dart';
-import 'package:harmony/views/discover/filter/filter_sheet.dart';
+import 'package:harmony/widgets/filter/filter_sheet/filter_sheet.dart';
 import 'package:harmony/widgets/general_use/place_card.dart';
 import 'package:harmony/widgets/general_use/harmony_bottom_navigation_bar.dart';
 import 'package:harmony/widgets/general_use/clickable_text.dart';
@@ -139,7 +139,6 @@ class DiscoverPageState extends State<DiscoverPage> {
         context: context,
         builder: (context) => FilterSheet(
             context,
-          widget._discoverPageViewModel
         ),
     ).whenComplete(() => null);
   }
