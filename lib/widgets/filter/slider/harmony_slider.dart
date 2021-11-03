@@ -34,8 +34,8 @@ class _HarmonySliderState extends State<HarmonySlider> {
   Widget build(BuildContext context) {
     return SliderTheme(
       data: SliderTheme.of(context).copyWith(
-        activeTrackColor: Colors.red[700],
-        inactiveTrackColor: Colors.red[100],
+        activeTrackColor: currActiveTrackColor,
+        inactiveTrackColor: inactiveTrack,
         trackShape: const RoundedRectSliderTrackShape(),
         trackHeight: 4.0,
         thumbShape:CustomSliderThumbRect(
@@ -44,14 +44,14 @@ class _HarmonySliderState extends State<HarmonySlider> {
             min: widget.minValue,
             max: widget.maxValue,
         ),
-        thumbColor: Colors.redAccent,
+        thumbColor: const Color(0xff5F5D70),
         overlayColor: Colors.red.withAlpha(32),
         overlayShape: const RoundSliderOverlayShape(overlayRadius: 28.0),
         tickMarkShape: RoundSliderTickMarkShape(),
-        activeTickMarkColor: Colors.red[700],
-        inactiveTickMarkColor: Colors.red[100],
+        activeTickMarkColor: Colors.transparent,
+        inactiveTickMarkColor: Colors.transparent,
         valueIndicatorShape: PaddleSliderValueIndicatorShape(),
-        valueIndicatorColor: Colors.redAccent,
+        valueIndicatorColor: const Color(0xFF5F5D70),
         valueIndicatorTextStyle: const TextStyle(
           color: Colors.white,
         ),
@@ -61,13 +61,23 @@ class _HarmonySliderState extends State<HarmonySlider> {
         min: widget.minValue.toDouble(),
         max: widget.maxValue.toDouble(),
         divisions: 10,
-        label: '$_currValue',
+        label: '$_currValue KM',
         onChanged: (value) {
           setState(
                 () {
                   _currValue = value;
             },
           );
+        },
+        onChangeStart: (_){
+          setState(() {
+            currActiveTrackColor = movingActiveTrack;
+          });
+        },
+        onChangeEnd: (_){
+          setState(() {
+            currActiveTrackColor = stationaryActiveTrack;
+          });
         },
       ),
     );
