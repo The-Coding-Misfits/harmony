@@ -24,21 +24,22 @@ class _FilterSheetState extends State<FilterSheet> {
     return Column(
       children: [
         ///SLIDER
-        const Text(
-          "How far from you?",
-          style: TextStyle(
+        const Padding(
+          padding: EdgeInsets.only(top: 10),
+          child: Text(
+            "How far from you?",
+            style: TextStyle(
+              fontSize: 17,
               fontWeight: FontWeight.w300
+            ),
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 7),
-          child: HarmonySlider(
-              widget._controller.setSliderValue,
-              1,
-              15,
-              5
-          ),
-        )
+        HarmonySlider(
+            widget._controller.setSliderValue,
+            1,
+            15,
+            5
+        ),
 
 
         ///CATEGORY

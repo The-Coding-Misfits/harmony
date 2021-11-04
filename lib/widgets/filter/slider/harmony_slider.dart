@@ -60,7 +60,7 @@ class _HarmonySliderState extends State<HarmonySlider> {
         value: _currValue,
         min: widget.minValue.toDouble(),
         max: widget.maxValue.toDouble(),
-        divisions: 10,
+        divisions: 15,
         label: '$_currValue KM',
         onChanged: (value) {
           setState(
