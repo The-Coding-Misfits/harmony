@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:harmony/models/user.dart';
 import 'package:harmony/services/firestore.dart';
 import 'package:harmony/utilites/login_register_states/login_state.dart';
+import 'package:harmony/utilites/login_register_states/signout_state.dart';
 import 'package:harmony/utilites/login_register_states/register_state.dart';
 
 FirebaseAuth auth = FirebaseAuth.instance;
@@ -54,5 +55,15 @@ class AuthService {
       }
     }
     return LOGIN_STATE.UNKNOWN;
+  }
+
+  Future<SIGNOUT_STATE> signOutUser() async {
+    try {
+      await auth.signOut();
+      currHarmonyUser = null;
+      return SIGNOUT_STATE.SUCCESSFUL;
+    } on FirebaseAuthException {
+      return SIGNOUT_STATE.ERROR;
+    }
   }
 }
