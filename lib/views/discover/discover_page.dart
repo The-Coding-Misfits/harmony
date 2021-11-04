@@ -69,6 +69,18 @@ class DiscoverPageState extends State<DiscoverPage> {
                     onTap: () {},
                   ),
                   ListTile(
+                    leading: const Icon(Icons.info),
+                    title: const Text("About Harmony"),
+                    onTap: () {
+                      showAboutDialog(
+                        context: context,
+                        applicationVersion: "1.0.0a",
+                        applicationIcon: Image.asset("assets/images/harmony.png", scale: 6,),
+                        applicationName: "Harmony"
+                      );
+                    },
+                  ),
+                  ListTile(
                     leading: const Icon(Icons.logout),
                     title: const Text("Log Out"),
                     onTap: () async {
