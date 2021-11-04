@@ -65,7 +65,7 @@ class _HarmonySliderState extends State<HarmonySlider> {
         onChanged: (value) {
           setState(
                 () {
-                  _currValue = value;
+                  _currValue = value.floorToDouble();
             },
           );
         },
