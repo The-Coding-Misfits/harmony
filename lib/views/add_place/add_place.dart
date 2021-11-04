@@ -94,16 +94,55 @@ class AddPlaceState extends State<AddPlace> {
                 padding: const EdgeInsets.only(top: 15),
                 child: GestureDetector(
                   onTap: () async {
-                    final XFile? pickedImage = await _picker.pickImage(source: ImageSource.gallery);
+                    XFile? pickedImage;
 
-                    var bytes = await pickedImage!.readAsBytes();
+                    showModalBottomSheet(
+                      context: context,
+                      builder: (context) => SafeArea(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            ListTile(
+                              leading: const Icon(Icons.camera_alt),
+                              title: const Text("Take photo with Camera"),
+                              onTap: () async {
+                                pickedImage = await _picker.pickImage(source: ImageSource.camera);
 
-                    setState(() {
-                      selectedImage = File(pickedImage.path);
-                      canAdd = isEligibleAdd();
-                      imageUploaded = true;
-                      imageBytes = bytes;
-                    });
+                                var bytes = await pickedImage!.readAsBytes();
+
+                                setState(() {
+                                  selectedImage = File(pickedImage!.path);
+                                  canAdd = isEligibleAdd();
+                                  imageUploaded = true;
+                                  imageBytes = bytes;
+                                });
+
+                                Navigator.pop(context);
+                              },
+                            ),
+                            ListTile(
+                              leading: const Icon(Icons.image),
+                              title: const Text("Select from gallery"),
+                              onTap: () async {
+                                pickedImage = await _picker.pickImage(source: ImageSource.gallery);
+
+                                var bytes = await pickedImage!.readAsBytes();
+
+                                setState(() {
+                                  selectedImage = File(pickedImage!.path);
+                                  canAdd = isEligibleAdd();
+                                  imageUploaded = true;
+                                  imageBytes = bytes;
+                                });
+
+                                Navigator.pop(context);
+                              },
+                            ),
+                          ],
+                        )
+                      )
+                    );
                   },
                   child: Container(
                     height: 200,
