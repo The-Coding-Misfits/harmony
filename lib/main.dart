@@ -44,12 +44,9 @@ class _MyAppState extends State<MyApp> {
           return MaterialApp(
             title: "Harmony",
             theme: ThemeData(
-              appBarTheme: const AppBarTheme(
-                foregroundColor: Colors.black,
-              ),
               fontFamily: "Montserrat",
               primaryColor: const Color(0xff00CA9D),
-              colorScheme: ColorScheme.fromSwatch().copyWith(secondary: const Color(0xff00CA9D))
+              colorScheme: ColorScheme.fromSwatch().copyWith(primary: const Color(0xff00CA9D))
             ),
             debugShowCheckedModeBanner: false,
             initialRoute: initialRoute,
