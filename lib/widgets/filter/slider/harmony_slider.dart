@@ -20,8 +20,7 @@ class _HarmonySliderState extends State<HarmonySlider> {
   final Color inactiveTrack = const Color(0xFFdfe2e5);
   final Color movingActiveTrack = const Color(0xFF00CA9D);
 
-  Color currActiveTrackColor = const Color(0xFF5F5D70); //which is stationary active track
-
+  bool isActive = false;
 
   late double _currValue;
   @override
@@ -34,15 +33,18 @@ class _HarmonySliderState extends State<HarmonySlider> {
   Widget build(BuildContext context) {
     return SliderTheme(
       data: SliderTheme.of(context).copyWith(
-        activeTrackColor: currActiveTrackColor,
+        activeTrackColor: isActive ? movingActiveTrack : stationaryActiveTrack,
         inactiveTrackColor: inactiveTrack,
         trackShape: const RoundedRectSliderTrackShape(),
         trackHeight: 4.0,
         thumbShape:CustomSliderThumbRect(
             thumbRadius: 10 * .4,
-            thumbHeight: 35,
+            thumbHeight: 50,
             min: widget.minValue,
             max: widget.maxValue,
+          bgColor: Colors.white,
+          isActive: isActive,
+
         ),
         thumbColor: const Color(0xff5F5D70),
         overlayColor: Colors.red.withAlpha(32),
@@ -71,12 +73,12 @@ class _HarmonySliderState extends State<HarmonySlider> {
         },
         onChangeStart: (_){
           setState(() {
-            currActiveTrackColor = movingActiveTrack;
+            isActive = true;
           });
         },
         onChangeEnd: (_){
           setState(() {
-            currActiveTrackColor = stationaryActiveTrack;
+            isActive = false;
           });
         },
       ),

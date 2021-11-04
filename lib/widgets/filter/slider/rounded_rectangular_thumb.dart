@@ -5,12 +5,16 @@ class CustomSliderThumbRect extends SliderComponentShape {
   final thumbHeight;
   final int min;
   final int max;
+  final Color bgColor;
+  final bool isActive;
 
   const CustomSliderThumbRect({
     required this.thumbRadius,
     this.thumbHeight,
     required this.min,
     required this.max,
+    required this.bgColor,
+    required this.isActive,
   });
 
   @override
@@ -42,16 +46,16 @@ class CustomSliderThumbRect extends SliderComponentShape {
     );
 
     final paint = Paint()
-      ..color = sliderTheme.activeTrackColor! //Thumb Background Color
+      ..color = bgColor //Thumb Background Color
       ..style = PaintingStyle.fill;
 
     TextSpan span = TextSpan(
         style: TextStyle(
             fontSize: thumbHeight * .3,
             fontWeight: FontWeight.w700,
-            color: sliderTheme.thumbColor,
+            color: isActive ? Colors.transparent : sliderTheme.thumbColor,
             height: 1),
-        text: getValue(value));
+        text: getValue(value) + " KM");
     TextPainter tp = TextPainter(
         text: span,
         textAlign: TextAlign.left,
