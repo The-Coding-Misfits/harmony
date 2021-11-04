@@ -58,34 +58,36 @@ class DiscoverPageState extends State<DiscoverPage> {
         showModalBottomSheet<void>(
           context: context,
           builder: (BuildContext context) {
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                ListTile(
-                  leading: const Icon(Icons.settings),
-                  title: const Text("Settings"),
-                  onTap: () {},
-                ),
-                ListTile(
-                  leading: const Icon(Icons.logout),
-                  title: const Text("Log Out"),
-                  onTap: () async {
-                    SIGNOUT_STATE signOutState = await authService.signOutUser();
+            return SafeArea(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  ListTile(
+                    leading: const Icon(Icons.settings),
+                    title: const Text("Settings"),
+                    onTap: () {},
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.logout),
+                    title: const Text("Log Out"),
+                    onTap: () async {
+                      SIGNOUT_STATE signOutState = await authService.signOutUser();
 
-                    if (signOutState == SIGNOUT_STATE.SUCCESSFUL) {
-                      Navigator.pushReplacementNamed(
-                        context,
-                        kLoginPageRouteName
-                      );
-                    } else if (signOutState == SIGNOUT_STATE.ERROR) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text("An error occurred."))
-                      );
-                    }
-                  },
-                ),
-              ],
+                      if (signOutState == SIGNOUT_STATE.SUCCESSFUL) {
+                        Navigator.pushReplacementNamed(
+                            context,
+                            kLoginPageRouteName
+                        );
+                      } else if (signOutState == SIGNOUT_STATE.ERROR) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text("An error occurred."))
+                        );
+                      }
+                    },
+                  ),
+                ],
+              ),
             );
           },
         );
