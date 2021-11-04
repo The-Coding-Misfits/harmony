@@ -17,10 +17,10 @@ To use Harmony, you will need to [clone](https://docs.github.com/en/repositories
 
 These are some screenshots from the alpha version of the app
 
-<img src="https://user-images.githubusercontent.com/63517174/140395177-fefb14ff-1352-4293-8ef5-0a279dce7377.png" width="300" height="600"/>
+<img src="https://user-images.githubusercontent.com/63517174/140395177-fefb14ff-1352-4293-8ef5-0a279dce7377.png" width="400" height="900"/>
 
-<img src="https://user-images.githubusercontent.com/63517174/140395161-fa55b611-2cd4-42e6-a344-90478dae6f4f.png" width="300" height="600"/>
+<img src="https://user-images.githubusercontent.com/63517174/140395161-fa55b611-2cd4-42e6-a344-90478dae6f4f.png" width="400" height="900"/>
 
-<img src="https://user-images.githubusercontent.com/63517174/140395475-b081f24d-d3ff-4098-a6a9-cc0266be24f6.png" width="300" height="600"/>
+<img src="https://user-images.githubusercontent.com/63517174/140395475-b081f24d-d3ff-4098-a6a9-cc0266be24f6.png" width="400" height="900"/>
 
-<img src="https://user-images.githubusercontent.com/63517174/140395475-b081f24d-d3ff-4098-a6a9-cc0266be24f6.png" width="300" height="600"/>
+<img src="https://user-images.githubusercontent.com/63517174/140395475-b081f24d-d3ff-4098-a6a9-cc0266be24f6.png" width="400" height="900"/>
