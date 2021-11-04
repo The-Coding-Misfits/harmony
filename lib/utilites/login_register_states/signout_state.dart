@@ -1,0 +1,4 @@
+enum SIGNOUT_STATE {
+  ERROR,
+  SUCCESSFUL
+}
