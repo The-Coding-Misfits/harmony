@@ -85,34 +85,3 @@ class _HarmonySliderState extends State<HarmonySlider> {
     );
   }
 }
-/*return SliderTheme(
-      data: SliderTheme.of(context).copyWith(
-        activeTrackColor: currActiveTrackColor,
-        inactiveTrackColor: inactiveTrack,
-        valueIndicatorTextStyle: TextStyle(
-          decoration:
-        )
-      ),
-      child: Slider(
-        value: _currValue,
-        min: widget.minValue,
-        max: widget.maxValue,
-        onChangeStart: (_){
-          setState(() {
-            currActiveTrackColor = movingActiveTrack;
-          });
-        },
-        onChangeEnd: (_){
-          setState(() {
-            currActiveTrackColor = stationaryActiveTrack;
-          });
-        },
-        onChanged: (double value) {
-          setState(() {
-            _currValue = value;
-            widget.onValueChanged(value);
-          });
-        },
-        label: "$_currValue" ,
-      ),
-    );*/

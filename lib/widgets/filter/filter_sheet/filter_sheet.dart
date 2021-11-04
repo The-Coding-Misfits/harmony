@@ -4,10 +4,9 @@ import 'package:harmony/widgets/filter/filter_sheet/filter_sheet_controller.dart
 import 'package:harmony/widgets/filter/slider/harmony_slider.dart';
 
 class FilterSheet extends StatefulWidget {
-  final BuildContext context;
   final FilterSheetController _controller = FilterSheetController();
 
-  FilterSheet(this.context, {Key? key}) : super(key: key);
+  FilterSheet({Key? key}) : super(key: key);
 
   @override
   _FilterSheetState createState() => _FilterSheetState();
@@ -22,24 +21,37 @@ class _FilterSheetState extends State<FilterSheet> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: [
-        ///SLIDER
-        const Padding(
-          padding: EdgeInsets.only(top: 10),
-          child: Text(
-            "How far from you?",
-            style: TextStyle(
-              fontSize: 17,
-              fontWeight: FontWeight.w300
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: <Widget>[
+
+        Container(
+          width: MediaQuery.of(context).size.width,
+          color: Colors.white,
+          child: Card(
+            child: Column(
+              children: [
+                const Padding(
+                  padding: EdgeInsets.only(top: 10),
+                  child: Text(
+                    "How far from you?",
+                    style: TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.w300
+                    ),
+                  ),
+                ),
+                HarmonySlider(
+                    widget._controller.setSliderValue,
+                    1,
+                    15,
+                    5
+                ),
+              ],
             ),
           ),
-        ),
-        HarmonySlider(
-            widget._controller.setSliderValue,
-            1,
-            15,
-            5
-        ),
+        )
+
+
 
 
         ///CATEGORY
