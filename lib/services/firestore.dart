@@ -54,7 +54,8 @@ class FireStoreService{
         'category': category.toString(),
         'point': geoPoint.data,
         'name': name,
-        'past_user_ids': [], //no users check in
+        'past_user_ids': [],//no users check in
+        'review_ids': [],
         'rating': 0, // no ratings so far
       });
     DocumentSnapshot placeSnapshot = await result.get();
@@ -171,7 +172,7 @@ class FireStoreService{
   void _gotPlaceReview(DocumentSnapshot placeSnapshot, String reviewId) {
     Place place = Place.fromJson(
         placeSnapshot.data() as Map<String, dynamic>, placeSnapshot.id);
-    List<String> reviews = place.reviewIds;
+    List<String> reviews = place.reviewIds as List<String>;
     reviews.remove(reviewId);
     placeSnapshot.reference.update(
       {

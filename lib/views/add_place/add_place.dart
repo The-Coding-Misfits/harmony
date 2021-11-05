@@ -195,8 +195,8 @@ class AddPlaceState extends State<AddPlace> {
         widget._categoryGrid.categoryGridController.selectedCategory!,
         selectedImage!,
         //dummy
-        math.Random().nextInt(10000).toDouble(), //latitude
-        math.Random().nextInt(10000).toDouble(), //longitude
+        math.Random().nextDouble() * 40, //latitude
+        math.Random().nextDouble() * 40, //longitude
 
       );
     }

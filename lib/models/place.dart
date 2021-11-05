@@ -7,8 +7,8 @@ class Place{
   PlaceCategory category;
   GeoFirePoint point;
   String name;
-  List<String> pastUserIds;
-  List<String> reviewIds;
+  List<dynamic> pastUserIds;
+  List<dynamic> reviewIds;
   int rating;
 
 
@@ -33,8 +33,8 @@ class Place{
       parsePlaceCategory(data["category"] as String),
       parsePoint(data['point']),
       data["name"] as String,
-      data["past_user_ids"] as List<String>,
-      data['review_ids'] as List<String>,
+      data["past_user_ids"] as List<dynamic>,
+      data['review_ids'] as List<dynamic>,
       data["rating"] as int,
     );
   }
@@ -45,6 +45,7 @@ class Place{
       'name': name,
       'point': point.data,
       'past_user_ids': pastUserIds,
+      'review_ids': reviewIds,
       'rating': rating,
     };
   }
