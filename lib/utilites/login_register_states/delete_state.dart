@@ -1,0 +1,4 @@
+enum DELETE_STATE {
+  SUCCESSFUL,
+  ERROR
+}

@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:harmony/models/user.dart';
 import 'package:harmony/services/firestore.dart';
+import 'package:harmony/utilites/login_register_states/delete_state.dart';
 import 'package:harmony/utilites/login_register_states/login_state.dart';
 import 'package:harmony/utilites/login_register_states/signout_state.dart';
 import 'package:harmony/utilites/login_register_states/register_state.dart';
@@ -11,6 +12,7 @@ FirebaseAuth auth = FirebaseAuth.instance;
 class AuthService {
 
   static HarmonyUser? currHarmonyUser;
+  static UserCredential? userCredentials;
 
   static void initCurrUser(String uid) async{
     currHarmonyUser = await FireStoreService().getUserFromUID(uid);
@@ -27,6 +29,7 @@ class AuthService {
         email: email,
         password: password,
       );
+      userCredentials = userCredential;
       createHarmonyUser(userCredential.user!, username);
       return REGISTER_STATE.SUCCESSFUL;
     } on FirebaseAuthException catch (e) {
@@ -45,6 +48,7 @@ class AuthService {
           email: email,
           password: password
       );
+      userCredentials = userCredential;
       initCurrUser(userCredential.user!.uid);
       return LOGIN_STATE.SUCCESSFUL;
     } on FirebaseAuthException catch (e) {
@@ -64,6 +68,17 @@ class AuthService {
       return SIGNOUT_STATE.SUCCESSFUL;
     } on FirebaseAuthException {
       return SIGNOUT_STATE.ERROR;
+    }
+  }
+
+  Future deleteAccount() async {
+    try {
+      await auth.currentUser!.reauthenticateWithCredential(userCredentials!.credential!);
+      await auth.currentUser!.delete();
+
+      return DELETE_STATE.SUCCESSFUL;
+    } on FirebaseAuthException {
+      return DELETE_STATE.ERROR;
     }
   }
 }
