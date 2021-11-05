@@ -194,7 +194,9 @@ class AddPlaceState extends State<AddPlace> {
         nameController.value.text,
         widget._categoryGrid.categoryGridController.selectedCategory!,
         selectedImage!,
-        getCoordinates()
+        //dummy
+        math.Random().nextInt(10000).toDouble(), //latitude
+        math.Random().nextInt(10000).toDouble(), //longitude
 
       );
     }
@@ -202,13 +204,5 @@ class AddPlaceState extends State<AddPlace> {
 
   bool isEligibleAdd(){
     return (selectedImage != null && nameController.value.text.isNotEmpty && widget._categoryGrid.categoryGridController.selectedCategory != null);
-  }
-
-  List<double> getCoordinates(){
-    return [
-      math.Random().nextInt(10000).toDouble(),
-      math.Random().nextInt(10000).toDouble(),
-      math.Random().nextInt(10000).toDouble(),
-    ];
   }
 }

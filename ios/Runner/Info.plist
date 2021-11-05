@@ -47,5 +47,11 @@
     <string>Harmony needs access to your photo library so you can upload images.</string>
     <key>NSCameraUsageDescription</key>
     <string>Harmony needs access to your camera so you can upload images.</string>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>Harmony needs access to your location to present the beautiful trekking places near you!</string>
+    <key>NSLocationAlwaysUsageDescription</key>
+    <string>Harmony needs access to your live location to notify you the gourgeous places around yourself, just in case you miss them!</string>
+    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+    <string>Harmony needs access to your live location to notify you the gourgeous places around yourself, just in case you miss them!</string>
 </dict>
 </plist>

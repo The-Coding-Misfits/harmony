@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-
+import 'package:harmony/services/location_service.dart';
 import 'package:harmony/utilites/page_enum.dart';
 import 'package:harmony/viewmodel/discover/discover_page_viewmodel.dart';
-import 'package:harmony/widgets/filter/filter_sheet/filter_sheet.dart';
+import 'package:harmony/widgets/filter/filter_sheet/uses_filter_sheet.dart';
 import 'package:harmony/widgets/general_use/hamburger_button.dart';
 import 'package:harmony/widgets/general_use/place_card.dart';
 import 'package:harmony/widgets/general_use/harmony_bottom_navigation_bar.dart';
@@ -19,8 +19,9 @@ class DiscoverPage extends StatefulWidget {
 }
 
 
-class DiscoverPageState extends State<DiscoverPage> {
+class DiscoverPageState extends State<DiscoverPage> with UsesFilterSheet{
   final AuthService authService = AuthService();
+  final LocationService locationService = LocationService();
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +45,7 @@ class DiscoverPageState extends State<DiscoverPage> {
                   ),
                 ),
                 IconButton( //filter button
-                  onPressed: _toFilterSheet,
+                  onPressed: (){toFilterSheet(context, onFilterSheetClosed);},
                   icon: const Icon(
                     Icons.filter_alt_sharp,
                     size: 25,
@@ -76,29 +77,10 @@ class DiscoverPageState extends State<DiscoverPage> {
     );
   }
 
-  void _toFilterSheet() {
-    showGeneralDialog(
-      context: context,
-      barrierDismissible: true,
-      transitionDuration: const Duration(milliseconds: 500),
-      barrierLabel: MaterialLocalizations.of(context).dialogLabel,
-      barrierColor: Colors.black.withOpacity(0.5),
-      pageBuilder: (context, _, __) {
-        return FilterSheet();
+  void onFilterSheetClosed(){
 
-      },
-      transitionBuilder: (context, animation, secondaryAnimation, child) {
-        return SlideTransition(
-          position: CurvedAnimation(
-            parent: animation,
-            curve: Curves.easeOut,
-          ).drive(Tween<Offset>(
-            begin: const Offset(0, -1.0),
-            end: Offset.zero,
-          )),
-          child: child,
-        );
-      },
-    );
   }
+
+
 }
+

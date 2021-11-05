@@ -1,11 +1,14 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:geoflutterfire/geoflutterfire.dart';
 import 'package:harmony/models/review.dart';
 import 'package:harmony/models/user.dart';
 import 'package:harmony/models/place.dart';
+import 'package:harmony/services/geo_fire.dart';
 import 'package:harmony/utilites/custom_exception.dart';
 import 'package:harmony/utilites/places/place_category_enum.dart';
+import 'package:location/location.dart';
 import 'package:path/path.dart';
 
 
@@ -15,11 +18,7 @@ class FireStoreService{
   static CollectionReference users = FirebaseFirestore.instance.collection('users');
   static CollectionReference places = FirebaseFirestore.instance.collection('places');
   static CollectionReference reviews = FirebaseFirestore.instance.collection('reviews');
-
-
-  Stream<QuerySnapshot> getPlacesStream(){
-    return places.snapshots();
-  }
+  static final GeoFireService _geoFireService = GeoFireService();
 
   String uploadPlaceImageToDatabase(File image, Place place){
     image.renameSync(DateTime.now().millisecondsSinceEpoch.toString());
@@ -30,23 +29,33 @@ class FireStoreService{
     return firestoragePath;
   }
 
+  ///READS
+  Stream<Place> getPlacesNearUser(double proximity, LocationData userLocation) async* {
+    GeoFirePoint center = _geoFireService.createGeoPoint(userLocation.latitude!, userLocation.longitude!);
+    String field = "point";
+    Stream<List<DocumentSnapshot>> documentStream =  _geoFireService.geo.collection(collectionRef: places).within(
+        center: center, radius: proximity, field: field);
+    await for (List<DocumentSnapshot> documentList in documentStream ){
+      for(DocumentSnapshot doc in documentList){
+        Place place = Place.fromJson(doc.data()! as Map<String, dynamic>, doc.id);
+        yield place; // pump out from stream
+      }
+    }
+  }
 
 
-  Future<Place> addPlace(String name, PlaceCategory category, File imageFile, List<double> coordinates) async{
+
+  Future<Place> addPlace(String name, PlaceCategory category, File imageFile, double latitude, double longitude) async{
     ///Returns id
     //ADDING TO FIREBASE
+    GeoFirePoint geoPoint = _geoFireService.createGeoPoint(latitude, longitude);
     DocumentReference result = await places.add(
       {
-        'category' : category.toString(),
-        'coordinate': [
-          coordinates[0].toInt(),
-          coordinates[1].toInt(),
-          coordinates[2].toInt()
-        ],
-        'name' : name,
-        'past_user_ids' : [],
-        'rating' : 0,
-        'review_ids' : []
+        'category': category.toString(),
+        'point': geoPoint.data,
+        'name': name,
+        'past_user_ids': [], //no users check in
+        'rating': 0, // no ratings so far
       });
     DocumentSnapshot placeSnapshot = await result.get();
     Map<String, dynamic> data = placeSnapshot.data() as Map<String, dynamic>;

@@ -1,15 +1,18 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:geoflutterfire/geoflutterfire.dart';
 import 'package:harmony/utilites/places/place_category_enum.dart';
 
 class Place{
   final String id;
   PlaceCategory category;
-  List<double> coordinate; //Requires cartesian coordinates
+  GeoFirePoint point;
   String name;
   List<String> pastUserIds;
   List<String> reviewIds;
   int rating;
 
-  Place(this.id, this.category, this.coordinate, this.name, this.pastUserIds,
+
+  Place(this.id, this.category, this.point, this.name, this.pastUserIds,
       this.reviewIds, this.rating);
 
   ///FROM DB
@@ -19,11 +22,16 @@ class Place{
     PlaceCategory parsePlaceCategory(String sPlaceCategory){
       return PlaceCategory.values.firstWhere((e) => e.toString() == sPlaceCategory); //from string to enum
     }
+    GeoFirePoint parsePoint(Map<String, dynamic> point){
+      GeoPoint geoPoint = point['geopoint'];
+      return GeoFirePoint(geoPoint.latitude, geoPoint.longitude);
+    }
+
     //TODO
     return Place(
       id,
       parsePlaceCategory(data["category"] as String),
-      data["coordinate"] as List<double>,
+      parsePoint(data['point']),
       data["name"] as String,
       data["past_user_ids"] as List<String>,
       data['review_ids'] as List<String>,
@@ -34,8 +42,8 @@ class Place{
   Map<String, dynamic> toJson(){
     return {
       'category': category.toString(),
-      'coordinate': coordinate,
       'name': name,
+      'point': point.data,
       'past_user_ids': pastUserIds,
       'rating': rating,
     };

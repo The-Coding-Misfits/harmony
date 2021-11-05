@@ -20,6 +20,8 @@ dependencies:
   firebase_storage: ^10.0.3
   provider: ^6.0.1
   image_picker: ^0.8.4+3
+  geoflutterfire: ^3.0.1
+  location: ^4.2.0
 
 dev_dependencies:
   flutter_test:
