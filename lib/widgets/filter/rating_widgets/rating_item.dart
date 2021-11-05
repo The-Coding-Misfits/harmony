@@ -18,6 +18,7 @@ class RatingItem extends StatelessWidget {
       child: Icon(
         _item.iconData,
         color: _item.isSelected ? activeColor : inactiveColor,
+        size: 26
       ),
     );
   }
