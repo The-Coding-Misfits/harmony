@@ -1,5 +1,6 @@
 import 'package:harmony/models/review.dart';
 import 'package:harmony/models/place.dart';
+
 class HarmonyUser{
   final String id; // Not designated by us as all other classes, comes from firestore when creating document
   final String uid;
@@ -31,5 +32,4 @@ class HarmonyUser{
       'check_in': checkIn
     };
   }
-
 }
