@@ -22,34 +22,37 @@ class _FilterSheetState extends State<FilterSheet> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: <Widget>[
-          Container(
-            width: MediaQuery.of(context).size.width,
-            color: Colors.white,
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: <Widget>[
+        Container(
+          width: MediaQuery.of(context).size.width,
+          color: Colors.white,
+          child: SafeArea(
+            bottom: false,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 TextButton(
-                  child: const Text("Cancel", style: TextStyle(color: Colors.black)),
+                  child: const Text("Cancel", style: TextStyle(color: Colors.black, fontSize: 15)),
                   onPressed: () {
                     Navigator.pop(context);
                   },
                 ),
 
-                const Text(
-                    "Filters",
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18
-                    )
+                const Material(
+                  child: Text(
+                      "Filters",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 17
+                      )
+                  ),
                 ),
 
                 TextButton(
-                  child: const Text("Save"),
+                  child: const Text("Save", style: TextStyle(fontSize: 15)),
                   onPressed: () {
 
                   },
@@ -57,75 +60,76 @@ class _FilterSheetState extends State<FilterSheet> {
               ],
             ),
           ),
+        ),
 
-          Container(
-            width: MediaQuery.of(context).size.width,
-            color: Colors.white,
-            child: Card(
-              child: Column(
-                children: [
-                  const Padding(
-                    padding: EdgeInsets.only(top: 10),
-                    child: Text(
-                      "How far from you?",
-                      style: TextStyle(
-                          fontSize: 17,
-                          fontWeight: FontWeight.w300
-                      ),
+        Container(
+          width: MediaQuery.of(context).size.width,
+          color: Colors.white,
+          child: Card(
+            elevation: 0,
+            child: Column(
+              children: [
+                const Padding(
+                  padding: EdgeInsets.only(top: 10),
+                  child: Text(
+                    "How far from you?",
+                    style: TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.w300
                     ),
                   ),
-                  HarmonySlider(
-                      widget._controller.setSliderValue,
-                      1,
-                      15,
-                      5
-                  ),
-                ],
-              ),
+                ),
+                HarmonySlider(
+                    widget._controller.setSliderValue,
+                    1,
+                    15,
+                    5
+                ),
+              ],
             ),
           ),
+        ),
 
-          Container(
-            width: MediaQuery.of(context).size.width,
-            color: Colors.white,
-            child: const Divider(thickness: 1, indent: 20, endIndent: 20),
-          ),
+        Container(
+          width: MediaQuery.of(context).size.width,
+          color: Colors.white,
+          child: const Divider(thickness: 1, indent: 20, endIndent: 20),
+        ),
 
-          ///CATEGORY
-          Container(
-            width: MediaQuery.of(context).size.width,
-            color: Colors.white,
-            child: Card(
-              elevation: 0,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Padding(
-                    padding: EdgeInsets.only(top: 5, bottom: 10),
-                    child: Text(
-                      "What can you do here?",
-                      style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w300
-                      ),
+        ///CATEGORY
+        Container(
+          width: MediaQuery.of(context).size.width,
+          color: Colors.white,
+          child: Card(
+            elevation: 0,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Padding(
+                  padding: EdgeInsets.only(top: 5, bottom: 10),
+                  child: Text(
+                    "What can you do here?",
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w300
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 5, left: 5),
-                    child: SizedBox(
-                        height: 50,
-                        width: 500,
-                        child: widget._categoryGrid
-                    ),
-                  )
-                ],
-              ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 5, left: 5),
+                  child: SizedBox(
+                      height: 50,
+                      width: 500,
+                      child: widget._categoryGrid
+                  ),
+                )
+              ],
             ),
-          )
+          ),
+        )
 
-          ///RECOMMENDATION
-        ],
-      ),
+        ///RECOMMENDATION
+      ],
     );
   }
 }
