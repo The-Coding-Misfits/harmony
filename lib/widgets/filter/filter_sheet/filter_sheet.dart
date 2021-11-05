@@ -106,7 +106,7 @@ class _FilterSheetState extends State<FilterSheet> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Padding(
-                  padding: EdgeInsets.only(top: 5, bottom: 10),
+                  padding: EdgeInsets.only(bottom: 10),
                   child: Text(
                     "What can you do here?",
                     style: TextStyle(
@@ -120,13 +120,22 @@ class _FilterSheetState extends State<FilterSheet> {
                   child: SizedBox(
                       height: 50,
                       width: 500,
-                      child: widget._categoryGrid
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: widget._categoryGrid,
+                      )
                   ),
                 )
               ],
             ),
           ),
-        )
+        ),
+
+        Container(
+          width: MediaQuery.of(context).size.width,
+          color: Colors.white,
+          child: const Divider(thickness: 1, indent: 20, endIndent: 20),
+        ),
 
         ///RECOMMENDATION
       ],
