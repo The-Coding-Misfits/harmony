@@ -26,6 +26,37 @@ class _FilterSheetState extends State<FilterSheet> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
+          Container(
+            width: MediaQuery.of(context).size.width,
+            color: Colors.white,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                TextButton(
+                  child: const Text("Cancel", style: TextStyle(color: Colors.black)),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+
+                const Text(
+                    "Filters",
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18
+                    )
+                ),
+
+                TextButton(
+                  child: const Text("Save"),
+                  onPressed: () {
+
+                  },
+                )
+              ],
+            ),
+          ),
 
           Container(
             width: MediaQuery.of(context).size.width,
@@ -54,14 +85,18 @@ class _FilterSheetState extends State<FilterSheet> {
             ),
           ),
 
-
-
+          Container(
+            width: MediaQuery.of(context).size.width,
+            color: Colors.white,
+            child: const Divider(thickness: 1, indent: 20, endIndent: 20),
+          ),
 
           ///CATEGORY
           Container(
             width: MediaQuery.of(context).size.width,
             color: Colors.white,
             child: Card(
+              elevation: 0,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
