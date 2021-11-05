@@ -5,7 +5,9 @@ import 'package:harmony/utilites/login_register_states/signout_state.dart';
 
 class HamburgerButton extends StatelessWidget {
   HamburgerButton({Key? key}) : super(key: key);
+
   final AuthService authService = AuthService();
+
   @override
   Widget build(BuildContext context) {
     return IconButton(
@@ -21,7 +23,12 @@ class HamburgerButton extends StatelessWidget {
                   ListTile(
                     leading: const Icon(Icons.settings),
                     title: const Text("Settings"),
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.pushNamed(
+                        context,
+                        kSettingsPagerouteName
+                      );
+                    },
                   ),
                   ListTile(
                     leading: const Icon(Icons.info),
