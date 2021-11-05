@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:harmony/utilites/places/place_category_enum.dart';
 import 'package:harmony/widgets/filter/category_widgets/category_grid.dart';
 import 'package:harmony/widgets/filter/filter_sheet/filter_sheet_controller.dart';
+import 'package:harmony/widgets/filter/rating_widgets/rating_grid.dart';
 import 'package:harmony/widgets/filter/slider/harmony_slider.dart';
 
 class FilterSheet extends StatefulWidget {
   final FilterSheetController _controller = FilterSheetController();
   final CategoryGrid _categoryGrid = CategoryGrid();
+  final RatingGrid _ratingGrid = RatingGrid();
 
   FilterSheet({Key? key}) : super(key: key);
 
@@ -138,6 +140,39 @@ class _FilterSheetState extends State<FilterSheet> {
         ),
 
         ///RECOMMENDATION
+        Container(
+          width: MediaQuery.of(context).size.width,
+          color: Colors.white,
+          child: Card(
+            elevation: 0,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Padding(
+                  padding: EdgeInsets.only(bottom: 10),
+                  child: Text(
+                    "Minimum rating",
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w300
+                    ),
+                  ),
+                ),
+                Padding(
+                    padding: const EdgeInsets.only(bottom: 5, left: 5),
+                    child: SizedBox(
+                      height: 50,
+                      width: 500,
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: widget._ratingGrid,
+                      ),
+                    )
+                )
+              ],
+            ),
+          ),
+        ),
       ],
     );
   }
