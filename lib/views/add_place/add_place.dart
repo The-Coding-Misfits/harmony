@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:harmony/services/location_service.dart';
 import 'package:harmony/utilites/page_enum.dart';
 import 'package:harmony/utilites/places/place_category_enum.dart';
@@ -55,10 +56,21 @@ class AddPlaceState extends State<AddPlace> {
       builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Container(
-            color: Colors.black54,
+            color: const Color(0xffececec),
             child: const Align(
               alignment: Alignment.center,
               child: Text("Loading map..."),
+            ),
+          );
+        }
+
+        // if get location throws an error, why would it though...
+        if (snapshot.hasError) {
+          return Container(
+            color: const Color(0xffececec),
+            child: const Align(
+              alignment: Alignment.center,
+              child: Text("Error loading map and getting location!"),
             ),
           );
         }
@@ -75,9 +87,6 @@ class AddPlaceState extends State<AddPlace> {
             TileLayerOptions(
               urlTemplate: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
               subdomains: ['a', 'b', 'c'],
-              attributionBuilder: (_) {
-                return const Text("© OpenStreetMap");
-              },
             ),
             MarkerLayerOptions(
               markers: [
@@ -86,9 +95,7 @@ class AddPlaceState extends State<AddPlace> {
                   height: 80.0,
                   point: LatLng(data.latitude!.toDouble(), data.longitude!.toDouble()),
                   builder: (ctx) =>
-                      Container(
-                        child: FlutterLogo(),
-                      ),
+                      const Icon(FontAwesomeIcons.mapMarkerAlt, color: Colors.red, size: 30,)
                 ),
               ],
             ),
@@ -135,10 +142,13 @@ class AddPlaceState extends State<AddPlace> {
                     onTap: (){canAdd = isEligibleAdd();},
                   ),
                 ),
-                SizedBox(
-                  height: 300,
-                  width: MediaQuery.of(context).size.width,
-                  child: mapWidget
+                Padding(
+                  padding: const EdgeInsets.only(top: 15),
+                  child: SizedBox(
+                      height: 250,
+                      width: MediaQuery.of(context).size.width,
+                      child: mapWidget
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 15),
@@ -242,7 +252,7 @@ class AddPlaceState extends State<AddPlace> {
   void addPlace() {
 
     if (isEligibleAdd()) {
-      widget._viewModel.createPlace(
+      var createPlace = widget._viewModel.createPlace(
         nameController.value.text,
         widget._categoryGrid.categoryGridController.selectedCategory!,
         selectedImage!,
@@ -251,6 +261,12 @@ class AddPlaceState extends State<AddPlace> {
         locationData!.latitude!.toDouble(),
         locationData!.longitude!.toDouble(),
       );
+
+      if (createPlace == 500) {
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text("Error while adding place!"))
+        );
+      }
     }
   }
 

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:harmony/models/place.dart';
 import 'package:harmony/services/firestore.dart';
@@ -8,10 +9,16 @@ import 'package:harmony/utilites/places/place_category_enum.dart';
 
 class AddPlaceViewModel{
 
-  Future<Place> createPlace(String name, PlaceCategory category, File imageFile, double latitude, double longitude) async{
-    Place newPlace = await FireStoreService().addPlace(name, category, imageFile, latitude, longitude);
-    FireStoreService().uploadPlaceImageToDatabase(imageFile, newPlace);
-    return newPlace;
+  createPlace(String name, PlaceCategory category, File imageFile, double latitude, double longitude) async {
+    try {
+      Place newPlace = await FireStoreService().addPlace(name, category, imageFile, latitude, longitude);
+      FireStoreService().uploadPlaceImageToDatabase(imageFile, newPlace);
+      return newPlace;
+    } on FileSystemException {
+      return 500;
+    } on FirebaseException {
+      return 500;
+    }
   }
 
   Image convertFileToImage(File picture) {
