@@ -22,6 +22,8 @@ dependencies:
   image_picker: ^0.8.4+3
   geoflutterfire: ^3.0.1
   location: ^4.2.0
+  flutter_map: ^0.14.0
+  latlong2: ^0.8.1
 
 dev_dependencies:
   flutter_test:

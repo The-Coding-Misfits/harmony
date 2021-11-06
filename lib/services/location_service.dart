@@ -34,6 +34,7 @@ class LocationService{
           return throw CustomException("Permission not granted!");
         }
       }
+
       _currLocation = await _location.getLocation();
       _startListenForLocation();
       return _currLocation!;
