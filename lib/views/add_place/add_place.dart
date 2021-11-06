@@ -81,7 +81,7 @@ class AddPlaceState extends State<AddPlace> {
         return FlutterMap(
           options: MapOptions(
             center: LatLng(data.latitude!.toDouble(), data.longitude!.toDouble()),
-            zoom: 13.0,
+            zoom: 15.0,
           ),
           layers: [
             TileLayerOptions(
