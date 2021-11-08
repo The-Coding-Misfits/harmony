@@ -9,7 +9,7 @@ class Place{
   String name;
   List<dynamic> pastUserIds;
   List<dynamic> reviewIds;
-  int rating;
+  double rating;
 
 
   Place(this.id, this.category, this.point, this.name, this.pastUserIds,
@@ -35,7 +35,7 @@ class Place{
       data["name"] as String,
       data["past_user_ids"] as List<dynamic>,
       data['review_ids'] as List<dynamic>,
-      data["rating"] as int,
+      data["rating"] as double,
     );
   }
 

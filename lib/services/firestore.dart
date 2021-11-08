@@ -30,17 +30,19 @@ class FireStoreService{
   }
 
   ///READS
-  Stream<Place> getPlacesNearUser(double proximity, LocationData userLocation) async* {
+  Future<List<Place>> getPlacesNearUser(double proximity, LocationData userLocation) async {
     GeoFirePoint center = _geoFireService.createGeoPoint(userLocation.latitude!, userLocation.longitude!);
     String field = "point";
     Stream<List<DocumentSnapshot>> documentStream =  _geoFireService.geo.collection(collectionRef: places).within(
         center: center, radius: proximity, field: field);
+    List<Place> nearPlaces = [];
     await for (List<DocumentSnapshot> documentList in documentStream ){
       for(DocumentSnapshot doc in documentList){
         Place place = Place.fromJson(doc.data()! as Map<String, dynamic>, doc.id);
-        yield place; // pump out from stream
+        nearPlaces.add(place);
       }
     }
+    return nearPlaces;
   }
 
 
