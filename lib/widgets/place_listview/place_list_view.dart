@@ -9,27 +9,16 @@ class PlaceListView extends StatelessWidget {
 
   final double proximity;
   final LocationData userLocation;
-  const PlaceListView(this.proximity, this.userLocation, {Key? key}) : super(key: key);
+  final List<Place> places;
+  const PlaceListView(this.proximity, this.userLocation, this.places);
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<Place>>(
-      future: FireStoreService().getPlacesNearUser(proximity, userLocation),
-      builder: (BuildContext context, AsyncSnapshot<List<Place>> placesSnapshot){
-        if (placesSnapshot.hasData){
-          return ListView.builder(
-            itemCount: placesSnapshot.data!.length,
-            itemBuilder: (context, index){
-              Place currPlace = placesSnapshot.data!.elementAt(index);
-              return createPlaceCard(currPlace);
-            },
-          );
-        }
-        else {
-          return CircularProgressIndicator(
-
-          );
-        }
+    return ListView.builder(
+      itemCount: places.length,
+      itemBuilder: (context, index){
+        Place currPlace = places.elementAt(index);
+        return createPlaceCard(currPlace);
       },
     );
   }
