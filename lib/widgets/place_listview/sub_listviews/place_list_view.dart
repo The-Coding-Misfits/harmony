@@ -26,7 +26,7 @@ class PlaceListView extends StatelessWidget {
     double dist = calculateDistanceBetweenTwoPoints(currPlace.point.longitude, userLocation.longitude!, currPlace.point.latitude, userLocation.latitude!);
     return PlaceCard(
       distance: roundDouble(dist, 3),
-      place: currPlace
+      place: currPlace,
       imageUrl: "",
     );
   }

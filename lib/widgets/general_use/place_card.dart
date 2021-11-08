@@ -25,7 +25,7 @@ class PlaceCard extends StatelessWidget {
                       image: DecorationImage(
                         fit: BoxFit.fitWidth,
                         alignment: FractionalOffset.topCenter,
-                        image: AssetImage(imageUrl),//NetworkImage(imageUrl),
+                        image: NetworkImage(imageUrl),//TODO DYNAMICALLY GET THE DOWNLOAD URL
                       )
                   ),
                 ),

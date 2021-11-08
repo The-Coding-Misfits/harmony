@@ -6,11 +6,10 @@ import 'package:harmony/widgets/filter/rating_widgets/rating_grid.dart';
 import 'package:harmony/widgets/filter/slider/harmony_slider.dart';
 
 class FilterSheet extends StatefulWidget {
-  final FilterSheetController _controller = FilterSheetController();
+  final FilterSheetController controller = FilterSheetController();
   final CategoryGrid _categoryGrid = CategoryGrid();
   final RatingGrid _ratingGrid = RatingGrid();
 
-  double get proximity => _controller.sliderValue;
   FilterSheet({Key? key}) : super(key: key);
 
   @override
@@ -83,7 +82,7 @@ class _FilterSheetState extends State<FilterSheet> {
                   ),
                 ),
                 HarmonySlider(
-                    widget._controller.setSliderValue,
+                    widget.controller.setSliderValue,
                     1,
                     15,
                     5
