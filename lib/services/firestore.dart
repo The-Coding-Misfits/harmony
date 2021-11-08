@@ -36,11 +36,12 @@ class FireStoreService{
     Stream<List<DocumentSnapshot>> documentStream =  _geoFireService.geo.collection(collectionRef: places).within(
         center: center, radius: proximity, field: field);
     List<Place> nearPlaces = [];
-    await for (List<DocumentSnapshot> documentList in documentStream ){
+    await for (List<DocumentSnapshot> documentList in documentStream){
       for(DocumentSnapshot doc in documentList){
         Place place = Place.fromJson(doc.data()! as Map<String, dynamic>, doc.id);
         nearPlaces.add(place);
       }
+      break; // due to a bug, this thing actually returns list so we are fine, but an absurt bug maks this for unable to break
     }
     return nearPlaces;
   }

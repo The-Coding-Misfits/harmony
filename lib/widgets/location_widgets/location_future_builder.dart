@@ -40,7 +40,7 @@ class LocationFutureBuilder extends StatelessWidget {
               ),
               Padding(
                 padding: EdgeInsets.only(top: 16),
-                child: Text('Loading...'),
+                child: Text('Location Loading...'),
               )
             ],
           );

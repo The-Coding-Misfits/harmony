@@ -35,7 +35,7 @@ class Place{
       data["name"] as String,
       data["past_user_ids"] as List<dynamic>,
       data['review_ids'] as List<dynamic>,
-      data["rating"] as double,
+      (data["rating"] as int).toDouble(),
     );
   }
 
