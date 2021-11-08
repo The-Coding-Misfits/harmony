@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:harmony/models/place.dart';
 import 'package:harmony/widgets/general_use/rating_widget.dart';
 
 class PlaceCard extends StatelessWidget {
-  final double rating;
-  final String imageUrl;
+  final Place place;
   final double distance;
-
-  const PlaceCard({Key? key, required this.rating, required this.imageUrl, required this.distance}) : super(key: key);
+  final String imageUrl;
+  const PlaceCard({required this.place, required this.distance, required this.imageUrl, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -30,11 +30,11 @@ class PlaceCard extends StatelessWidget {
                   ),
                 ),
               ),
-              const Align(
+              Align(
                 alignment: Alignment.centerLeft,
                 child: Padding(
-                  padding: EdgeInsets.only(top: 10, bottom: 5, left: 10),
-                  child: Text('Great place for a picnic!', style: TextStyle(fontSize: 20)),
+                  padding: const EdgeInsets.only(top: 10, bottom: 5, left: 10),
+                  child: Text(place.name, style: const TextStyle(fontSize: 20)),
                 ),
               ),
               Align(
@@ -43,8 +43,8 @@ class PlaceCard extends StatelessWidget {
                     padding: const EdgeInsets.only(bottom: 5, left: 10),
                     child: Row(
                       children: [
-                        RatingWidget(rating),
-                        Text(' $rating/5.0 • ${distance}KM Nearby',
+                        RatingWidget(place.rating),
+                        Text(' ${place.rating}/5.0 • ${distance}KM Nearby',
                             style: const TextStyle(
                                 fontSize: 16,
                                 color: Color(0xff6a6a6a),
