@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:harmony/models/place.dart';
-import 'package:harmony/services/firestore.dart';
 import 'place_formulas.dart';
 import 'package:harmony/widgets/general_use/place_card.dart';
 import 'package:location/location.dart';
