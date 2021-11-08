@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:harmony/utilites/places/place_category_enum.dart';
 import 'package:harmony/widgets/location_widgets/location_future_builder.dart';
 import 'package:harmony/widgets/place_listview/sub_listviews/places_near_user.dart';
 import 'package:location/location.dart';
 
 class PlaceNearListViewWidget extends StatelessWidget {
   final double proximity;
-  const PlaceNearListViewWidget(this.proximity, {Key? key}) : super(key: key);
-
+  final List<PlaceCategory> categoriesEligible;
+  final double minRating;
+  const PlaceNearListViewWidget(this.proximity, this.categoriesEligible, this.minRating);
   @override
   Widget build(BuildContext context) {
     return LocationFutureBuilder(
@@ -15,6 +17,6 @@ class PlaceNearListViewWidget extends StatelessWidget {
   }
 
   Widget createPlaceNearUserListViewWidget(LocationData userLocation){
-    return PlacesNearUserListView(proximity, userLocation);
+    return PlacesNearUserListView(proximity, userLocation, categoriesEligible, minRating);
   }
 }

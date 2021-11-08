@@ -6,11 +6,18 @@ import 'package:harmony/widgets/filter/rating_widgets/rating_grid.dart';
 import 'package:harmony/widgets/filter/slider/harmony_slider.dart';
 
 class FilterSheet extends StatefulWidget {
-  final FilterSheetController controller = FilterSheetController();
-  final CategoryGrid _categoryGrid = CategoryGrid();
-  final RatingGrid _ratingGrid = RatingGrid();
+  final FilterSheetController controller;
+  late final RatingGrid _ratingGrid;
+  late final CategoryGrid _categoryGrid;
 
-  FilterSheet({Key? key}) : super(key: key);
+  FilterSheet(this.controller, {Key? key}) : super(key: key){
+    _ratingGrid = RatingGrid(
+
+    );
+    _categoryGrid = CategoryGrid(
+
+    );
+  }
 
   @override
   _FilterSheetState createState() => _FilterSheetState();

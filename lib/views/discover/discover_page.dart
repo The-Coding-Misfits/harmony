@@ -10,7 +10,8 @@ import 'package:harmony/services/auth_service.dart';
 import 'package:harmony/widgets/place_listview/places_near_user_listview_widget.dart';
 
 class DiscoverPage extends StatefulWidget {
-  const DiscoverPage({Key? key}) : super(key: key);
+  final FilterSheetController filterSheetController = FilterSheetController();
+  DiscoverPage({Key? key}) : super(key: key);
   @override
   DiscoverPageState createState() => DiscoverPageState();
 }
@@ -19,8 +20,7 @@ class DiscoverPage extends StatefulWidget {
 class DiscoverPageState extends State<DiscoverPage> with UsesFilterSheet{
   final AuthService authService = AuthService();
   final LocationService locationService = LocationService();
-  FilterSheet filterSheet = FilterSheet();
-  double proximity = FilterSheetController.sliderStartingValue;
+  final FilterSheet filterSheet = FilterSheet();
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +57,9 @@ class DiscoverPageState extends State<DiscoverPage> with UsesFilterSheet{
             Expanded(
               flex: 9,
               child: PlaceNearListViewWidget(
-                proximity
+                proximity,
+                filterSheet.controller.chosenCategories,
+                filterSheet.controller.minimumRating
               ),
             ),
           ]
@@ -72,6 +74,7 @@ class DiscoverPageState extends State<DiscoverPage> with UsesFilterSheet{
   void onFilterSheetClosed(){
     setState(() {
       proximity = filterSheet.controller.sliderValue;
+
     });
   }
 
