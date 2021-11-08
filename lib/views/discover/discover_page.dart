@@ -1,19 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:harmony/services/location_service.dart';
 import 'package:harmony/utilites/page_enum.dart';
-import 'package:harmony/viewmodel/discover/discover_page_viewmodel.dart';
+import 'package:harmony/widgets/filter/filter_sheet/filter_sheet.dart';
 import 'package:harmony/widgets/filter/filter_sheet/uses_filter_sheet.dart';
 import 'package:harmony/widgets/general_use/hamburger_button.dart';
-import 'package:harmony/widgets/general_use/place_card.dart';
 import 'package:harmony/widgets/general_use/harmony_bottom_navigation_bar.dart';
 import 'package:harmony/services/auth_service.dart';
+import 'package:harmony/widgets/place_listview/places_near_user_listview_widget.dart';
 
 class DiscoverPage extends StatefulWidget {
-
-  final DiscoverPageViewModel _discoverPageViewModel = DiscoverPageViewModel();
-
-  DiscoverPage({Key? key}) : super(key: key);
-
+  const DiscoverPage({Key? key}) : super(key: key);
   @override
   DiscoverPageState createState() => DiscoverPageState();
 }
@@ -22,6 +18,7 @@ class DiscoverPage extends StatefulWidget {
 class DiscoverPageState extends State<DiscoverPage> with UsesFilterSheet{
   final AuthService authService = AuthService();
   final LocationService locationService = LocationService();
+  FilterSheet filterSheet = FilterSheet();
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +42,7 @@ class DiscoverPageState extends State<DiscoverPage> with UsesFilterSheet{
                   ),
                 ),
                 IconButton( //filter button
-                  onPressed: (){toFilterSheet(context, onFilterSheetClosed);},
+                  onPressed: (){toFilterSheet(context,filterSheet, onFilterSheetClosed);},
                   icon: const Icon(
                     Icons.filter_alt_sharp,
                     size: 25,
@@ -57,15 +54,8 @@ class DiscoverPageState extends State<DiscoverPage> with UsesFilterSheet{
             ///Show actual places
             Expanded(
               flex: 9,
-              child: ListView.builder(
-                itemCount: 1,
-                itemBuilder: (context, index){
-                  return const PlaceCard(
-                    rating: 2.8,
-                    imageUrl: "assets/images/dummy-national-park.jpg",
-                    distance: 1.2
-                  );
-                },
+              child: PlaceNearListViewWidget(
+                filterSheet.proximity
               ),
             ),
           ]

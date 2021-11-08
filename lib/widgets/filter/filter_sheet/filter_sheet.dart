@@ -10,6 +10,7 @@ class FilterSheet extends StatefulWidget {
   final CategoryGrid _categoryGrid = CategoryGrid();
   final RatingGrid _ratingGrid = RatingGrid();
 
+  double get proximity => _controller.sliderValue;
   FilterSheet({Key? key}) : super(key: key);
 
   @override

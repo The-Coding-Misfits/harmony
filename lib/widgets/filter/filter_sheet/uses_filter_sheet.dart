@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'filter_sheet.dart';
 
 class UsesFilterSheet{
-  void toFilterSheet(BuildContext context, Function() closeCallback) {
+  void toFilterSheet(BuildContext context, FilterSheet filterSheet, Function() closeCallback) {
     showGeneralDialog(
       context: context,
       barrierDismissible: true,
@@ -11,7 +11,7 @@ class UsesFilterSheet{
       barrierLabel: MaterialLocalizations.of(context).dialogLabel,
       barrierColor: Colors.black.withOpacity(0.5),
       pageBuilder: (context, _, __) {
-        return FilterSheet();
+        return filterSheet;
 
       },
       transitionBuilder: (context, animation, secondaryAnimation, child) {

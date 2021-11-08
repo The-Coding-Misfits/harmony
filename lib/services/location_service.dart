@@ -23,7 +23,7 @@ class LocationService{
       if (!_serviceEnabled) {
         _serviceEnabled = await _location.requestService();
         if (!_serviceEnabled) {
-          return throw CustomException("Service not enabled!");
+          return throw CustomException("Service is not enabled!");
         }
       }
 
@@ -31,7 +31,7 @@ class LocationService{
       if (_permissionGranted == PermissionStatus.denied) {
         _permissionGranted = await _location.requestPermission();
         if (_permissionGranted != PermissionStatus.granted) {
-          return throw CustomException("Permission not granted!");
+          return throw CustomException("Permission is not granted!");
         }
       }
 

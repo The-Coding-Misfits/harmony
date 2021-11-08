@@ -1,23 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:harmony/models/place.dart';
-import 'package:harmony/services/firestore.dart';
-import 'package:harmony/widgets/place_listview/place_list_view.dart';
+import 'package:harmony/services/location_service.dart';
 import 'package:location/location.dart';
 
-class PlacesNearUserListView extends StatelessWidget {
-  final double proximity;
-  final LocationData userLocation;
-  const PlacesNearUserListView(this.proximity, this.userLocation, {Key? key}) : super(key: key);
+class LocationFutureBuilder extends StatelessWidget {
+  final Function(LocationData) onLocationGetWidgetCallback;
+  const LocationFutureBuilder(this.onLocationGetWidgetCallback);
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<Place>>(
-      future: FireStoreService().getPlacesNearUser(proximity, userLocation),
-      builder: (BuildContext context, AsyncSnapshot<List<Place>> placesSnapshot){
-        if (placesSnapshot.hasData){
-          return PlaceListView(proximity, userLocation, placesSnapshot.data!);
+    return FutureBuilder<LocationData>(
+      future: LocationService().getLocation(),
+      builder: (BuildContext context, AsyncSnapshot<LocationData> snapshot) {
+
+        if (snapshot.hasData){
+          return onLocationGetWidgetCallback(snapshot.data!);
         }
-        else if (placesSnapshot.hasError) {
+        else if (snapshot.hasError) {
           return Column(
             children: [
               const Icon(
@@ -27,7 +25,7 @@ class PlacesNearUserListView extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 16),
-                child: Text('Error: ${placesSnapshot.error}'),
+                child: Text('Error: ${snapshot.error}'),
               )
             ],
           );
