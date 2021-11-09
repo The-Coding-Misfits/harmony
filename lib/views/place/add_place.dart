@@ -96,7 +96,7 @@ class AddPlaceState extends State<AddPlace> {
                   height: 80.0,
                   point: LatLng(data.latitude!.toDouble(), data.longitude!.toDouble()),
                   builder: (ctx) =>
-                      const Icon(FontAwesomeIcons.mapMarkerAlt, color: Colors.red, size: 30,)
+                      const Icon(FontAwesomeIcons.dotCircle, color: Colors.red, size: 30,)
                 ),
               ],
             ),

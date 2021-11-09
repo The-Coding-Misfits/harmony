@@ -6,9 +6,10 @@ import 'package:harmony/services/auth_service.dart';
 import 'package:harmony/utilites/constants.dart';
 import 'package:harmony/views/discover/discover_page.dart';
 import 'package:harmony/views/login&register/login.dart';
+import 'package:harmony/views/place/spot_info.dart';
 import 'package:harmony/views/settings/settings_page.dart';
 import 'package:harmony/views/state_pages/something_went_wrong.dart';
-import 'package:harmony/views/add_place/add_place.dart';
+import 'package:harmony/views/place/add_place.dart';
 
 
 void main() {
@@ -60,7 +61,8 @@ class _MyAppState extends State<MyApp> {
               kRegisterPageRouteName : (context) => const RegisterPage(),
               kAddPlacePageRouteName : (context) => AddPlace(),
               kErrorPageRouteName : (context) => const SomethingWentWrong(),
-              kSettingsPagerouteName : (context) => SettingsPage()
+              kSettingsPageRouteName : (context) => SettingsPage(),
+              kSpotInfoRouteName : (context) => const SpotInfo()
             },
           );
         }
