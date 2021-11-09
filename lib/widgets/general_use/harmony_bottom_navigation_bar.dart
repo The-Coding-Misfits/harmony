@@ -3,7 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:harmony/services/auth_service.dart';
 import 'package:harmony/utilites/page_enum.dart';
 import 'package:harmony/views/account/account_page.dart';
-import 'package:harmony/views/add_place/add_place.dart';
+import 'package:harmony/views/place/add_place.dart';
 import 'package:harmony/views/discover/discover_page.dart';
 
 class HarmonyBottomNavigationBar extends StatelessWidget {

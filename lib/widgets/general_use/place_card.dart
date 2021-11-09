@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:harmony/models/place.dart';
+import 'package:harmony/utilites/constants.dart';
 import 'package:harmony/widgets/general_use/rating_widget.dart';
 
 class PlaceCard extends StatelessWidget {
@@ -15,7 +16,17 @@ class PlaceCard extends StatelessWidget {
       child: Card(
         clipBehavior: Clip.antiAlias,
         child: GestureDetector(
-          onTap: () {},
+          onTap: () {
+            Navigator.pushNamed(
+              context,
+              kSpotInfoRouteName,
+              arguments: {
+                "place": place,
+                "distance": distance,
+                "imageUrl": imageUrl,
+              }
+            );
+          },
           child: Column(
             children: [
               AspectRatio(

@@ -26,7 +26,7 @@ class HamburgerButton extends StatelessWidget {
                     onTap: () {
                       Navigator.pushNamed(
                         context,
-                        kSettingsPagerouteName
+                        kSettingsPageRouteName
                       );
                     },
                   ),
