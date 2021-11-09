@@ -74,7 +74,7 @@ class FireStoreService{
         'name': name,
         'past_user_ids': [],//no users check in
         'review_ids': [],
-        'rating': 0, // no ratings so far
+        'rating': 1, // initial rating
       });
     DocumentSnapshot placeSnapshot = await result.get();
     Map<String, dynamic> data = placeSnapshot.data() as Map<String, dynamic>;
