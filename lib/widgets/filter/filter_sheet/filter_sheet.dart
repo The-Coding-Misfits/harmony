@@ -14,7 +14,7 @@ class FilterSheet extends StatefulWidget {
       controller.setMinimumRating
     );
     _categoryGrid = CategoryGrid(
-      controller
+      controller.setChosenCategories
     );
   }
 

@@ -3,12 +3,11 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:harmony/utilites/places/place_category_enum.dart';
 import 'package:harmony/widgets/filter/category_widgets/category_item.dart';
 import 'package:harmony/widgets/filter/category_widgets/category_model.dart';
-import 'package:harmony/widgets/filter/filter_sheet/filter_sheet_controller.dart';
 
 class CategoryGrid extends StatefulWidget {
-  final FilterSheetController controller;
-
-  const CategoryGrid(this.controller);
+  final Function(List<PlaceCategory>) onCategoryChanged;
+  final bool isSingleOptionOnly;
+  const CategoryGrid(this.onCategoryChanged, {Key? key, this.isSingleOptionOnly = false}) : super(key: key);
 
   @override
   _CategoryGridState createState() => _CategoryGridState();
@@ -16,7 +15,7 @@ class CategoryGrid extends StatefulWidget {
 
 class _CategoryGridState extends State<CategoryGrid> {
 
-  List<CategoryModel> selectedItems = [];
+  List<PlaceCategory> selectedCategories = [];
 
   List<CategoryModel> items = [
     CategoryModel(false, Icons.backpack, PlaceCategory.TREKKING),
@@ -61,16 +60,29 @@ class _CategoryGridState extends State<CategoryGrid> {
     }else {
       categoryEnable(item);
     }
+    widget.onCategoryChanged(selectedCategories);
   }
 
   void categoryDisable(CategoryModel item){
     item.isSelected = false;
-    selectedItems.remove(item);
+    selectedCategories.remove(item.category);
   }
 
   void categoryEnable(CategoryModel item){
+    if(widget.isSingleOptionOnly){
+      disableCurrentActive();
+    }
     item.isSelected = true;
-    selectedItems.add(item);
+    selectedCategories.add(item.category);
 
+  }
+
+  void disableCurrentActive(){
+    for (CategoryModel model in items){
+      if (model.isSelected){
+        model.isSelected = false;
+        selectedCategories.remove(model.category);
+      }
+    }
   }
 }

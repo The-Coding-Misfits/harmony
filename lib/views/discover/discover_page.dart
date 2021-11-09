@@ -31,9 +31,7 @@ class DiscoverPageState extends State<DiscoverPage> with UsesFilterSheet{
   @override
   void initState() {
     super.initState();
-    FilterSheetController filterSheetController = FilterSheetController(
-        updateFilters
-    );
+    FilterSheetController filterSheetController = FilterSheetController(updateFilters);
     filterSheet = FilterSheet(
       filterSheetController,
     );
