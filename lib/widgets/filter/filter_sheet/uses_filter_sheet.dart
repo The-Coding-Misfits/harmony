@@ -27,10 +27,12 @@ class UsesFilterSheet{
           child: child,
         );
       },
-    ).whenComplete(closeCallback(
-      filterSheet.controller.sliderValue,
-        filterSheet.controller.minimumRating,
-      filterSheet.controller.chosenCategories
-    ));
+    ).whenComplete((){
+      closeCallback(
+          filterSheet.controller.sliderValue,
+          filterSheet.controller.minimumRating,
+          filterSheet.controller.chosenCategories
+      );
+    });
   }
 }

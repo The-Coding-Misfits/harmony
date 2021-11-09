@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:harmony/services/location_service.dart';
 import 'package:harmony/utilites/page_enum.dart';
@@ -101,6 +103,9 @@ class DiscoverPageState extends State<DiscoverPage> with UsesFilterSheet{
       this.proximity = proximity;
       this.minRating = minRating;
       this.chosenCategories = chosenCategories;
+      print(proximity);
+      print(minRating);
+      print(chosenCategories);
     });
   }
 
