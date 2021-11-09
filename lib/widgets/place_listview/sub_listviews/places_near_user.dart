@@ -9,7 +9,7 @@ class PlacesNearUserListView extends StatelessWidget {
   final double proximity;
   final LocationData userLocation;
   final List<PlaceCategory> categoriesEligible;
-  final double minRating;
+  final int minRating;
   const PlacesNearUserListView(
       this.proximity, this.userLocation, this.categoriesEligible, this.minRating);
 

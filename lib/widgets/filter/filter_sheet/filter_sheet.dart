@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:harmony/utilites/places/place_category_enum.dart';
 import 'package:harmony/widgets/filter/category_widgets/category_grid.dart';
 import 'package:harmony/widgets/filter/filter_sheet/filter_sheet_controller.dart';
 import 'package:harmony/widgets/filter/rating_widgets/rating_grid.dart';
@@ -12,10 +11,10 @@ class FilterSheet extends StatefulWidget {
 
   FilterSheet(this.controller, {Key? key}) : super(key: key){
     _ratingGrid = RatingGrid(
-
+      controller.setMinimumRating
     );
     _categoryGrid = CategoryGrid(
-
+      controller
     );
   }
 
@@ -24,10 +23,6 @@ class FilterSheet extends StatefulWidget {
 }
 
 class _FilterSheetState extends State<FilterSheet> {
-  //initialize with initial values
-  int farValue = 5;
-  PlaceCategory chosenCategory = PlaceCategory.TREKKING;
-  double minimumRating = 3;
 
   @override
   Widget build(BuildContext context) {

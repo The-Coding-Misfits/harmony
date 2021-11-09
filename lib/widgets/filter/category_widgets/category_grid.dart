@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:harmony/utilites/places/place_category_enum.dart';
-import 'package:harmony/widgets/filter/category_widgets/category_grid_controller.dart';
 import 'package:harmony/widgets/filter/category_widgets/category_item.dart';
 import 'package:harmony/widgets/filter/category_widgets/category_model.dart';
+import 'package:harmony/widgets/filter/filter_sheet/filter_sheet_controller.dart';
 
 class CategoryGrid extends StatefulWidget {
-  final CategoryGridController categoryGridController = CategoryGridController();
+  final FilterSheetController controller;
+
+  const CategoryGrid(this.controller);
+
   @override
   _CategoryGridState createState() => _CategoryGridState();
-
-  PlaceCategory? get selectedCategory => categoryGridController.selectedCategory;
 }
 
 class _CategoryGridState extends State<CategoryGrid> {
+
+  List<CategoryModel> selectedItems = [];
 
   List<CategoryModel> items = [
     CategoryModel(false, Icons.backpack, PlaceCategory.TREKKING),
@@ -40,9 +43,8 @@ class _CategoryGridState extends State<CategoryGrid> {
               splashColor: CategoryItem.activeColor,
               onTap: (){
                 setState(() {
-                  items.forEach((element) => element.isSelected = false);
-                  items[index].isSelected = true;
-                  widget.categoryGridController.selectedCategory = items[index].category;
+                  CategoryModel item = items[index];
+                  handleCategoryClicked(item);
                 });
               },
               child: CategoryItem(items[index]),
@@ -51,5 +53,24 @@ class _CategoryGridState extends State<CategoryGrid> {
         );
       },
     );
+  }
+
+  void handleCategoryClicked(CategoryModel item){
+    if(item.isSelected == true){
+      categoryDisable(item);
+    }else {
+      categoryEnable(item);
+    }
+  }
+
+  void categoryDisable(CategoryModel item){
+    item.isSelected = false;
+    selectedItems.remove(item);
+  }
+
+  void categoryEnable(CategoryModel item){
+    item.isSelected = true;
+    selectedItems.add(item);
+
   }
 }

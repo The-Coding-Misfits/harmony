@@ -30,7 +30,7 @@ class FireStoreService{
   }
 
   ///READS
-  Future<List<Place>> getPlacesNearUser(double proximity, LocationData userLocation, List<PlaceCategory> categoriesEligible, double rating) async {
+  Future<List<Place>> getPlacesNearUser(double proximity, LocationData userLocation, List<PlaceCategory> categoriesEligible, int rating) async {
     GeoFirePoint center = _geoFireService.createGeoPoint(userLocation.latitude!, userLocation.longitude!);
     String field = "point";
     Stream<List<DocumentSnapshot>> documentStream =  _geoFireService.geo.collection(collectionRef: places).within(
@@ -38,7 +38,7 @@ class FireStoreService{
     return await filterNearPlacesStream(documentStream, categoriesEligible, rating);
   }
 
-  Future<List<Place>> filterNearPlacesStream(Stream<List<DocumentSnapshot>> documentStream, List<PlaceCategory> categoriesEligible, double rating) async{
+  Future<List<Place>> filterNearPlacesStream(Stream<List<DocumentSnapshot>> documentStream, List<PlaceCategory> categoriesEligible, int rating) async{
     List<Place> nearPlaces = [];
     await for (List<DocumentSnapshot> documentList in documentStream){
       for(DocumentSnapshot doc in documentList){
@@ -52,7 +52,7 @@ class FireStoreService{
     return nearPlaces;
   }
 
-  bool isEligibleForNearPlace(Place place, List<PlaceCategory> categoriesEligible, double rating){
+  bool isEligibleForNearPlace(Place place, List<PlaceCategory> categoriesEligible, int rating){
     if (categoriesEligible.isNotEmpty && !(categoriesEligible.contains(place.category))){
       return false;
     }

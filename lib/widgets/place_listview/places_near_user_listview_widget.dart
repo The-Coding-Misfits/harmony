@@ -7,7 +7,7 @@ import 'package:location/location.dart';
 class PlaceNearListViewWidget extends StatelessWidget {
   final double proximity;
   final List<PlaceCategory> categoriesEligible;
-  final double minRating;
+  final int minRating;
   const PlaceNearListViewWidget(this.proximity, this.categoriesEligible, this.minRating);
   @override
   Widget build(BuildContext context) {
