@@ -67,6 +67,7 @@ class _HarmonySliderState extends State<HarmonySlider> {
           setState(
                 () {
                   _currValue = value.floorToDouble();
+                  widget.onValueChanged(_currValue);
             },
           );
         },

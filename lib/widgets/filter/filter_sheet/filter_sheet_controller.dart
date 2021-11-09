@@ -8,15 +8,6 @@ class FilterSheetController{
   List<PlaceCategory> chosenCategories = [];
   int minimumRating = minRatingStartValue;
 
-
-  final Function(double, int, List<PlaceCategory>) onSaveCallback;
-
-  FilterSheetController(this.onSaveCallback);
-
-  void saved(){
-    onSaveCallback(sliderValue, minimumRating, chosenCategories);
-  }
-
   void setSliderValue(double newSliderValue){
     sliderValue = newSliderValue; //well no reason for double but its too late now
   }

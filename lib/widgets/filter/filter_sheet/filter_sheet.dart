@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:harmony/utilites/places/place_category_enum.dart';
 import 'package:harmony/widgets/filter/category_widgets/category_grid.dart';
 import 'package:harmony/widgets/filter/filter_sheet/filter_sheet_controller.dart';
 import 'package:harmony/widgets/filter/rating_widgets/rating_grid.dart';
@@ -6,17 +7,9 @@ import 'package:harmony/widgets/filter/slider/harmony_slider.dart';
 
 class FilterSheet extends StatefulWidget {
   final FilterSheetController controller;
-  late final RatingGrid _ratingGrid;
-  late final CategoryGrid _categoryGrid;
+  final Function(double, int, List<PlaceCategory>) updateFilterCallback;
 
-  FilterSheet(this.controller, {Key? key}) : super(key: key){
-    _ratingGrid = RatingGrid(
-      controller.setMinimumRating
-    );
-    _categoryGrid = CategoryGrid(
-      controller.setChosenCategories
-    );
-  }
+  const FilterSheet(this.controller, this.updateFilterCallback, {Key? key}) : super(key: key);
 
   @override
   _FilterSheetState createState() => _FilterSheetState();
@@ -58,7 +51,11 @@ class _FilterSheetState extends State<FilterSheet> {
                 TextButton(
                   child: const Text("Save", style: TextStyle(fontSize: 15)),
                   onPressed: () {
-
+                    widget.updateFilterCallback(
+                      widget.controller.sliderValue,
+                      widget.controller.minimumRating,
+                      widget.controller.chosenCategories
+                    );
                   },
                 )
               ],
@@ -87,7 +84,7 @@ class _FilterSheetState extends State<FilterSheet> {
                     widget.controller.setSliderValue,
                     1,
                     15,
-                    5
+                    widget.controller.sliderValue.toInt()
                 ),
               ],
             ),
@@ -126,7 +123,10 @@ class _FilterSheetState extends State<FilterSheet> {
                       width: 500,
                       child: Align(
                         alignment: Alignment.center,
-                        child: widget._categoryGrid,
+                        child: CategoryGrid(
+                            widget.controller.setChosenCategories,
+                            widget.controller.chosenCategories
+                        ),
                       )
                   ),
                 )
@@ -167,7 +167,10 @@ class _FilterSheetState extends State<FilterSheet> {
                       width: 500,
                       child: Align(
                         alignment: Alignment.center,
-                        child: widget._ratingGrid,
+                        child: RatingGrid(
+                          widget.controller.setMinimumRating,
+                          widget.controller.minimumRating,
+                        ),
                       ),
                     )
                 )

@@ -7,7 +7,9 @@ import 'package:harmony/widgets/filter/category_widgets/category_model.dart';
 class CategoryGrid extends StatefulWidget {
   final Function(List<PlaceCategory>) onCategoryChanged;
   final bool isSingleOptionOnly;
-  const CategoryGrid(this.onCategoryChanged, {Key? key, this.isSingleOptionOnly = false}) : super(key: key);
+  final List<PlaceCategory> startingCategories;
+
+  const CategoryGrid(this.onCategoryChanged,this.startingCategories, {Key? key, this.isSingleOptionOnly = false}) : super(key: key);
 
   @override
   _CategoryGridState createState() => _CategoryGridState();
@@ -25,6 +27,23 @@ class _CategoryGridState extends State<CategoryGrid> {
     CategoryModel(false, FontAwesomeIcons.campground, PlaceCategory.CAMPING),
     CategoryModel(false, FontAwesomeIcons.paw, PlaceCategory.WILDLIFE),
   ];
+
+  @override
+  void initState() {
+    enableWidgetAccordingToStartingCategories();
+    selectedCategories = widget.startingCategories;
+    super.initState();
+  }
+
+  void enableWidgetAccordingToStartingCategories(){
+    for(CategoryModel model in items){
+      for (PlaceCategory category in widget.startingCategories){
+        if (model.category == category){
+          model.isSelected = true;
+        }
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {

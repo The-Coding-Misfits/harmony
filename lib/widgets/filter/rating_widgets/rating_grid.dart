@@ -8,19 +8,32 @@ class RatingGrid extends StatefulWidget {
   _RatingGridState createState() => _RatingGridState();
 
   final Function(int) ratingChangedCallback;
+  final int startingMinRating;
 
-  const RatingGrid(this.ratingChangedCallback, {Key? key}) : super(key: key);
+  const RatingGrid(this.ratingChangedCallback, this.startingMinRating,  {Key? key}) : super(key: key);
 }
 
 class _RatingGridState extends State<RatingGrid> {
 
   List<RatingModel> items = [
-    RatingModel(true, 1),
-    RatingModel(true, 2),
-    RatingModel(true, 3),
+    RatingModel(false, 1),
+    RatingModel(false, 2),
+    RatingModel(false, 3),
     RatingModel(false, 4),
     RatingModel(false, 5),
   ];
+
+  @override
+  void initState() {
+    enableWidgetAccordingToStartingRating();
+    super.initState();
+  }
+
+  void enableWidgetAccordingToStartingRating(){
+    for(int i = 0; i < widget.startingMinRating; i++){
+      items[i].isSelected = true;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {

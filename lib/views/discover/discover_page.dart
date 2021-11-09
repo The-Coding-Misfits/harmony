@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:harmony/services/location_service.dart';
 import 'package:harmony/utilites/page_enum.dart';
@@ -23,6 +21,7 @@ class DiscoverPageState extends State<DiscoverPage> with UsesFilterSheet{
   final AuthService authService = AuthService();
   final LocationService locationService = LocationService();
   late final FilterSheet filterSheet;
+  final FilterSheetController filterSheetController = FilterSheetController();
 
 
   //filtering vars
@@ -33,9 +32,9 @@ class DiscoverPageState extends State<DiscoverPage> with UsesFilterSheet{
   @override
   void initState() {
     super.initState();
-    FilterSheetController filterSheetController = FilterSheetController(updateFilters);
     filterSheet = FilterSheet(
       filterSheetController,
+      updateFilters
     );
     chosenCategories = filterSheetController.chosenCategories;
     proximity = filterSheetController.sliderValue;
@@ -100,6 +99,7 @@ class DiscoverPageState extends State<DiscoverPage> with UsesFilterSheet{
 
   void updateFilters(double proximity, int minRating, List<PlaceCategory> chosenCategories){
     setState(() {
+      print(filterSheetController.chosenCategories);
       this.proximity = proximity;
       this.minRating = minRating;
       this.chosenCategories = chosenCategories;
