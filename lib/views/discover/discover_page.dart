@@ -10,7 +10,6 @@ import 'package:harmony/services/auth_service.dart';
 import 'package:harmony/widgets/place_listview/places_near_user_listview_widget.dart';
 
 class DiscoverPage extends StatefulWidget {
-  final FilterSheetController filterSheetController = FilterSheetController();
   DiscoverPage({Key? key}) : super(key: key);
   @override
   DiscoverPageState createState() => DiscoverPageState();
@@ -19,8 +18,18 @@ class DiscoverPage extends StatefulWidget {
 
 class DiscoverPageState extends State<DiscoverPage> with UsesFilterSheet{
   final AuthService authService = AuthService();
+  final FilterSheetController filterSheetController = FilterSheetController();
   final LocationService locationService = LocationService();
-  final FilterSheet filterSheet = FilterSheet();
+
+  late final FilterSheet filterSheet;
+  @override
+  void initState() {
+    super.initState();
+    filterSheet = FilterSheet(
+      filterSheetController,
+    );
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +53,8 @@ class DiscoverPageState extends State<DiscoverPage> with UsesFilterSheet{
                   ),
                 ),
                 IconButton( //filter button
-                  onPressed: (){toFilterSheet(context,filterSheet, onFilterSheetClosed);},
+                  onPressed: (){
+                    toFilterSheet(context,filterSheet);},
                   icon: const Icon(
                     Icons.filter_alt_sharp,
                     size: 25,
