@@ -99,13 +99,9 @@ class DiscoverPageState extends State<DiscoverPage> with UsesFilterSheet{
 
   void updateFilters(double proximity, int minRating, List<PlaceCategory> chosenCategories){
     setState(() {
-      print(filterSheetController.chosenCategories);
       this.proximity = proximity;
       this.minRating = minRating;
       this.chosenCategories = chosenCategories;
-      print(proximity);
-      print(minRating);
-      print(chosenCategories);
     });
   }
 

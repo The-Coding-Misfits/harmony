@@ -141,7 +141,7 @@ class AddPlaceState extends State<AddPlace> {
                   child: GestureDetector( //Re evaulate can add when touched category grid
                     child: CategoryGrid(
                         updateSelectedCategory,
-                      const [],//we dont want staring value
+                       [],//we dont want staring value
                       isSingleOptionOnly: true,
                     ),
                     onTap: (){canAdd = isEligibleAdd();},
