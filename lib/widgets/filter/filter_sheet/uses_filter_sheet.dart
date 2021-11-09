@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:harmony/utilites/places/place_category_enum.dart';
 
 import 'filter_sheet.dart';
 
 class UsesFilterSheet{
-  void toFilterSheet(BuildContext context, FilterSheet filterSheet, Function() closeCallback) {
+  void toFilterSheet(BuildContext context, FilterSheet filterSheet, Function(double, int, List<PlaceCategory>) closeCallback) {
     showGeneralDialog(
       context: context,
       barrierDismissible: true,
@@ -26,6 +27,12 @@ class UsesFilterSheet{
           child: child,
         );
       },
-    ).whenComplete(closeCallback);
+    ).whenComplete((){
+      closeCallback(
+          filterSheet.controller.sliderValue,
+          filterSheet.controller.minimumRating,
+          filterSheet.controller.chosenCategories
+      );
+    });
   }
 }

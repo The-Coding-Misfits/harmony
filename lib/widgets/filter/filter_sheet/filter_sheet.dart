@@ -1,26 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:harmony/utilites/places/place_category_enum.dart';
 import 'package:harmony/widgets/filter/category_widgets/category_grid.dart';
 import 'package:harmony/widgets/filter/filter_sheet/filter_sheet_controller.dart';
 import 'package:harmony/widgets/filter/rating_widgets/rating_grid.dart';
 import 'package:harmony/widgets/filter/slider/harmony_slider.dart';
 
 class FilterSheet extends StatefulWidget {
-  final FilterSheetController controller = FilterSheetController();
-  final CategoryGrid _categoryGrid = CategoryGrid();
-  final RatingGrid _ratingGrid = RatingGrid();
+  final FilterSheetController controller;
+  late final RatingGrid _ratingGrid;
+  late final CategoryGrid _categoryGrid;
 
-  FilterSheet({Key? key}) : super(key: key);
+  FilterSheet(this.controller, {Key? key}) : super(key: key){
+    _ratingGrid = RatingGrid(
+      controller.setMinimumRating
+    );
+    _categoryGrid = CategoryGrid(
+      controller.setChosenCategories
+    );
+  }
 
   @override
   _FilterSheetState createState() => _FilterSheetState();
 }
 
 class _FilterSheetState extends State<FilterSheet> {
-  //initialize with initial values
-  int farValue = 5;
-  PlaceCategory chosenCategory = PlaceCategory.TREKKING;
-  double minimumRating = 3;
 
   @override
   Widget build(BuildContext context) {

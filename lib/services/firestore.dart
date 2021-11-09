@@ -30,22 +30,37 @@ class FireStoreService{
   }
 
   ///READS
-  Future<List<Place>> getPlacesNearUser(double proximity, LocationData userLocation) async {
+  Future<List<Place>> getPlacesNearUser(double proximity, LocationData userLocation, List<PlaceCategory> categoriesEligible, int rating) async {
     GeoFirePoint center = _geoFireService.createGeoPoint(userLocation.latitude!, userLocation.longitude!);
     String field = "point";
     Stream<List<DocumentSnapshot>> documentStream =  _geoFireService.geo.collection(collectionRef: places).within(
         center: center, radius: proximity, field: field);
+    return await filterNearPlacesStream(documentStream, categoriesEligible, rating);
+  }
+
+  Future<List<Place>> filterNearPlacesStream(Stream<List<DocumentSnapshot>> documentStream, List<PlaceCategory> categoriesEligible, int rating) async{
     List<Place> nearPlaces = [];
     await for (List<DocumentSnapshot> documentList in documentStream){
       for(DocumentSnapshot doc in documentList){
         Place place = Place.fromJson(doc.data()! as Map<String, dynamic>, doc.id);
-        nearPlaces.add(place);
+        if(isEligibleForNearPlace(place, categoriesEligible, rating)){
+          nearPlaces.add(place);
+        }
       }
       break; // due to a bug, this thing actually returns list so we are fine, but an absurt bug maks this for unable to break
     }
     return nearPlaces;
   }
 
+  bool isEligibleForNearPlace(Place place, List<PlaceCategory> categoriesEligible, int rating){
+    if (categoriesEligible.isNotEmpty && !(categoriesEligible.contains(place.category))){
+      return false;
+    }
+    if(rating > place.rating) {
+      return false;
+    }
+    return true;
+  }
 
 
   Future<Place> addPlace(String name, PlaceCategory category, File imageFile, double latitude, double longitude) async{

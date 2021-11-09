@@ -16,12 +16,9 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 
 class AddPlace extends StatefulWidget {
-  final CategoryGrid _categoryGrid = CategoryGrid();
   final AddPlaceViewModel _viewModel = AddPlaceViewModel();
 
   AddPlace({Key? key}) : super(key: key);
-
-  PlaceCategory? get selectedCategory => _categoryGrid.selectedCategory;
 
   @override
   AddPlaceState createState() => AddPlaceState();
@@ -35,9 +32,10 @@ class AddPlaceState extends State<AddPlace> {
   bool canAdd = false;
   bool imageUploaded = false;
   Uint8List? imageBytes;
-
   final LocationService locationService = LocationService();
   LocationData? locationData;
+
+  PlaceCategory? categorySelected;
 
   @override
   void initState() {
@@ -141,7 +139,10 @@ class AddPlaceState extends State<AddPlace> {
                   height: 50,
                   width: 500,
                   child: GestureDetector( //Re evaulate can add when touched category grid
-                    child: widget._categoryGrid,
+                    child: CategoryGrid(
+                        updateSelectedCategory,
+                      isSingleOptionOnly: true,
+                    ),
                     onTap: (){canAdd = isEligibleAdd();},
                   ),
                 ),
@@ -252,12 +253,20 @@ class AddPlaceState extends State<AddPlace> {
       ),
     );
   }
+
+
+  void updateSelectedCategory(List<PlaceCategory> selectedCategoryFromGrid){
+    setState(() {
+      categorySelected = selectedCategoryFromGrid.isEmpty ? null : selectedCategoryFromGrid.first; //its actually a list with one element
+    });
+  }
+
   void addPlace() {
 
     if (isEligibleAdd()) {
       var createPlace = widget._viewModel.createPlace(
         nameController.value.text,
-        widget._categoryGrid.categoryGridController.selectedCategory!,
+        categorySelected!,
         selectedImage!,
 
         // location
@@ -274,6 +283,6 @@ class AddPlaceState extends State<AddPlace> {
   }
 
   bool isEligibleAdd() {
-    return (selectedImage != null && nameController.value.text.isNotEmpty && widget._categoryGrid.categoryGridController.selectedCategory != null && locationData != null);
+    return (selectedImage != null && nameController.value.text.isNotEmpty && categorySelected != null && locationData != null);
   }
 }

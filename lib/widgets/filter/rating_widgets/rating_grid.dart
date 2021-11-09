@@ -7,7 +7,9 @@ class RatingGrid extends StatefulWidget {
   @override
   _RatingGridState createState() => _RatingGridState();
 
-  int selectedRating = 3;
+  final Function(int) ratingChangedCallback;
+
+  const RatingGrid(this.ratingChangedCallback, {Key? key}) : super(key: key);
 }
 
 class _RatingGridState extends State<RatingGrid> {
@@ -43,7 +45,7 @@ class _RatingGridState extends State<RatingGrid> {
                     element.isSelected = false;
                   }
                 }
-                widget.selectedRating = items[index].rating;
+                widget.ratingChangedCallback(items[index].rating);
               });
             },
             child: RatingItem(items[index]),
