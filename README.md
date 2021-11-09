@@ -19,6 +19,6 @@ These are some screenshots from the alpha version of the app
 
 <img src="https://user-images.githubusercontent.com/63517174/140395177-fefb14ff-1352-4293-8ef5-0a279dce7377.png" width="400" height="900"/>
 
-<img src="https://user-images.githubusercontent.com/63517174/140395161-fa55b611-2cd4-42e6-a344-90478dae6f4f.png" width="400" height="900"/>
+<img src="https://user-images.githubusercontent.com/63517174/140991243-b3c1ebfb-37fc-4478-826b-8236a4f06bd4.png" width="400" height="900"/>
 
 <img src="https://user-images.githubusercontent.com/63517174/140525396-48034ece-12b9-4022-b4cd-500500ebec9a.png" width="400" height="900"/>
