@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:harmony/models/place.dart';
-import 'package:harmony/widgets/filter/category_widgets/category_grid.dart';
+import 'package:maps_launcher/maps_launcher.dart';
 import 'package:harmony/widgets/general_use/rating_widget.dart';
+import 'package:harmony/widgets/login_register/harmony_shiny_button.dart';
 import 'package:latlong2/latlong.dart';
 
 class SpotInfo extends StatefulWidget {
@@ -102,6 +103,19 @@ class SpotInfoState extends State<SpotInfo> {
               child: Align(
                   alignment: Alignment.topLeft,
                   child: Image.network(imageUrl, scale: 6)
+              )
+          ),
+          Padding(
+              padding: const EdgeInsets.only(top: 10),
+              child: Align(
+                  alignment: Alignment.center,
+                  child: HarmonyShinyButton(
+                    "Get directions",
+                    () {
+                      MapsLauncher.launchCoordinates(place.point.latitude, place.point.longitude);
+                    },
+                    size: 50,
+                  )
               )
           )
         ],
