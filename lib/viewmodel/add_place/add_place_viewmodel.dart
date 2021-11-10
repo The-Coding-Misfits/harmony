@@ -10,9 +10,11 @@ import 'package:harmony/utilites/places/place_category_enum.dart';
 class AddPlaceViewModel{
 
   createPlace(String name, PlaceCategory category, File imageFile, double latitude, double longitude) async {
+    FireStoreService fireStoreService = FireStoreService();
+
     try {
-      Place newPlace = await FireStoreService().addPlace(name, category, imageFile, latitude, longitude);
-      FireStoreService().uploadPlaceImageToDatabase(imageFile, newPlace);
+      Place newPlace = await fireStoreService.addPlace(name, category, imageFile, latitude, longitude);
+      fireStoreService.uploadPlaceImageToDatabase(imageFile, newPlace);
       return newPlace;
     } on FileSystemException {
       return 500;

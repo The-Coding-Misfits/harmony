@@ -27,7 +27,7 @@ class SpotInfoState extends State<SpotInfo> {
         elevation: 0,
         centerTitle: true,
         title: const Text("Spot Details", style: TextStyle(color: Colors.black)),
-        backgroundColor: Colors.black12,
+        backgroundColor: const Color(0x11000000),
         foregroundColor: Colors.black,
       ),
       body: Column(

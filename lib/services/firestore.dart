@@ -21,10 +21,8 @@ class FireStoreService{
   static final GeoFireService _geoFireService = GeoFireService();
 
   String uploadPlaceImageToDatabase(File image, Place place){
-    image.renameSync(DateTime.now().millisecondsSinceEpoch.toString());
-    String firestoragePath = place.id + "/" + basename(image.path);
-    Reference storageRef =
-        FirebaseStorage.instance.ref().child(firestoragePath);
+    String firestoragePath = "${place.id}/cover";
+    Reference storageRef = FirebaseStorage.instance.ref().child(firestoragePath);
     storageRef.putFile(image);
     return firestoragePath;
   }
