@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:harmony/models/place.dart';
+import 'package:harmony/widgets/filter/category_widgets/category_grid.dart';
+import 'package:harmony/widgets/general_use/rating_widget.dart';
 import 'package:latlong2/latlong.dart';
 
 class SpotInfo extends StatefulWidget {
@@ -23,6 +25,7 @@ class SpotInfoState extends State<SpotInfo> {
 
     return Scaffold(
       extendBodyBehindAppBar: true,
+      backgroundColor: Colors.white,
       appBar: AppBar(
         elevation: 0,
         centerTitle: true,
@@ -76,11 +79,29 @@ class SpotInfoState extends State<SpotInfo> {
               ),
             ),
           ),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Padding(
+                padding: const EdgeInsets.only(bottom: 5, left: 10, top: 5),
+                child: Row(
+                  children: [
+                    RatingWidget(place.rating),
+                    Text(" ${place.rating}/5.0 • ${distance}KM Nearby",
+                        style: const TextStyle(
+                            fontSize: 16,
+                            color: Color(0xff6a6a6a),
+                            fontWeight: FontWeight.bold
+                        )
+                    ),
+                  ],
+                )
+            ),
+          ),
           Padding(
               padding: const EdgeInsets.only(top: 10, left: 10),
               child: Align(
                   alignment: Alignment.topLeft,
-                  child: Image.asset("assets/images/dummy-national-park.jpg", scale: 6)
+                  child: Image.network(imageUrl, scale: 6)
               )
           )
         ],

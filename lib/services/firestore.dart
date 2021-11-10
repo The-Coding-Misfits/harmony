@@ -215,4 +215,9 @@ class FireStoreService{
     }
   }
 
+
+  Future<String> getCoverFromId(String placeId) async {
+    Reference instance = FirebaseStorage.instance.ref("$placeId/cover");
+    return await instance.getDownloadURL();
+  }
 }
