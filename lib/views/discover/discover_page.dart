@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:harmony/services/location_service.dart';
 import 'package:harmony/utilites/page_enum.dart';
 import 'package:harmony/widgets/filter/filter_sheet/filter_model.dart';
-import 'package:harmony/widgets/filter/filter_sheet/uses_filter_sheet.dart';
-import 'package:harmony/widgets/general_use/hamburger_button.dart';
+import 'package:harmony/widgets/filter/filter_sheet/filter_top_bar.dart';
+import 'package:harmony/widgets/filter/filter_sheet/mixin&interface/filter_sheet_creator.dart';
+import 'package:harmony/widgets/filter/filter_sheet/mixin&interface/uses_filter_sheet.dart';
 import 'package:harmony/widgets/general_use/harmony_bottom_navigation_bar.dart';
-import 'package:harmony/services/auth_service.dart';
 import 'package:harmony/widgets/place_listview/places_near_user_listview_widget.dart';
 
 class DiscoverPage extends StatefulWidget {
@@ -15,10 +14,9 @@ class DiscoverPage extends StatefulWidget {
 }
 
 
-class DiscoverPageState extends State<DiscoverPage> with UsesFilterSheet{
-  final AuthService authService = AuthService();
-  final LocationService locationService = LocationService();
+class DiscoverPageState extends State<DiscoverPage> with FilterSheetCreator implements UsesFilterSheet{
 
+  @override
   FilterModel filterModel = FilterModel();
 
   @override
@@ -29,33 +27,9 @@ class DiscoverPageState extends State<DiscoverPage> with UsesFilterSheet{
         child: Column(
           children: [
             ///TOP BAR
-            Expanded(
-              flex: 1,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  HamburgerButton(),
-                //App bar title
-                const Text(
-                  "Discover",
-                  style: TextStyle(
-                    fontSize: 20,
-                  ),
-                ),
-                IconButton( //filter button
-                  onPressed: (){
-                    toFilterSheet(
-                      context,
-                      filterModel,
-                      updateFilters
-                    );},
-                  icon: const Icon(
-                    Icons.filter_alt_sharp,
-                    size: 25,
-                  ),
-                )
-                ],
-              ),
+            FilterTopBar(
+              clickedTap,
+              "Discover"
             ),
             ///Show actual places
             Expanded(
@@ -73,11 +47,28 @@ class DiscoverPageState extends State<DiscoverPage> with UsesFilterSheet{
     );
   }
 
+  void clickedTap(){
+    toFilterSheet(
+      context,
+      filterModel,
+      updateFilters
+    );
+  }
 
   void updateFilters(FilterModel filterModel){
     setState(() {
       this.filterModel = filterModel;
     });
+  }
+
+  @override
+  void launchFilterSheet() {
+    // TODO: implement launchFilterSheet
+  }
+
+  @override
+  void onUpdatedFilters() {
+    // TODO: implement onUpdatedFilters
   }
 }
 

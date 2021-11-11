@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'filter_model.dart';
-import 'filter_sheet.dart';
+import '../filter_model.dart';
+import '../filter_sheet.dart';
 
 
-class UsesFilterSheet{
+class FilterSheetCreator{
 
   void toFilterSheet(BuildContext context, FilterModel currFilterModel, Function(FilterModel) parentCallbackOnSaved) {
     showGeneralDialog(

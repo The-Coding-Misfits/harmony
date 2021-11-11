@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:harmony/widgets/filter/filter_sheet/uses_filter_sheet.dart';
-import 'package:harmony/widgets/general_use/hamburger_button.dart';
+import 'package:harmony/widgets/filter/filter_sheet/filter_model.dart';
+import 'package:harmony/widgets/filter/filter_sheet/filter_top_bar.dart';
+import 'package:harmony/widgets/filter/filter_sheet/mixin&interface/filter_sheet_creator.dart';
 
 class NearbyPage extends StatefulWidget {
   const NearbyPage({Key? key}) : super(key: key);
@@ -9,46 +10,22 @@ class NearbyPage extends StatefulWidget {
   _NearbyPageState createState() => _NearbyPageState();
 }
 
-class _NearbyPageState extends State<NearbyPage> with UsesFilterSheet{
+class _NearbyPageState extends State<NearbyPage> with FilterSheetCreator{
+
+  FilterModel filterModel = FilterModel();
+
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      flex: 1,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          HamburgerButton(),
-          //App bar title
-          const Text(
-            "Discover",
-            style: TextStyle(
-              fontSize: 20,
+    return Scaffold(
+      body: SafeArea(
+        child: Column(
+          children: [
+            FilterTopBar(
+
             ),
-          ),
-          IconButton( //filter button
-            onPressed: (){
-              toFilterSheet(
-                  context,
-                  filterSheet,
-                  updateFilters
-              );},
-            icon: const Icon(
-              Icons.filter_alt_sharp,
-              size: 25,
-            ),
-          )
-        ],
-      ),
+          ],
+        ),
+      )
     );
   }
-
-
-  void updateFilters(double proximity, int minRating, List<PlaceCategory> chosenCategories){
-    setState(() {
-      this.proximity = proximity;
-      this.minRating = minRating;
-      this.chosenCategories = chosenCategories;
-    });
-
-
 }
