@@ -60,7 +60,7 @@ class _MyAppState extends State<MyApp> {
             initialRoute: initialRoute,
             routes: {
               kLoginPageRouteName : (context) => LoginPage(),
-              kDiscoverPageRouteName : (context) => DiscoverPage(),
+              kDiscoverPageRouteName : (context) => const DiscoverPage(),
               kRegisterPageRouteName : (context) => const RegisterPage(),
               kAddPlacePageRouteName : (context) => AddPlace(),
               kErrorPageRouteName : (context) => const SomethingWentWrong(),

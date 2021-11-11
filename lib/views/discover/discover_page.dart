@@ -11,7 +11,7 @@ import 'package:harmony/services/auth_service.dart';
 import 'package:harmony/widgets/place_listview/places_near_user_listview_widget.dart';
 
 class DiscoverPage extends StatefulWidget {
-  DiscoverPage({Key? key}) : super(key: key);
+  const DiscoverPage({Key? key}) : super(key: key);
   @override
   DiscoverPageState createState() => DiscoverPageState();
 }
@@ -104,7 +104,5 @@ class DiscoverPageState extends State<DiscoverPage> with UsesFilterSheet{
       this.chosenCategories = chosenCategories;
     });
   }
-
-
 }
 
