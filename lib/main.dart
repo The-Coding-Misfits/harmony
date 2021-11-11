@@ -51,7 +51,10 @@ class _MyAppState extends State<MyApp> {
               brightness: Brightness.light,
               fontFamily: "Montserrat",
               primaryColor: const Color(0xff00CA9D),
-              colorScheme: ColorScheme.fromSwatch().copyWith(primary: const Color(0xff00CA9D))
+              colorScheme: ColorScheme.fromSwatch().copyWith(
+                primary: const Color(0xff00CA9D),
+                secondary: const Color(0xff00CA9D)
+              )
             ),
             debugShowCheckedModeBanner: false,
             initialRoute: initialRoute,
