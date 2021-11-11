@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:harmony/models/place.dart';
 import 'package:harmony/widgets/general_use/harmony_map.dart';
 import 'package:maps_launcher/maps_launcher.dart';
 import 'package:harmony/widgets/general_use/rating_widget.dart';
-import 'package:harmony/widgets/login_register/harmony_shiny_button.dart';
 
 class SpotInfo extends StatefulWidget {
 
@@ -35,16 +35,13 @@ class SpotInfoState extends State<SpotInfo> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Padding(
-              padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
-              child: SizedBox(
-                height: 250,
+            SizedBox(
+                height: 300,
                 width: MediaQuery.of(context).size.width,
                 child: HarmonyMap(
                     latitude: place.point.latitude,
                     longitude: place.point.longitude
                 )
-              ),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 10, left: 10),
@@ -84,21 +81,22 @@ class SpotInfoState extends State<SpotInfo> {
                 )
             ),
             Padding(
-                padding: const EdgeInsets.only(top: 10),
+                padding: const EdgeInsets.only(top: 15, left: 10, right: 10),
                 child: Align(
-                    alignment: Alignment.center,
-                    child: HarmonyShinyButton(
-                      "Get directions",
-                          () {
-                        MapsLauncher.launchCoordinates(place.point.latitude, place.point.longitude);
-                      },
-                      size: 50,
-                    )
+                    alignment: Alignment.centerLeft,
+                    child: Text("${place.reviewIds.length} Reviews", style: const TextStyle(fontSize: 22))
                 )
-            )
+            ),
           ],
         ),
-      )
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          MapsLauncher.launchCoordinates(place.point.latitude, place.point.longitude);
+        },
+        icon: const Icon(FontAwesomeIcons.directions),
+        label: const Text("Get Directions"),
+      ),
     );
   }
 }

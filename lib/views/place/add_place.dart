@@ -251,9 +251,17 @@ class AddPlaceState extends State<AddPlace> {
         locationData!.longitude!.toDouble(),
       );
 
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Adding spot..."))
+      );
+
       if (createPlace == 500) {
         ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text("Error while adding place!"))
+            const SnackBar(content: Text("Error while adding spot!"))
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text("Added spot!"))
         );
       }
     }
