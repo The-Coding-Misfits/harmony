@@ -2,18 +2,16 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:harmony/services/location_service.dart';
 import 'package:harmony/utilites/page_enum.dart';
 import 'package:harmony/utilites/places/place_category_enum.dart';
 import 'package:harmony/viewmodel/add_place/add_place_viewmodel.dart';
 import 'package:harmony/widgets/filter/category_widgets/category_grid.dart';
 import 'package:harmony/widgets/general_use/harmony_bottom_navigation_bar.dart';
+import 'package:harmony/widgets/general_use/harmony_map.dart';
 import 'package:harmony/widgets/login_register/harmony_shiny_button.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:location/location.dart';
-import 'package:flutter_map/flutter_map.dart';
-import 'package:latlong2/latlong.dart';
 
 class AddPlace extends StatefulWidget {
   final AddPlaceViewModel _viewModel = AddPlaceViewModel();
@@ -76,31 +74,9 @@ class AddPlaceState extends State<AddPlace> {
         LocationData data = snapshot.data;
         locationData = data;
 
-        return FlutterMap(
-          options: MapOptions(
-            center: LatLng(data.latitude!.toDouble(), data.longitude!.toDouble()),
-            zoom: 15.0,
-          ),
-          layers: [
-            TileLayerOptions(
-              urlTemplate: "https://api.mapbox.com/styles/v1/emirsurmen/ckvnyv8r5dhwz14nnxz6oqfbk/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiZW1pcnN1cm1lbiIsImEiOiJja3Zudnc0bWUwODhjMzFrZ2g4c3FhdXh6In0.hj6d-tS9kiDepCIjqJOG5A",
-              additionalOptions: {
-                "accessToken": "pk.eyJ1IjoiZW1pcnN1cm1lbiIsImEiOiJja3Zudnk1MTcxYmtlMzJrbDdncWp2YXZvIn0.cU2tnWQoUKHWZGYevlnb6w",
-                "id": "mapbox.satellite"
-              }
-            ),
-            MarkerLayerOptions(
-              markers: [
-                Marker(
-                  width: 80.0,
-                  height: 80.0,
-                  point: LatLng(data.latitude!.toDouble(), data.longitude!.toDouble()),
-                  builder: (ctx) =>
-                      const Icon(FontAwesomeIcons.dotCircle, color: Colors.red, size: 30,)
-                ),
-              ],
-            ),
-          ],
+        return HarmonyMap(
+          latitude: data.latitude!,
+          longitude: data.longitude!
         );
       },
     );
