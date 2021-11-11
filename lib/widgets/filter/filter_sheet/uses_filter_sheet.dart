@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:harmony/utilites/places/place_category_enum.dart';
-
+import 'filter_model.dart';
 import 'filter_sheet.dart';
 
+
 class UsesFilterSheet{
-  void toFilterSheet(BuildContext context, FilterSheet filterSheet, Function(double, int, List<PlaceCategory>) closeCallback) {
+
+  void toFilterSheet(BuildContext context, FilterModel currFilterModel, Function(FilterModel) parentCallbackOnSaved) {
     showGeneralDialog(
       context: context,
       barrierDismissible: true,
@@ -12,7 +13,10 @@ class UsesFilterSheet{
       barrierLabel: MaterialLocalizations.of(context).dialogLabel,
       barrierColor: Colors.black.withOpacity(0.5),
       pageBuilder: (context, _, __) {
-        return filterSheet;
+        return FilterSheet(
+            currFilterModel,
+          parentCallbackOnSaved
+        );
 
       },
       transitionBuilder: (context, animation, secondaryAnimation, child) {
@@ -27,12 +31,6 @@ class UsesFilterSheet{
           child: child,
         );
       },
-    ).whenComplete((){
-      closeCallback(
-          filterSheet.controller.sliderValue,
-          filterSheet.controller.minimumRating,
-          filterSheet.controller.chosenCategories
-      );
-    });
+    );
   }
 }

@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:harmony/services/location_service.dart';
 import 'package:harmony/utilites/page_enum.dart';
-import 'package:harmony/utilites/places/place_category_enum.dart';
-import 'package:harmony/widgets/filter/filter_sheet/filter_sheet.dart';
-import 'package:harmony/widgets/filter/filter_sheet/filter_sheet_controller.dart';
+import 'package:harmony/widgets/filter/filter_sheet/filter_model.dart';
 import 'package:harmony/widgets/filter/filter_sheet/uses_filter_sheet.dart';
 import 'package:harmony/widgets/general_use/hamburger_button.dart';
 import 'package:harmony/widgets/general_use/harmony_bottom_navigation_bar.dart';
@@ -20,27 +18,8 @@ class DiscoverPage extends StatefulWidget {
 class DiscoverPageState extends State<DiscoverPage> with UsesFilterSheet{
   final AuthService authService = AuthService();
   final LocationService locationService = LocationService();
-  late final FilterSheet filterSheet;
-  final FilterSheetController filterSheetController = FilterSheetController();
 
-
-  //filtering vars
-  late List<PlaceCategory> chosenCategories;
-  late double proximity;
-  late int minRating;
-
-  @override
-  void initState() {
-    super.initState();
-    filterSheet = FilterSheet(
-      filterSheetController,
-      updateFilters
-    );
-    chosenCategories = filterSheetController.chosenCategories;
-    proximity = filterSheetController.sliderValue;
-    minRating = filterSheetController.minimumRating;
-  }
-
+  FilterModel filterModel = FilterModel();
 
   @override
   Widget build(BuildContext context) {
@@ -66,8 +45,8 @@ class DiscoverPageState extends State<DiscoverPage> with UsesFilterSheet{
                 IconButton( //filter button
                   onPressed: (){
                     toFilterSheet(
-                        context,
-                        filterSheet,
+                      context,
+                      filterModel,
                       updateFilters
                     );},
                   icon: const Icon(
@@ -82,9 +61,7 @@ class DiscoverPageState extends State<DiscoverPage> with UsesFilterSheet{
             Expanded(
               flex: 9,
               child: PlaceNearListViewWidget(
-                proximity,
-                chosenCategories,
-                minRating,
+                filterModel
               ),
             ),
           ]
@@ -97,11 +74,9 @@ class DiscoverPageState extends State<DiscoverPage> with UsesFilterSheet{
   }
 
 
-  void updateFilters(double proximity, int minRating, List<PlaceCategory> chosenCategories){
+  void updateFilters(FilterModel filterModel){
     setState(() {
-      this.proximity = proximity;
-      this.minRating = minRating;
-      this.chosenCategories = chosenCategories;
+      this.filterModel = filterModel;
     });
   }
 }

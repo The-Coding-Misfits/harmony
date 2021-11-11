@@ -1,22 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:harmony/models/place.dart';
 import 'package:harmony/services/firestore.dart';
-import 'package:harmony/utilites/places/place_category_enum.dart';
+import 'package:harmony/widgets/filter/filter_sheet/filter_model.dart';
 import 'package:harmony/widgets/place_listview/sub_listviews/place_list_view.dart';
 import 'package:location/location.dart';
 
 class PlacesNearUserListView extends StatelessWidget {
-  final double proximity;
+  final FilterModel filterModel;
   final LocationData userLocation;
-  final List<PlaceCategory> categoriesEligible;
-  final int minRating;
-  const PlacesNearUserListView(
-      this.proximity, this.userLocation, this.categoriesEligible, this.minRating);
+  const PlacesNearUserListView(this.filterModel, this.userLocation, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<Place>>(
-      future: FireStoreService().getPlacesNearUser(proximity, userLocation, categoriesEligible, minRating),
+      future: FireStoreService().getPlacesNearUser(userLocation, filterModel),
       builder: (BuildContext context, AsyncSnapshot<List<Place>> placesSnapshot){
         if (placesSnapshot.hasData){
           List<Place> data = placesSnapshot.data!;
@@ -27,7 +24,7 @@ class PlacesNearUserListView extends StatelessWidget {
               child: Text("No spots found nearby!"),
             );
           } else {
-            return PlaceListView(proximity, userLocation, data);
+            return PlaceListView(userLocation, placesSnapshot.data!);
           }
         }
         else if (placesSnapshot.hasError) {

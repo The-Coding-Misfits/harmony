@@ -8,6 +8,7 @@ import 'package:harmony/models/place.dart';
 import 'package:harmony/services/geo_fire.dart';
 import 'package:harmony/utilites/custom_exception.dart';
 import 'package:harmony/utilites/places/place_category_enum.dart';
+import 'package:harmony/widgets/filter/filter_sheet/filter_model.dart';
 import 'package:location/location.dart';
 import 'package:path/path.dart';
 
@@ -28,12 +29,12 @@ class FireStoreService{
   }
 
   ///READS
-  Future<List<Place>> getPlacesNearUser(double proximity, LocationData userLocation, List<PlaceCategory> categoriesEligible, int rating) async {
+  Future<List<Place>> getPlacesNearUser(LocationData userLocation, FilterModel filterModel) async {
     GeoFirePoint center = _geoFireService.createGeoPoint(userLocation.latitude!, userLocation.longitude!);
     String field = "point";
     Stream<List<DocumentSnapshot>> documentStream =  _geoFireService.geo.collection(collectionRef: places).within(
-        center: center, radius: proximity, field: field);
-    return await filterNearPlacesStream(documentStream, categoriesEligible, rating);
+        center: center, radius: filterModel.proximity, field: field);
+    return await filterNearPlacesStream(documentStream, filterModel.chosenCategories, filterModel.minimumRating);
   }
 
   Future<List<Place>> filterNearPlacesStream(Stream<List<DocumentSnapshot>> documentStream, List<PlaceCategory> categoriesEligible, int rating) async{

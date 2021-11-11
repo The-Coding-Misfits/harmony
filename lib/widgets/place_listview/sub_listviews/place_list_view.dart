@@ -6,11 +6,9 @@ import 'package:location/location.dart';
 import 'package:harmony/services/firestore.dart';
 
 class PlaceListView extends StatelessWidget {
-
-  final double proximity;
   final LocationData userLocation;
   final List<Place> places;
-  const PlaceListView(this.proximity, this.userLocation, this.places);
+  const PlaceListView(this.userLocation, this.places);
 
   @override
   Widget build(BuildContext context) {

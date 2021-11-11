@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:harmony/utilites/places/place_category_enum.dart';
 import 'package:harmony/widgets/filter/category_widgets/category_grid.dart';
 import 'package:harmony/widgets/filter/filter_sheet/filter_sheet_controller.dart';
 import 'package:harmony/widgets/filter/rating_widgets/rating_grid.dart';
 import 'package:harmony/widgets/filter/slider/harmony_slider.dart';
 
-class FilterSheet extends StatefulWidget {
-  final FilterSheetController controller;
-  final Function(double, int, List<PlaceCategory>) updateFilterCallback;
+import 'filter_model.dart';
 
-  const FilterSheet(this.controller, this.updateFilterCallback, {Key? key}) : super(key: key);
+class FilterSheet extends StatefulWidget {
+  final FilterModel filterModel;
+  late final FilterSheetController filterSheetController;
+  final Function(FilterModel) onSavedCallback;
+
+  FilterSheet(this.filterModel, this.onSavedCallback, {Key? key}) : super(key: key){
+    filterSheetController = FilterSheetController(this, filterModel);
+  }
 
   @override
   _FilterSheetState createState() => _FilterSheetState();
@@ -51,11 +55,7 @@ class _FilterSheetState extends State<FilterSheet> {
                 TextButton(
                   child: const Text("Save", style: TextStyle(fontSize: 15)),
                   onPressed: () {
-                    widget.updateFilterCallback(
-                      widget.controller.sliderValue,
-                      widget.controller.minimumRating,
-                      widget.controller.chosenCategories
-                    );
+                    widget.filterSheetController.clickedSave();
                   },
                 )
               ],
@@ -80,11 +80,11 @@ class _FilterSheetState extends State<FilterSheet> {
                     ),
                   ),
                 ),
-                HarmonySlider(
-                    widget.controller.setSliderValue,
+                HarmonyProximitySlider(
+                    widget.filterSheetController.setSliderValue,
                     1,
                     15,
-                    widget.controller.sliderValue.toInt()
+                    widget.filterModel.proximity
                 ),
               ],
             ),
@@ -124,8 +124,8 @@ class _FilterSheetState extends State<FilterSheet> {
                       child: Align(
                         alignment: Alignment.center,
                         child: CategoryGrid(
-                            widget.controller.setChosenCategories,
-                            widget.controller.chosenCategories
+                            widget.filterSheetController.setChosenCategories,
+                            [...widget.filterModel.chosenCategories], //deep copy list
                         ),
                       )
                   ),
@@ -168,8 +168,8 @@ class _FilterSheetState extends State<FilterSheet> {
                       child: Align(
                         alignment: Alignment.center,
                         child: RatingGrid(
-                          widget.controller.setMinimumRating,
-                          widget.controller.minimumRating,
+                          widget.filterSheetController.setMinimumRating,
+                          widget.filterModel.minimumRating
                         ),
                       ),
                     )

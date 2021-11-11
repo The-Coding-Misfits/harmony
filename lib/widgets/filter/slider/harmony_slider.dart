@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:harmony/widgets/filter/slider/rounded_rectangular_thumb.dart';
 
-class HarmonySlider extends StatefulWidget {
+class HarmonyProximitySlider extends StatefulWidget {
   final Function(double) onValueChanged;
   final int minValue;
   final int maxValue;
-  final int startingValue;
+  final double startingValue;
 
-  HarmonySlider(this.onValueChanged, this.minValue, this.maxValue, this.startingValue);
+  const HarmonyProximitySlider(this.onValueChanged, this.minValue, this.maxValue, this.startingValue);
 
   @override
-  _HarmonySliderState createState() => _HarmonySliderState();
+  _HarmonyProximitySliderState createState() => _HarmonyProximitySliderState();
 
 }
 
-class _HarmonySliderState extends State<HarmonySlider> {
+class _HarmonyProximitySliderState extends State<HarmonyProximitySlider> {
 
   final Color stationaryActiveTrack = const Color(0xFF5F5D70);
   final Color inactiveTrack = const Color(0xFFdfe2e5);
@@ -22,12 +22,7 @@ class _HarmonySliderState extends State<HarmonySlider> {
 
   bool isActive = false;
 
-  late double _currValue;
-  @override
-  void initState() {
-    super.initState();
-    _currValue = widget.startingValue.toDouble();
-  }
+  late double _currValue = widget.startingValue;
 
   @override
   Widget build(BuildContext context) {

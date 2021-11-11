@@ -1,15 +1,26 @@
 import 'package:harmony/utilites/places/place_category_enum.dart';
+import 'filter_model.dart';
+import 'filter_sheet.dart';
 
 class FilterSheetController{
-  /// FILTER VARIABLES
-  static double sliderStartingValue = 5;
-  static int minRatingStartValue = 3;
-  double sliderValue = sliderStartingValue;
-  List<PlaceCategory> chosenCategories = [];
-  int minimumRating = minRatingStartValue;
+  final FilterSheet filterSheet;
+  final FilterModel filterModel;
+
+  late double sliderValue;
+  late List<PlaceCategory> chosenCategories;
+  late int minimumRating;
+
+
+
+  FilterSheetController(this.filterSheet, this.filterModel){
+    sliderValue = filterModel.proximity;
+    chosenCategories = [...filterModel.chosenCategories]; // deep copy list
+    minimumRating = filterModel.minimumRating;
+
+  }
 
   void setSliderValue(double newSliderValue){
-    sliderValue = newSliderValue; //well no reason for double but its too late now
+    sliderValue = newSliderValue;
   }
 
   void setChosenCategories(List<PlaceCategory> newChosenCategories){
@@ -18,5 +29,16 @@ class FilterSheetController{
 
   void setMinimumRating(int newMinimumRating){
     minimumRating = newMinimumRating;
+  }
+
+  void setFilterVariables(){
+    filterModel.proximity = sliderValue;
+    filterModel.chosenCategories = [...chosenCategories];
+    filterModel.minimumRating = minimumRating;
+  }
+
+  void clickedSave(){
+    setFilterVariables();
+    filterSheet.onSavedCallback(filterModel);
   }
 }
