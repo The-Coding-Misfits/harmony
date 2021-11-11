@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:harmony/models/place.dart';
 import 'package:harmony/services/location_service.dart';
 import 'package:harmony/utilites/page_enum.dart';
 import 'package:harmony/utilites/places/place_category_enum.dart';
@@ -239,33 +240,39 @@ class AddPlaceState extends State<AddPlace> {
   }
 
   void addPlace() {
-
     if (isEligibleAdd()) {
-      var createPlace = widget._viewModel.createPlace(
-        nameController.value.text,
-        categorySelected!,
-        selectedImage!,
-
-        // location
-        locationData!.latitude!.toDouble(),
-        locationData!.longitude!.toDouble(),
-      );
-
-      ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("Adding spot..."))
-      );
-
-      if (createPlace == 500) {
-        ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text("Error while adding spot!"))
-        );
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text("Added spot!"))
-        );
-      }
+      handleAdding();
     }
   }
+
+  void handleAdding(){
+    showSnackbar("Adding place...");
+    try{
+      createPlace();
+      showSnackbar("Added spot!");
+    } catch(e){
+      showSnackbar("An error happened while adding the place!");
+    }
+  }
+
+  Place createPlace(){
+    return widget._viewModel.createPlace(
+      nameController.value.text,
+      categorySelected!,
+      selectedImage!,
+
+      // location
+      locationData!.latitude!.toDouble(),
+      locationData!.longitude!.toDouble(),
+    );
+  }
+
+  void showSnackbar(String message){
+    ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(message))
+    );
+  }
+
 
   bool isEligibleAdd() {
     return (selectedImage != null && nameController.value.text.isNotEmpty && categorySelected != null && locationData != null);

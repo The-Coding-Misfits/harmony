@@ -11,6 +11,7 @@ class PlaceNearListViewWidget extends StatelessWidget {
   const PlaceNearListViewWidget(this.proximity, this.categoriesEligible, this.minRating);
   @override
   Widget build(BuildContext context) {
+    print("building place near");
     return LocationFutureBuilder(
       createPlaceNearUserListViewWidget
     );

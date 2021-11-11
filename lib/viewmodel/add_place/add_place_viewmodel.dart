@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:harmony/models/place.dart';
 import 'package:harmony/services/firestore.dart';
+import 'package:harmony/utilites/custom_exception.dart';
 import 'package:harmony/utilites/places/place_category_enum.dart';
 
 class AddPlaceViewModel{
@@ -17,9 +18,9 @@ class AddPlaceViewModel{
       fireStoreService.uploadPlaceImageToDatabase(imageFile, newPlace);
       return newPlace;
     } on FileSystemException {
-      return 500;
+      return throw const FileSystemException("Image contains errors!");
     } on FirebaseException {
-      return 500;
+      return throw CustomException("Something wrong happened! Please try again");
     }
   }
 
