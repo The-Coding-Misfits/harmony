@@ -28,7 +28,7 @@ class DiscoverPageState extends State<DiscoverPage> with FilterSheetCreator impl
           children: [
             ///TOP BAR
             FilterTopBar(
-              clickedTap,
+              launchFilterSheet,
               "Discover"
             ),
             ///Show actual places
@@ -47,28 +47,21 @@ class DiscoverPageState extends State<DiscoverPage> with FilterSheetCreator impl
     );
   }
 
-  void clickedTap(){
+  @override
+  void launchFilterSheet() {
     toFilterSheet(
-      context,
-      filterModel,
-      updateFilters
+        context,
+        filterModel,
+        onUpdatedFilters
     );
   }
 
-  void updateFilters(FilterModel filterModel){
+  @override
+  void onUpdatedFilters(FilterModel filterModel) {
     setState(() {
       this.filterModel = filterModel;
     });
   }
 
-  @override
-  void launchFilterSheet() {
-    // TODO: implement launchFilterSheet
-  }
-
-  @override
-  void onUpdatedFilters() {
-    // TODO: implement onUpdatedFilters
-  }
 }
 
