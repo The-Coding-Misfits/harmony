@@ -19,7 +19,16 @@ class PlacesNearUserListView extends StatelessWidget {
       future: FireStoreService().getPlacesNearUser(proximity, userLocation, categoriesEligible, minRating),
       builder: (BuildContext context, AsyncSnapshot<List<Place>> placesSnapshot){
         if (placesSnapshot.hasData){
-          return PlaceListView(proximity, userLocation, placesSnapshot.data!);
+          List<Place> data = placesSnapshot.data!;
+
+          if (data.isEmpty) {
+            return const Align(
+              alignment: Alignment.center,
+              child: Text("No spots found nearby!"),
+            );
+          } else {
+            return PlaceListView(proximity, userLocation, data);
+          }
         }
         else if (placesSnapshot.hasError) {
           return Column(
