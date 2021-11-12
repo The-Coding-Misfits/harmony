@@ -45,7 +45,7 @@ class UserFavoritesState extends State<UserFavorites> {
 
                   return const Align(
                     alignment: Alignment.center,
-                    child: Text("Loading cover..."),
+                    child: Text("Loading spot card..."),
                   );
                 },
               );
