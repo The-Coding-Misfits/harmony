@@ -35,7 +35,6 @@ class FavoriteIconButtonState extends State<FavoriteIconButton> {
 
   removeFromFavorites() {
     fireStoreService.removeFavoriteFromUser(widget.place.id, currentUser);
-    print(currentUser.favoritesID);
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(content: Text("Removed spot from favorites!"))
     );
@@ -43,7 +42,6 @@ class FavoriteIconButtonState extends State<FavoriteIconButton> {
 
   addToFavorites() {
     fireStoreService.addFavoriteToUser(widget.place.id, currentUser);
-    print(currentUser.favoritesID);
     ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text("Added spot to favorites!"))
     );
