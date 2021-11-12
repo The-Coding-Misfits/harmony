@@ -17,7 +17,10 @@ class UserFavoritesState extends State<UserFavorites> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
+    return GridView.builder(
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2
+      ),
       shrinkWrap: true,
       itemCount: user!.favoritesID.length,
       itemBuilder: (BuildContext context, int index) {
