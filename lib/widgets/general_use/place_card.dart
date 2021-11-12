@@ -22,7 +22,7 @@ class PlaceCard extends StatelessWidget {
               kSpotInfoRouteName,
               arguments: {
                 "place": place,
-                distance != null ? "distance": distance : null,
+                "distance": distance,
                 "imageUrl": imageUrl,
               }
             );
