@@ -53,6 +53,7 @@ class PlaceListView extends StatelessWidget {
   Future<PlaceCard> createPlaceCard(Place currPlace) async {
     double dist = calculateDistanceBetweenTwoPoints(currPlace.point.longitude, userLocation.longitude!, currPlace.point.latitude, userLocation.latitude!);
     return PlaceCard(
+      ratingIconSize: 20,
       distance: roundDouble(dist, 3),
       place: currPlace,
       imageUrl: await FireStoreService().getCoverFromId(currPlace.id),

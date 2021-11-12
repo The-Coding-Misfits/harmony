@@ -99,7 +99,7 @@ class SpotInfoState extends State<SpotInfo> {
                   padding: const EdgeInsets.only(bottom: 5, left: 10, top: 5),
                   child: Row(
                     children: [
-                      RatingWidget(place.rating),
+                      RatingWidget(place.rating, 20),
                       distanceWidget
                     ],
                   )

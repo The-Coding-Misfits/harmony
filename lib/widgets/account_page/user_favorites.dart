@@ -37,6 +37,7 @@ class UserFavoritesState extends State<UserFavorites> {
                 builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
                   if (snapshot.connectionState == ConnectionState.done) {
                     return PlaceCard(
+                      ratingIconSize: 17,
                       imageUrl: snapshot.data,
                       place: place,
                     );
