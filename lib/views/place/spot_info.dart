@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:harmony/models/place.dart';
 import 'package:harmony/widgets/general_use/harmony_map.dart';
+import 'package:harmony/widgets/spot_info/favorite_widget.dart';
 import 'package:maps_launcher/maps_launcher.dart';
 import 'package:harmony/widgets/general_use/rating_widget.dart';
 
@@ -31,6 +32,9 @@ class SpotInfoState extends State<SpotInfo> {
         title: const Text("Spot Details", style: TextStyle(color: Colors.black)),
         backgroundColor: const Color(0x11000000),
         foregroundColor: Colors.black,
+        actions: [
+          FavoriteIconButton(place: place)
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(

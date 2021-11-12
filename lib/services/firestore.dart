@@ -10,11 +10,9 @@ import 'package:harmony/utilites/custom_exception.dart';
 import 'package:harmony/utilites/places/place_category_enum.dart';
 import 'package:harmony/widgets/filter/filter_sheet/filter_model.dart';
 import 'package:location/location.dart';
-import 'package:path/path.dart';
 
 
-
-class FireStoreService{
+class FireStoreService {
 
   static CollectionReference users = FirebaseFirestore.instance.collection('users');
   static CollectionReference places = FirebaseFirestore.instance.collection('places');
@@ -220,5 +218,33 @@ class FireStoreService{
   Future<String> getCoverFromId(String placeId) async {
     Reference instance = FirebaseStorage.instance.ref("$placeId/cover");
     return await instance.getDownloadURL();
+  }
+
+  removeFavoriteFromUser(String placeId, HarmonyUser user) {
+    users.doc(user.id).get().then(
+      (userDoc) {
+        List<dynamic> favorites = user.favoritesID;
+        favorites.remove(placeId);
+        userDoc.reference.update(
+          {
+            "favorite_places": favorites
+          }
+        );
+      }
+    );
+  }
+
+  addFavoriteToUser(String placeId, HarmonyUser user) {
+    users.doc(user.id).get().then(
+      (userDoc) {
+        List<dynamic> favorites = user.favoritesID;
+        favorites.add(placeId);
+        userDoc.reference.update(
+          {
+            "favorite_places": favorites
+          }
+        );
+      }
+    );
   }
 }
