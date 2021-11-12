@@ -26,7 +26,7 @@ class SpotInfoState extends State<SpotInfo> {
     double? distance = args["distance"];
     String imageUrl = args["imageUrl"];
 
-    Widget distanceWidget = distance != null ? Text(" ${place.rating}/5.0 • ${distance}KM Nearby",
+    Widget distanceWidget = distance != null ? Text(" ${place.rating}/5.0 • ${distance.toStringAsFixed(1)}KM Nearby",
         style: const TextStyle(
             fontSize: 16,
             color: Color(0xff6a6a6a),
@@ -40,7 +40,7 @@ class SpotInfoState extends State<SpotInfo> {
 
           double dist = calculateDistanceBetweenTwoPoints(place.point.longitude, userLocation.longitude!, place.point.latitude, userLocation.latitude!);
 
-          return Text(" ${place.rating}/5.0 • ${dist}KM Nearby",
+          return Text(" ${place.rating}/5.0 • ${dist.toStringAsFixed(1)}KM Nearby",
               style: const TextStyle(
                   fontSize: 16,
                   color: Color(0xff6a6a6a),

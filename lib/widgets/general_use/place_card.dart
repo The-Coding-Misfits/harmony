@@ -56,7 +56,7 @@ class PlaceCard extends StatelessWidget {
                     child: Row(
                       children: [
                         RatingWidget(place.rating, contentSize),
-                        Text(distance == null ? ' ${place.rating}/5.0' : ' ${place.rating}/5.0 • ${distance}KM Nearby',
+                        Text(distance == null ? ' ${place.rating}/5.0' : ' ${place.rating}/5.0 • ${distance!.toStringAsFixed(1)}KM Nearby',
                             style: TextStyle(
                                 fontSize: contentSize - 1,
                                 color: const Color(0xff6a6a6a),
