@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:harmony/models/user.dart';
 import 'package:harmony/utilites/constants.dart';
 import 'package:harmony/utilites/page_enum.dart';
+import 'package:harmony/widgets/account_page/user_favorites.dart';
 import 'package:harmony/widgets/general_use/harmony_bottom_navigation_bar.dart';
 
 
@@ -18,7 +19,7 @@ class _AccountPageState extends State<AccountPage> {
 
   Color activeDividerColor = kHarmonyColor;
   // TODO
-  Widget favoritesWidget = const Text("favorites");
+  Widget favoritesWidget = const UserFavorites();
   Widget reviewsWidget = const Text("reviews");
 
   late Widget selectedWidget;

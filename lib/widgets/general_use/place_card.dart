@@ -5,9 +5,9 @@ import 'package:harmony/widgets/general_use/rating_widget.dart';
 
 class PlaceCard extends StatelessWidget {
   final Place place;
-  final double distance;
+  final double? distance;
   final String imageUrl;
-  const PlaceCard({required this.place, required this.distance, required this.imageUrl, Key? key}) : super(key: key);
+  const PlaceCard({required this.place, this.distance, required this.imageUrl, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class PlaceCard extends StatelessWidget {
               kSpotInfoRouteName,
               arguments: {
                 "place": place,
-                "distance": distance,
+                distance != null ? "distance": distance : null,
                 "imageUrl": imageUrl,
               }
             );
@@ -55,7 +55,7 @@ class PlaceCard extends StatelessWidget {
                     child: Row(
                       children: [
                         RatingWidget(place.rating),
-                        Text(' ${place.rating}/5.0 • ${distance}KM Nearby',
+                        Text(distance == null ? ' ${place.rating}/5.0' : ' ${place.rating}/5.0 • ${distance}KM Nearby',
                             style: const TextStyle(
                                 fontSize: 16,
                                 color: Color(0xff6a6a6a),

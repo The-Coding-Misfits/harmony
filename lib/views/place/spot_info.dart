@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:harmony/models/place.dart';
+import 'package:harmony/services/location_service.dart';
 import 'package:harmony/widgets/general_use/harmony_map.dart';
+import 'package:harmony/widgets/place_listview/sub_listviews/place_formulas.dart';
 import 'package:harmony/widgets/spot_info/favorite_widget.dart';
+import 'package:location/location.dart';
 import 'package:maps_launcher/maps_launcher.dart';
 import 'package:harmony/widgets/general_use/rating_widget.dart';
 
@@ -20,8 +23,39 @@ class SpotInfoState extends State<SpotInfo> {
     final args = ModalRoute.of(context)!.settings.arguments as Map;
 
     Place place = args["place"] as Place;
-    double distance = args["distance"];
+    double? distance = args["distance"];
     String imageUrl = args["imageUrl"];
+
+    Widget distanceWidget = distance != null ? Text(" ${place.rating}/5.0 • ${distance}KM Nearby",
+        style: const TextStyle(
+            fontSize: 16,
+            color: Color(0xff6a6a6a),
+            fontWeight: FontWeight.bold
+        )
+    ) : FutureBuilder(
+      future: LocationService().getLocation(),
+      builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+        if (snapshot.connectionState == ConnectionState.done) {
+          LocationData userLocation = snapshot.data;
+
+          double dist = calculateDistanceBetweenTwoPoints(place.point.longitude, userLocation.longitude!, place.point.latitude, userLocation.latitude!);
+
+          return Text(" ${place.rating}/5.0 • ${dist}KM Nearby",
+              style: const TextStyle(
+                  fontSize: 16,
+                  color: Color(0xff6a6a6a),
+                  fontWeight: FontWeight.bold
+              )
+          );
+        }
+
+        return const Text(" Loading distance...", style: TextStyle(
+            fontSize: 16,
+            color: Color(0xff6a6a6a),
+            fontWeight: FontWeight.bold
+        ));
+      },
+    );
 
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -66,13 +100,7 @@ class SpotInfoState extends State<SpotInfo> {
                   child: Row(
                     children: [
                       RatingWidget(place.rating),
-                      Text(" ${place.rating}/5.0 • ${distance}KM Nearby",
-                          style: const TextStyle(
-                              fontSize: 16,
-                              color: Color(0xff6a6a6a),
-                              fontWeight: FontWeight.bold
-                          )
-                      ),
+                      distanceWidget
                     ],
                   )
               ),
