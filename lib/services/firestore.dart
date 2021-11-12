@@ -221,10 +221,11 @@ class FireStoreService {
   }
 
   removeFavoriteFromUser(String placeId, HarmonyUser user) {
+    List<dynamic> favorites = user.favoritesID;
+    favorites.remove(placeId);
+
     users.doc(user.id).get().then(
       (userDoc) {
-        List<dynamic> favorites = user.favoritesID;
-        favorites.remove(placeId);
         userDoc.reference.update(
           {
             "favorite_places": favorites
@@ -235,10 +236,11 @@ class FireStoreService {
   }
 
   addFavoriteToUser(String placeId, HarmonyUser user) {
+    List<dynamic> favorites = user.favoritesID;
+    favorites.add(placeId);
+
     users.doc(user.id).get().then(
       (userDoc) {
-        List<dynamic> favorites = user.favoritesID;
-        favorites.add(placeId);
         userDoc.reference.update(
           {
             "favorite_places": favorites
