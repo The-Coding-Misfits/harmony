@@ -56,6 +56,7 @@ class _FilterSheetState extends State<FilterSheet> {
                   child: const Text("Save", style: TextStyle(fontSize: 15)),
                   onPressed: () {
                     widget.filterSheetController.clickedSave();
+                    Navigator.pop(context);
                   },
                 )
               ],
