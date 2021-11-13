@@ -4,11 +4,11 @@ import 'package:harmony/services/firestore.dart';
 import 'package:harmony/widgets/filter/filter_sheet/filter_model.dart';
 import 'package:location/location.dart';
 
-class NearPlaceFutureBuilder extends StatelessWidget {
+class PlacesNearFutureBuilder extends StatelessWidget {
   final Function(List<Place>) onNearPlacesGetWidgetCallback;
   final LocationData userLocation;
   final FilterModel filterModel;
-  const NearPlaceFutureBuilder(this.onNearPlacesGetWidgetCallback, this.userLocation, this.filterModel);
+  const PlacesNearFutureBuilder(this.onNearPlacesGetWidgetCallback, this.userLocation, this.filterModel);
 
   @override
   Widget build(BuildContext context) {

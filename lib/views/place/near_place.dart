@@ -34,7 +34,9 @@ class _NearbyPageState extends State<NearbyPage> with FilterSheetCreator impleme
             ),
             Expanded(
               flex: 9,
-              child: NearbyMapBuilder(),
+              child: NearbyMapBuilder(
+                filterModel
+              ),
             ),
           ],
         ),

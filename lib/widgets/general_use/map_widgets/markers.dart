@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
+import 'package:harmony/models/place.dart';
 import 'package:harmony/utilites/constants.dart';
 import 'package:harmony/widgets/general_use/add_place_marker.dart';
+import 'package:latlong2/latlong.dart';
 
 class Markers {
   final Color locationMarkerCircleColor = const Color(0xFFF5A623);
@@ -46,7 +48,15 @@ class Markers {
     );
   }
 
-  Marker createPlaceMarker(){
-
+  Marker getPlaceMarker(Place place){
+    return Marker(
+      point: LatLng(place.point.latitude, place.point.longitude),
+        builder: (BuildContext context) {
+          return const Icon(
+            Icons.location_on,
+            size: 40
+          );
+        }
+    );
   }
 }
