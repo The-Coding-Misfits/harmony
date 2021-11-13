@@ -8,6 +8,8 @@ class PlacesNearFutureBuilder extends StatelessWidget {
   final Function(List<Place>) onNearPlacesGetWidgetCallback;
   final LocationData userLocation;
   final FilterModel filterModel;
+
+
   const PlacesNearFutureBuilder(this.onNearPlacesGetWidgetCallback, this.userLocation, this.filterModel);
 
   @override
@@ -17,15 +19,7 @@ class PlacesNearFutureBuilder extends StatelessWidget {
       builder: (BuildContext context, AsyncSnapshot<List<Place>> placesSnapshot){
         if (placesSnapshot.hasData){
           List<Place> data = placesSnapshot.data!;
-
-          if (data.isEmpty) {
-            return const Align(
-              alignment: Alignment.center,
-              child: Text("No spots found nearby!"),
-            );
-          } else {
-            return onNearPlacesGetWidgetCallback(data);
-          }
+          return onNearPlacesGetWidgetCallback(data);
         }
         else if (placesSnapshot.hasError) {
           return Column(

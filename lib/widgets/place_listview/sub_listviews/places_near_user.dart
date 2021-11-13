@@ -20,6 +20,12 @@ class PlacesNearUserListView extends StatelessWidget {
   }
 
   Widget onGotNearPlaces(List<Place> nearPlaces){
+    if (nearPlaces.isEmpty){
+      return const Align(
+        alignment: Alignment.center,
+        child: Text("No spots found nearby!"),
+      );
+    }
     return PlaceListView(userLocation, nearPlaces);
   }
 }

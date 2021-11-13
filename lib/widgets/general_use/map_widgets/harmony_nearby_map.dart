@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
 import 'package:flutter_map_marker_popup/flutter_map_marker_popup.dart';
 import 'package:harmony/models/place.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:location/location.dart';
+import 'map_constants.dart';
 import 'map_popup_widgets/place_popup.dart';
 import 'markers.dart';
 
@@ -22,17 +24,10 @@ class _HarmonyNearbyMapState extends State<HarmonyNearbyMap> {
   final PopupController _popupLayerController = PopupController();
 
 
-  @override
-  void initState() {
-    super.initState();
-    _markers = _buildMarkers();
-  }
-
-
-
   List<Marker> _buildMarkers() {
     List<Marker> placeMarkers = [];
     for (Place place in widget.placesNear){
+      print("near places map ${place.name}");
       placeMarkers.add(Markers().getPlaceMarker(place));
     }
     return placeMarkers;
@@ -40,18 +35,28 @@ class _HarmonyNearbyMapState extends State<HarmonyNearbyMap> {
 
   @override
   Widget build(BuildContext context) {
+    List<Marker> _markers = _buildMarkers();
     return FlutterMap(
       options: MapOptions(
-        zoom: 5.0,
+        plugins: [
+          const LocationMarkerPlugin()
+        ],
+        zoom: 15.0,
         center: LatLng(widget.userLocation.latitude!, widget.userLocation.longitude!),
         onTap: (_, __) => _popupLayerController
             .hideAllPopups(), // Hide popup when the map is tapped.
       ),
+      layers: [
+        Markers().getNearbyPageMarker(),
+        MarkerLayerOptions(
+          markers: _markers
+        ),
+      ],
       children: [
         TileLayerWidget(
           options: TileLayerOptions(
-            urlTemplate: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-            subdomains: ['a', 'b', 'c'],
+            urlTemplate: kUrlTemplate ,
+              additionalOptions: kMapAdditionalInfo
           ),
         ),
         PopupMarkerLayerWidget(
@@ -61,6 +66,7 @@ class _HarmonyNearbyMapState extends State<HarmonyNearbyMap> {
             markerRotateAlignment:
             PopupMarkerLayerOptions.rotationAlignmentFor(AnchorAlign.top),
             popupBuilder: (BuildContext context, Marker marker){
+              print("wow");
               Place correspondingPlace = widget.placesNear.elementAt(_markers.indexOf(marker));
               return PlacePopup(correspondingPlace);
             }

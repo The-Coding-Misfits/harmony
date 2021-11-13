@@ -246,17 +246,18 @@ class AddPlaceState extends State<AddPlace> {
     }
   }
 
-  void handleAdding(){
+  void handleAdding() async{
     showSnackbar("Adding place...");
     try{
-      createPlace();
+      Place place = await createPlace();
       showSnackbar("Added spot!");
-    } catch(e){
+    } on Exception catch(_){
+      print(_.toString());
       showSnackbar("An error happened while adding the place!");
     }
   }
 
-  Place createPlace(){
+  Future<Place> createPlace() async{
     return widget._viewModel.createPlace(
       nameController.value.text,
       categorySelected!,

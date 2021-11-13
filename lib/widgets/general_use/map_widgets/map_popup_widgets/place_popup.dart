@@ -24,6 +24,7 @@ class _PlacePopupState extends State<PlacePopup> {
 
   @override
   Widget build(BuildContext context) {
+    print("popup");
     return Card(
       child: InkWell(
         onTap: () => setState(() {
