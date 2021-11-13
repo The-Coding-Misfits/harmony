@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 
 class RatingWidget extends StatefulWidget {
   final double rating;
+  final double size;
 
   @override
   _RatingWidgetState createState() => _RatingWidgetState();
 
-  const RatingWidget(this.rating);
+  const RatingWidget(this.rating, this.size);
 }
 
 class _RatingWidgetState extends State<RatingWidget> {
@@ -26,11 +27,11 @@ class _RatingWidgetState extends State<RatingWidget> {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        _RatingBall(activeColor, rating - 0),
-        _RatingBall(activeColor, rating - 1),
-        _RatingBall(activeColor, rating - 2),
-        _RatingBall(activeColor, rating - 3),
-        _RatingBall(activeColor, rating - 4),
+        _RatingBall(activeColor, widget.size, rating - 0),
+        _RatingBall(activeColor, widget.size, rating - 1),
+        _RatingBall(activeColor, widget.size, rating - 2),
+        _RatingBall(activeColor, widget.size, rating - 3),
+        _RatingBall(activeColor, widget.size, rating - 4),
       ]
     );
   }
@@ -41,12 +42,12 @@ class _RatingWidgetState extends State<RatingWidget> {
 class _RatingBall extends StatelessWidget {
   late final _FILL_BALL _fillBall;
   final Color activeColor;
-  static const double size = 20;
+  final double size;
   static const IconData icon = Icons.circle;
 
   static const Color inactiveColor = Colors.grey;
 
-  _RatingBall(this.activeColor, double ratingOffset){
+  _RatingBall(this.activeColor, this.size, double ratingOffset){
     if(ratingOffset < 0.5){
       _fillBall = _FILL_BALL.empty;
     } else if( ratingOffset < 1){
@@ -60,13 +61,13 @@ class _RatingBall extends StatelessWidget {
   Widget build(BuildContext context) {
     switch (_fillBall){
       case _FILL_BALL.empty: {
-        return const Icon(icon, color: inactiveColor, size : size);
+        return Icon(icon, color: inactiveColor, size: size);
       }
       case _FILL_BALL.half: {
         return _HalfFilledIcon(icon: icon, size: size, color: activeColor);
       }
       case _FILL_BALL.full: {
-        return Icon(icon, color: activeColor, size : size);
+        return Icon(icon, color: activeColor, size: size);
       }
     }
   }

@@ -7,7 +7,8 @@ class PlaceCard extends StatelessWidget {
   final Place place;
   final double? distance;
   final String imageUrl;
-  const PlaceCard({required this.place, this.distance, required this.imageUrl, Key? key}) : super(key: key);
+  final double contentSize;
+  const PlaceCard({required this.place, this.distance, required this.imageUrl, required this.contentSize, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +46,7 @@ class PlaceCard extends StatelessWidget {
                 alignment: Alignment.centerLeft,
                 child: Padding(
                   padding: const EdgeInsets.only(top: 10, bottom: 5, left: 10),
-                  child: Text(place.name, style: const TextStyle(fontSize: 20)),
+                  child: Text(place.name, style: TextStyle(fontSize: contentSize)),
                 ),
               ),
               Align(
@@ -54,11 +55,11 @@ class PlaceCard extends StatelessWidget {
                     padding: const EdgeInsets.only(bottom: 5, left: 10),
                     child: Row(
                       children: [
-                        RatingWidget(place.rating),
-                        Text(distance == null ? ' ${place.rating}/5.0' : ' ${place.rating}/5.0 • ${distance}KM Nearby',
-                            style: const TextStyle(
-                                fontSize: 16,
-                                color: Color(0xff6a6a6a),
+                        RatingWidget(place.rating, contentSize),
+                        Text(distance == null ? ' ${place.rating}/5.0' : ' ${place.rating}/5.0 • ${distance!.toStringAsFixed(1)}KM Nearby',
+                            style: TextStyle(
+                                fontSize: contentSize - 1,
+                                color: const Color(0xff6a6a6a),
                                 fontWeight: FontWeight.bold
                             )
                         ),

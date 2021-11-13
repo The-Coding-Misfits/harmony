@@ -24,3 +24,5 @@ These are some screenshots from the alpha version of the app
 <img src="https://user-images.githubusercontent.com/63517174/140525396-48034ece-12b9-4022-b4cd-500500ebec9a.png" width="400" height="900"/>
 
 <img src="https://user-images.githubusercontent.com/63517174/141335054-fae5eb4e-4f51-429f-aeea-65fa26694529.png" width="400" height="900"/>
+
+<img src="https://user-images.githubusercontent.com/63517174/141508426-074acb67-4431-481e-bee5-1ec4e3cd0f49.png" width="400" height="900"/>
