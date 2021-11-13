@@ -7,8 +7,6 @@ import 'package:harmony/widgets/filter/filter_sheet/mixin&interface/filter_sheet
 import 'package:harmony/widgets/filter/filter_sheet/mixin&interface/uses_filter_sheet.dart';
 import 'package:harmony/widgets/general_use/add_place_marker.dart';
 import 'package:harmony/widgets/general_use/harmony_bottom_navigation_bar.dart';
-import 'package:harmony/widgets/general_use/map_widgets/harmony_add_place_map.dart';
-import 'package:harmony/widgets/general_use/map_widgets/harmony_nearby_map.dart';
 import 'package:harmony/widgets/nearby_widgets/nearby_map_constructor.dart';
 
 class NearbyPage extends StatefulWidget {
@@ -32,7 +30,7 @@ class _NearbyPageState extends State<NearbyPage> with FilterSheetCreator impleme
           children: [
             FilterTopBar(
               launchFilterSheet,
-              "Nearby"
+              "Nearby",
             ),
             Expanded(
               flex: 9,
