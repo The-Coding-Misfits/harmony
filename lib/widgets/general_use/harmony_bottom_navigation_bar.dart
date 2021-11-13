@@ -3,7 +3,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:harmony/services/auth_service.dart';
 import 'package:harmony/utilites/page_enum.dart';
 import 'package:harmony/views/account/account_page.dart';
-import 'package:harmony/views/place/add_place.dart';
 import 'package:harmony/views/discover/discover_page.dart';
 import 'package:harmony/views/place/near_place.dart';
 
@@ -50,7 +49,7 @@ class HarmonyBottomNavigationBar extends StatelessWidget {
 
                     context,
                     PageRouteBuilder(
-                      pageBuilder: (context, animation1, animation2) => const NearbyPage(), //TODO ACTUALLY NEARBY!!!
+                      pageBuilder: (context, animation1, animation2) => const NearbyPage(),
                       transitionDuration: const Duration(seconds: 1),
                     ),
                   )

@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:harmony/utilites/constants.dart';
 import 'package:harmony/widgets/general_use/add_place_marker.dart';
-import 'package:latlong2/latlong.dart';
 
 class Markers {
   final Color locationMarkerCircleColor = const Color(0xFFF5A623);
@@ -28,9 +26,9 @@ class Markers {
 
   LocationMarkerLayerOptions getAddPlacePageMarker(){
     return LocationMarkerLayerOptions(
-      marker: DefaultLocationMarker(
-        color: locationMarkerCircleColor,
-        child: const Hero(
+      marker: const DefaultLocationMarker(
+        color: kHarmonyColor,
+        child: Hero(
           tag : AddPlaceMarker.markerTag,
           child: AddPlaceMarker(
             20,
@@ -40,7 +38,7 @@ class Markers {
         ),
       ),
       markerSize: const Size(25, 25),
-      accuracyCircleColor: locationMarkerCircleColor.withOpacity(0.4),
+      accuracyCircleColor: kHarmonyColor.withOpacity(0.4),
       headingSectorColor: Colors.transparent,
       headingSectorRadius: 0,
       markerAnimationDuration: Duration.zero, // disable animation
