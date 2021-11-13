@@ -3,18 +3,20 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_marker_popup/flutter_map_marker_popup.dart';
 import 'package:harmony/models/place.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:location/location.dart';
 import 'map_popup_widgets/place_popup.dart';
 import 'markers.dart';
 
-class MapWithPopups extends StatefulWidget {
+class HarmonyNearbyMap extends StatefulWidget {
   final List<Place> placesNear;
+  final LocationData userLocation;
 
-  const MapWithPopups({Key? key, required this.placesNear}) : super(key: key);
+  const HarmonyNearbyMap({Key? key, required this.placesNear, required this.userLocation}) : super(key: key);
   @override
-  _MapWithPopupsState createState() => _MapWithPopupsState();
+  _HarmonyNearbyMapState createState() => _HarmonyNearbyMapState();
 }
 
-class _MapWithPopupsState extends State<MapWithPopups> {
+class _HarmonyNearbyMapState extends State<HarmonyNearbyMap> {
   List<Marker> _markers = [];
   /// Used to trigger showing/hiding of popups.
   final PopupController _popupLayerController = PopupController();
@@ -41,7 +43,7 @@ class _MapWithPopupsState extends State<MapWithPopups> {
     return FlutterMap(
       options: MapOptions(
         zoom: 5.0,
-        center: LatLng(44.421, 10.404),
+        center: LatLng(widget.userLocation.latitude!, widget.userLocation.longitude!),
         onTap: (_, __) => _popupLayerController
             .hideAllPopups(), // Hide popup when the map is tapped.
       ),

@@ -26,9 +26,8 @@ class NearbyMapBuilder extends StatelessWidget {
 
   Widget onNearPlacesGot(List<Place> nearPlaces){
     return HarmonyNearbyMap(
-        latitude: userLocation.latitude!,
-        longitude: userLocation.longitude!,
-        places: nearPlaces,
+        userLocation: userLocation,
+      placesNear: nearPlaces,
     );
   }
 }
