@@ -25,6 +25,7 @@ dependencies:
   flutter_map: ^0.14.0
   latlong2: ^0.8.1
   maps_launcher: ^2.0.1
+  flutter_map_location_marker: any
 
 dev_dependencies:
   flutter_test:

@@ -5,6 +5,7 @@ import 'package:harmony/utilites/page_enum.dart';
 import 'package:harmony/views/account/account_page.dart';
 import 'package:harmony/views/place/add_place.dart';
 import 'package:harmony/views/discover/discover_page.dart';
+import 'package:harmony/views/place/near_place.dart';
 
 class HarmonyBottomNavigationBar extends StatelessWidget {
   final PAGE_ENUM currPage;
@@ -41,7 +42,7 @@ class HarmonyBottomNavigationBar extends StatelessWidget {
               ),
               IconButton(
                   icon: Icon(
-                    Icons.add_box_outlined,
+                    Icons.near_me_outlined,
                     size: 26,
                     color: currPage == PAGE_ENUM.NEARBY_PAGE ? _activeColor : _inactiveColor,
                   ),
@@ -49,7 +50,7 @@ class HarmonyBottomNavigationBar extends StatelessWidget {
 
                     context,
                     PageRouteBuilder(
-                      pageBuilder: (context, animation1, animation2) => AddPlace(), //TODO ACTUALLY NEARBY!!!
+                      pageBuilder: (context, animation1, animation2) => const NearbyPage(), //TODO ACTUALLY NEARBY!!!
                       transitionDuration: const Duration(seconds: 1),
                     ),
                   )

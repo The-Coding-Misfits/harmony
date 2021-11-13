@@ -9,7 +9,8 @@ import 'package:harmony/utilites/places/place_category_enum.dart';
 import 'package:harmony/viewmodel/add_place/add_place_viewmodel.dart';
 import 'package:harmony/widgets/filter/category_widgets/category_grid.dart';
 import 'package:harmony/widgets/general_use/harmony_bottom_navigation_bar.dart';
-import 'package:harmony/widgets/general_use/harmony_map.dart';
+import 'package:harmony/widgets/general_use/map_widgets/harmony_add_place_map.dart';
+import 'package:harmony/widgets/general_use/map_widgets/markers.dart';
 import 'package:harmony/widgets/login_register/harmony_shiny_button.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:location/location.dart';
@@ -75,9 +76,9 @@ class AddPlaceState extends State<AddPlace> {
         LocationData data = snapshot.data;
         locationData = data;
 
-        return HarmonyMap(
+        return HarmonyAddPlaceMap(
           latitude: data.latitude!,
-          longitude: data.longitude!
+          longitude: data.longitude!,
         );
       },
     );

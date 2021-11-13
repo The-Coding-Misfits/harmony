@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:harmony/models/place.dart';
 import 'package:harmony/services/location_service.dart';
-import 'package:harmony/widgets/general_use/harmony_map.dart';
+import 'package:harmony/widgets/general_use/map_widgets/harmony_add_place_map.dart';
 import 'package:harmony/widgets/place_listview/sub_listviews/place_formulas.dart';
 import 'package:harmony/widgets/spot_info/favorite_widget.dart';
 import 'package:location/location.dart';
@@ -76,9 +76,10 @@ class SpotInfoState extends State<SpotInfo> {
             SizedBox(
                 height: 300,
                 width: MediaQuery.of(context).size.width,
-                child: HarmonyMap(
+                child: HarmonyAddPlaceMap(
                     latitude: place.point.latitude,
-                    longitude: place.point.longitude
+                    longitude: place.point.longitude,
+
                 )
             ),
             Padding(
