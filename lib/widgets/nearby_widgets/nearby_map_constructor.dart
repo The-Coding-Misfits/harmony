@@ -6,12 +6,18 @@ import 'package:harmony/widgets/future_builders/location_future_builder.dart';
 import 'package:harmony/widgets/general_use/map_widgets/harmony_nearby_map.dart';
 import 'package:location/location.dart';
 
-class NearbyMapBuilder extends StatelessWidget {
+class NearbyMapBuilder extends StatefulWidget {
 
-  late final LocationData userLocation;
+
   final FilterModel filterModel;
   NearbyMapBuilder(this.filterModel, {Key? key}) : super(key: key);
 
+  @override
+  State<NearbyMapBuilder> createState() => _NearbyMapBuilderState();
+}
+
+class _NearbyMapBuilderState extends State<NearbyMapBuilder> {
+  late LocationData userLocation;
   @override
   Widget build(BuildContext context) {
     return LocationFutureBuilder(
@@ -21,7 +27,7 @@ class NearbyMapBuilder extends StatelessWidget {
 
   Widget onLocationGotCallback(LocationData userLocation){
     this.userLocation = userLocation;
-    return PlacesNearFutureBuilder(onNearPlacesGot, userLocation, filterModel);
+    return PlacesNearFutureBuilder(onNearPlacesGot, userLocation, widget.filterModel);
   }
 
   Widget onNearPlacesGot(List<Place> nearPlaces){
