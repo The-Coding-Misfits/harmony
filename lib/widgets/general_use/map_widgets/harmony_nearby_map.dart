@@ -59,7 +59,7 @@ class _HarmonyNearbyMapState extends State<HarmonyNearbyMap> {
             PopupMarkerLayerOptions.rotationAlignmentFor(AnchorAlign.top),
             popupBuilder: (BuildContext context, Marker marker){
               Place correspondingPlace = widget.placesNear.elementAt(_markers.indexOf(marker));
-              return PlacePopup(correspondingPlace);
+              return PlacePopup(correspondingPlace, widget.userLocation);
             }
           ),
         ),

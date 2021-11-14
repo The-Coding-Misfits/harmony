@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:harmony/models/place.dart';
 import 'package:harmony/utilites/constants.dart';
+import 'package:harmony/widgets/place_listview/sub_listviews/place_formulas.dart';
+import 'package:location/location.dart';
 
 class PlacePopup extends StatefulWidget {
   final Place place;
+  final LocationData userLocation;
 
-  const PlacePopup(this.place, {Key? key}) : super(key: key);
+  const PlacePopup(this.place, this.userLocation, {Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _PlacePopupState();
@@ -13,10 +16,12 @@ class PlacePopup extends StatefulWidget {
 
 class _PlacePopupState extends State<PlacePopup> {
   late final Place place = widget.place;
-
+  late double dist;
 
   @override
   Widget build(BuildContext context) {
+    dist = calculateDistanceBetweenTwoPoints(place.point.longitude, widget.userLocation.longitude!, place.point.latitude, widget.userLocation.latitude!);
+
     return Card(
       child: InkWell(
         onTap: () {
@@ -25,7 +30,7 @@ class _PlacePopupState extends State<PlacePopup> {
             kSpotInfoRouteName,
               arguments: {
                 "place": place,
-                "distance": null,
+                "distance": dist,
                 "imageUrl": null,
               }
           );
@@ -65,7 +70,7 @@ class _PlacePopupState extends State<PlacePopup> {
             ),
             const Padding(padding: EdgeInsets.symmetric(vertical: 4.0)),
             Text(
-              'Position: ${place.point.latitude}, ${place.point.longitude}',
+              "Distance: ${dist.toStringAsFixed(1)}KM",
               style: const TextStyle(fontSize: 12.0),
             ),
           ],
