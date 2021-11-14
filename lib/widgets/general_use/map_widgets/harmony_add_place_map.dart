@@ -21,10 +21,11 @@ class HarmonyAddPlaceMap extends StatefulWidget {
 class HarmonyAddPlaceMapState extends State<HarmonyAddPlaceMap> {
   @override
   Widget build(BuildContext context) {
-    return FlutterMap(
+    LatLng coords = LatLng(widget.latitude, widget.longitude);
 
+    return FlutterMap(
       options: MapOptions(
-        center: LatLng(widget.latitude, widget.longitude),
+        center: coords,
         zoom: 15.0,
       ),
       layers: [
@@ -32,7 +33,7 @@ class HarmonyAddPlaceMapState extends State<HarmonyAddPlaceMap> {
             urlTemplate: kUrlTemplate ,
             additionalOptions: kMapAdditionalInfo
         ),
-        Markers().getAddPlacePageMarker(LatLng(widget.latitude, widget.longitude))
+        Markers().getAddPlacePageMarker(coords)
       ],
     );
   }
