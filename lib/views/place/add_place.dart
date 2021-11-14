@@ -4,13 +4,10 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:harmony/models/place.dart';
 import 'package:harmony/services/location_service.dart';
-import 'package:harmony/utilites/page_enum.dart';
 import 'package:harmony/utilites/places/place_category_enum.dart';
 import 'package:harmony/viewmodel/add_place/add_place_viewmodel.dart';
 import 'package:harmony/widgets/filter/category_widgets/category_grid.dart';
-import 'package:harmony/widgets/general_use/harmony_bottom_navigation_bar.dart';
 import 'package:harmony/widgets/general_use/map_widgets/harmony_add_place_map.dart';
-import 'package:harmony/widgets/general_use/map_widgets/markers.dart';
 import 'package:harmony/widgets/login_register/harmony_shiny_button.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:location/location.dart';
@@ -227,9 +224,6 @@ class AddPlaceState extends State<AddPlace> {
             ),
           ),
         ),
-      ),
-      bottomNavigationBar: HarmonyBottomNavigationBar(
-        PAGE_ENUM.NEARBY_PAGE
       ),
     );
   }
