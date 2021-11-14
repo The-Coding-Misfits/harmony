@@ -91,6 +91,7 @@ class AddPlaceState extends State<AddPlace> {
         centerTitle: true,
         title: const Text("Add new spot", style: TextStyle(color: Colors.black)),
         backgroundColor: Colors.transparent,
+        foregroundColor: Colors.black,
       ),
       body: SingleChildScrollView(
         child: Center(
