@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:harmony/models/place.dart';
+import 'package:harmony/services/firestore.dart';
 import 'package:harmony/services/location_service.dart';
 import 'package:harmony/widgets/general_use/map_widgets/harmony_add_place_map.dart';
 import 'package:harmony/widgets/place_listview/sub_listviews/place_formulas.dart';
@@ -24,7 +25,7 @@ class SpotInfoState extends State<SpotInfo> {
 
     Place place = args["place"] as Place;
     double? distance = args["distance"];
-    String imageUrl = args["imageUrl"];
+    String? imageUrl = args["imageUrl"];
 
     Widget distanceWidget = distance != null ? Text(" ${place.rating}/5.0 • ${distance.toStringAsFixed(1)}KM Nearby",
         style: const TextStyle(
@@ -54,6 +55,22 @@ class SpotInfoState extends State<SpotInfo> {
             color: Color(0xff6a6a6a),
             fontWeight: FontWeight.bold
         ));
+      },
+    );
+
+    Widget imageUrlWidget = imageUrl != null ? Image.network(
+      imageUrl,
+      scale: 6
+    ) : FutureBuilder(
+      future: FireStoreService().getCoverFromId(place.id),
+      builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+        if (snapshot.connectionState == ConnectionState.done) {
+          imageUrl = snapshot.data;
+
+          return Image.network(imageUrl!, scale: 6);
+        }
+
+        return const Text("Loading cover...");
       },
     );
 
@@ -110,7 +127,7 @@ class SpotInfoState extends State<SpotInfo> {
                 padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
                 child: Align(
                     alignment: Alignment.topLeft,
-                    child: Image.network(imageUrl, scale: 6)
+                    child: imageUrlWidget
                 )
             ),
             Padding(

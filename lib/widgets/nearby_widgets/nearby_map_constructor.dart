@@ -8,6 +8,7 @@ class NearbyMapBuilder extends StatelessWidget {
   final FilterModel filterModel;
   const NearbyMapBuilder(this.filterModel, {Key? key}) : super(key: key);
 
+  @override
   Widget build(BuildContext context) {
     filterModel; //hack, we want to build map again but cant because this function is not dirty
     return LocationFutureBuilder(

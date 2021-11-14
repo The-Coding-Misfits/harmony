@@ -36,22 +36,15 @@ class _HarmonyNearbyMapState extends State<HarmonyNearbyMap> {
   @override
   Widget build(BuildContext context) {
     List<Marker> _markers = _buildMarkers();
+    LatLng coords = LatLng(widget.userLocation.latitude!, widget.userLocation.longitude!);
+
     return FlutterMap(
       options: MapOptions(
-        plugins: [
-          const LocationMarkerPlugin()
-        ],
         zoom: 15.0,
-        center: LatLng(widget.userLocation.latitude!, widget.userLocation.longitude!),
+        center: coords,
         onTap: (_, __) => _popupLayerController
             .hideAllPopups(), // Hide popup when the map is tapped.
       ),
-      layers: [
-        Markers().getNearbyPageMarker(),
-        MarkerLayerOptions(
-          markers: _markers
-        ),
-      ],
       children: [
         TileLayerWidget(
           options: TileLayerOptions(
@@ -59,6 +52,7 @@ class _HarmonyNearbyMapState extends State<HarmonyNearbyMap> {
               additionalOptions: kMapAdditionalInfo
           ),
         ),
+        Markers().getNearbyPageMarker(coords),
         PopupMarkerLayerWidget(
           options: PopupMarkerLayerOptions(
             popupController: _popupLayerController,
@@ -66,7 +60,6 @@ class _HarmonyNearbyMapState extends State<HarmonyNearbyMap> {
             markerRotateAlignment:
             PopupMarkerLayerOptions.rotationAlignmentFor(AnchorAlign.top),
             popupBuilder: (BuildContext context, Marker marker){
-              print("wow");
               Place correspondingPlace = widget.placesNear.elementAt(_markers.indexOf(marker));
               return PlacePopup(correspondingPlace);
             }

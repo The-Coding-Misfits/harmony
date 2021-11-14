@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_map/flutter_map.dart';
 import 'package:harmony/models/place.dart';
+import 'package:harmony/utilites/constants.dart';
 
 class PlacePopup extends StatefulWidget {
   final Place place;
@@ -14,28 +14,28 @@ class PlacePopup extends StatefulWidget {
 class _PlacePopupState extends State<PlacePopup> {
   late final Place place = widget.place;
 
-  final List<IconData> _icons = [
-    Icons.star_border,
-    Icons.star_half,
-    Icons.star
-  ];
-  int _currentIcon = 0;
-
 
   @override
   Widget build(BuildContext context) {
-    print("popup");
     return Card(
       child: InkWell(
-        onTap: () => setState(() {
-          _currentIcon = (_currentIcon + 1) % _icons.length;
-        }),
+        onTap: () {
+          Navigator.pushNamed(
+            context,
+            kSpotInfoRouteName,
+              arguments: {
+                "place": place,
+                "distance": null,
+                "imageUrl": null,
+              }
+          );
+        },
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            Padding(
-              padding: EdgeInsets.only(left: 20, right: 10),
-              child: Icon(_icons[_currentIcon]),
+            const Padding(
+              padding: EdgeInsets.only(left: 15, right: 5),
+              child: Icon(Icons.map),
             ),
             _cardDescription(context),
           ],
@@ -48,14 +48,14 @@ class _PlacePopupState extends State<PlacePopup> {
     return Padding(
       padding: const EdgeInsets.all(10),
       child: Container(
-        constraints: BoxConstraints(minWidth: 100, maxWidth: 200),
+        constraints: const BoxConstraints(minWidth: 100, maxWidth: 200),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             Text(
-              'Popup for a marker!',
+              widget.place.name,
               overflow: TextOverflow.fade,
               softWrap: false,
               style: const TextStyle(
@@ -66,10 +66,6 @@ class _PlacePopupState extends State<PlacePopup> {
             const Padding(padding: EdgeInsets.symmetric(vertical: 4.0)),
             Text(
               'Position: ${place.point.latitude}, ${place.point.longitude}',
-              style: const TextStyle(fontSize: 12.0),
-            ),
-            Text(
-              'Marker size: }',
               style: const TextStyle(fontSize: 12.0),
             ),
           ],
