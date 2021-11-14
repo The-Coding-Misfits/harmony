@@ -27,24 +27,38 @@ class Markers {
       );
   }
 
-  LocationMarkerLayerOptions getAddPlacePageMarker(){
-    return LocationMarkerLayerOptions(
-      marker: const DefaultLocationMarker(
-        color: kHarmonyColor,
-        child: Hero(
-          tag : AddPlaceMarker.markerTag,
-          child: AddPlaceMarker(
-            20,
-            30,
-            15
-          ),
+  MarkerLayerOptions getAddPlacePageMarker(LatLng point) {
+    return MarkerLayerOptions(
+      markers: [
+        Marker(
+          point: point,
+          builder: (BuildContext context) {
+            return const DecoratedBox(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                shape: BoxShape.circle,
+              ),
+              child: Padding(
+                padding: EdgeInsets.all(2),
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    color: kHarmonyColor,
+                    shape: BoxShape.circle,
+                  ),
+                  child: Hero(
+                    tag : AddPlaceMarker.markerTag,
+                    child: AddPlaceMarker(
+                        20,
+                        30,
+                        15
+                    ),
+                  ),
+                ),
+              ),
+            );
+          },
         ),
-      ),
-      markerSize: const Size(25, 25),
-      accuracyCircleColor: kHarmonyColor.withOpacity(0.4),
-      headingSectorColor: Colors.transparent,
-      headingSectorRadius: 0,
-      markerAnimationDuration: Duration.zero, // disable animation
+      ]
     );
   }
 

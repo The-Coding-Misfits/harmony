@@ -15,7 +15,7 @@ class AddPlaceMarker extends StatelessWidget {
       minRadius: minRadius,
       maxRadius: maxRadius,
       child: Icon(
-        Icons.place,
+        Icons.add,
         size: iconSize,
         color: Colors.white,
       ),

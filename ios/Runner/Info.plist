@@ -53,5 +53,21 @@
     <string>Harmony needs access to your live location to notify you the gourgeous places around yourself, just in case you miss them!</string>
     <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
     <string>Harmony needs access to your live location to notify you the gourgeous places around yourself, just in case you miss them!</string>
+
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+        <string>comgooglemaps</string>
+        <string>baidumap</string>
+        <string>iosamap</string>
+        <string>waze</string>
+        <string>yandexmaps</string>
+        <string>yandexnavi</string>
+        <string>citymapper</string>
+        <string>mapswithme</string>
+        <string>osmandmaps</string>
+        <string>dgis</string>
+        <string>qqmap</string>
+        <string>here-location</string>
+    </array>
 </dict>
 </plist>

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
-import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
 import 'package:harmony/widgets/general_use/map_widgets/map_constants.dart';
 import 'package:latlong2/latlong.dart';
 
@@ -27,16 +26,13 @@ class HarmonyAddPlaceMapState extends State<HarmonyAddPlaceMap> {
       options: MapOptions(
         center: LatLng(widget.latitude, widget.longitude),
         zoom: 15.0,
-        plugins: [
-          const LocationMarkerPlugin()
-        ]
       ),
       layers: [
         TileLayerOptions(
             urlTemplate: kUrlTemplate ,
             additionalOptions: kMapAdditionalInfo
         ),
-        Markers().getAddPlacePageMarker()
+        Markers().getAddPlacePageMarker(LatLng(widget.latitude, widget.longitude))
       ],
     );
   }

@@ -6,7 +6,7 @@ import 'package:harmony/widgets/general_use/map_widgets/harmony_add_place_map.da
 import 'package:harmony/widgets/place_listview/sub_listviews/place_formulas.dart';
 import 'package:harmony/widgets/spot_info/favorite_widget.dart';
 import 'package:location/location.dart';
-import 'package:maps_launcher/maps_launcher.dart';
+import 'package:map_launcher/map_launcher.dart';
 import 'package:harmony/widgets/general_use/rating_widget.dart';
 
 class SpotInfo extends StatefulWidget {
@@ -124,8 +124,13 @@ class SpotInfoState extends State<SpotInfo> {
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          MapsLauncher.launchCoordinates(place.point.latitude, place.point.longitude);
+        onPressed: () async {
+          final availableMaps = await MapLauncher.installedMaps;
+
+          await availableMaps.first.showMarker(
+            coords: Coords(place.point.latitude, place.point.longitude),
+            title: place.name
+          );
         },
         icon: const Icon(FontAwesomeIcons.directions),
         label: const Text("Get Directions"),

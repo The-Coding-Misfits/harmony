@@ -9,8 +9,6 @@ class NearbyMapBuilder extends StatelessWidget {
   const NearbyMapBuilder(this.filterModel, {Key? key}) : super(key: key);
 
   Widget build(BuildContext context) {
-    print("build map");
-    print(filterModel.minimumRating);
     filterModel; //hack, we want to build map again but cant because this function is not dirty
     return LocationFutureBuilder(
       onLocationGotCallback
@@ -18,8 +16,6 @@ class NearbyMapBuilder extends StatelessWidget {
   }
 
   Widget onLocationGotCallback(LocationData userLocation){
-    print("got location");
-    print(userLocation.latitude!);
     return NearbyOnLocationBuilder(filterModel, userLocation);
   }
 }
