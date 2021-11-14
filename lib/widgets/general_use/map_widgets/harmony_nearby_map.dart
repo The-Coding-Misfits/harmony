@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
-import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
 import 'package:flutter_map_marker_popup/flutter_map_marker_popup.dart';
 import 'package:harmony/models/place.dart';
 import 'package:latlong2/latlong.dart';
@@ -19,7 +18,6 @@ class HarmonyNearbyMap extends StatefulWidget {
 }
 
 class _HarmonyNearbyMapState extends State<HarmonyNearbyMap> {
-  List<Marker> _markers = [];
   /// Used to trigger showing/hiding of popups.
   final PopupController _popupLayerController = PopupController();
 
