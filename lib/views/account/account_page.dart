@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:harmony/models/user.dart';
+import 'package:harmony/services/firestore.dart';
 import 'package:harmony/utilites/constants.dart';
 import 'package:harmony/utilites/page_enum.dart';
 import 'package:harmony/widgets/account_page/user_favorites.dart';
 import 'package:harmony/widgets/general_use/harmony_bottom_navigation_bar.dart';
+import 'package:image_picker/image_picker.dart';
 
 
 class AccountPage extends StatefulWidget {
@@ -21,6 +23,8 @@ class _AccountPageState extends State<AccountPage> {
   // TODO
   Widget favoritesWidget = const UserFavorites();
   Widget reviewsWidget = const Text("reviews");
+  final ImagePicker _picker = ImagePicker();
+  String? pfpUrl;
 
   late Widget selectedWidget;
   @override
@@ -30,8 +34,30 @@ class _AccountPageState extends State<AccountPage> {
     selectedWidget = favoritesWidget;
   }
 
+  getPfp(String userId) async {
+    if (pfpUrl == null) {
+      pfpUrl = await FireStoreService().getPfpFromId(userId);
+      return pfpUrl;
+    } else {
+      return pfpUrl;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    Widget pfpWidget = FutureBuilder(
+      future: getPfp(widget.user.id),
+      builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+        if (snapshot.hasError) {
+          return Image.asset("assets/images/dummy-profile-pic.png");
+        } else if (snapshot.connectionState == ConnectionState.done) {
+          return Image.network(snapshot.data, fit: BoxFit.fill);
+        } else {
+          return Container(color: Colors.grey);
+        }
+      },
+    );
+
     return Scaffold(
       body: SafeArea(
         child: Center(
@@ -39,10 +65,60 @@ class _AccountPageState extends State<AccountPage> {
             children: [
               Padding(
                 padding: const EdgeInsets.only(top: 15),
-                child: ClipRRect(
-                  borderRadius: const BorderRadius.all(Radius.circular(100)),
-                  child: Image.asset("assets/images/dummy-profile-pic.png", scale: 3),
-                ),
+                child: GestureDetector(
+                  onTap: () async {
+                    XFile? pickedImage;
+
+                    showModalBottomSheet(
+                        context: context,
+                        builder: (context) => SafeArea(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                ListTile(
+                                  leading: const Icon(Icons.camera_alt),
+                                  title: const Text("Take photo with Camera"),
+                                  onTap: () async {
+                                    pickedImage = await _picker.pickImage(source: ImageSource.camera);
+
+                                    FireStoreService().changePfpOfUser(widget.user, pickedImage!);
+
+                                    Navigator.pop(context);
+
+                                    setState(() {});
+                                  },
+                                ),
+                                ListTile(
+                                  leading: const Icon(Icons.image),
+                                  title: const Text("Select from gallery"),
+                                  onTap: () async {
+                                    pickedImage = await _picker.pickImage(source: ImageSource.gallery);
+
+                                    FireStoreService().changePfpOfUser(widget.user, pickedImage!);
+
+                                    Navigator.pop(context);
+
+                                    setState(() {});
+                                  },
+                                ),
+                              ],
+                            )
+                        )
+                    );
+                  },
+                  child: ClipRRect(
+                    borderRadius: const BorderRadius.all(Radius.circular(100)),
+                    child: SizedBox(
+                      width: 150,
+                      height: 150,
+                      child: AspectRatio(
+                        aspectRatio: 1 / 1,
+                        child: pfpWidget,
+                      ),
+                    )
+                  ),
+                )
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 10),

@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:geoflutterfire/geoflutterfire.dart';
@@ -9,6 +10,7 @@ import 'package:harmony/services/geo_fire.dart';
 import 'package:harmony/utilites/custom_exception.dart';
 import 'package:harmony/utilites/places/place_category_enum.dart';
 import 'package:harmony/widgets/filter/filter_sheet/filter_model.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:location/location.dart';
 
 
@@ -253,5 +255,17 @@ class FireStoreService {
         );
       }
     );
+  }
+
+  changePfpOfUser(HarmonyUser user, XFile file) {
+    String firestoragePath = "users/${user.id}/pfp";
+    Reference storageRef = FirebaseStorage.instance.ref().child(firestoragePath);
+    storageRef.putFile(File(file.path));
+    return firestoragePath;
+  }
+
+  Future<String> getPfpFromId(String userId) async {
+    Reference instance = FirebaseStorage.instance.ref("users/$userId/pfp");
+    return await instance.getDownloadURL();
   }
 }
