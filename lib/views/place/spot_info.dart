@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:harmony/models/place.dart';
+import 'package:harmony/services/auth_service.dart';
 import 'package:harmony/services/firestore.dart';
 import 'package:harmony/services/location_service.dart';
 import 'package:harmony/utilites/places/place_category_enum.dart';
@@ -8,6 +9,7 @@ import 'package:harmony/widgets/filter/category_widgets/category_grid.dart';
 import 'package:harmony/widgets/general_use/map_widgets/harmony_add_place_map.dart';
 import 'package:harmony/widgets/general_use/review_card.dart';
 import 'package:harmony/widgets/place_listview/sub_listviews/place_formulas.dart';
+import 'package:harmony/widgets/spot_info/create_review.dart';
 import 'package:harmony/widgets/spot_info/favorite_widget.dart';
 import 'package:location/location.dart';
 import 'package:map_launcher/map_launcher.dart';
@@ -93,11 +95,14 @@ class SpotInfoState extends State<SpotInfo> {
           padding: EdgeInsets.only(top: 0, bottom: 0),
           child: Divider(),
         ),
-        ListView.builder(
+        ListView.separated(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
           padding: EdgeInsets.zero,
           itemCount: place.reviewIds.length,
+          separatorBuilder: (BuildContext context, int index) {
+            return const Divider();
+          },
           itemBuilder: (BuildContext context, int index) {
             String currReviewId = place.reviewIds[index];
 
@@ -140,7 +145,10 @@ class SpotInfoState extends State<SpotInfo> {
         backgroundColor: const Color(0x11000000),
         foregroundColor: Colors.black,
         actions: [
-          FavoriteIconButton(place: place)
+          FavoriteIconButton(place: place),
+          place.reviewIds.contains(AuthService.currHarmonyUser!.id)
+              ? const CreateReviewIconButton()
+              : const SizedBox(width: 0, height: 0)
         ],
       ),
       body: SingleChildScrollView(
