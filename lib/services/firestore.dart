@@ -21,7 +21,7 @@ class FireStoreService {
   static final GeoFireService _geoFireService = GeoFireService();
 
   String uploadPlaceImageToDatabase(File image, Place place){
-    String firestoragePath = "${place.id}/cover";
+    String firestoragePath = "places/${place.id}/cover";
     Reference storageRef = FirebaseStorage.instance.ref().child(firestoragePath);
     storageRef.putFile(image);
     return firestoragePath;
@@ -217,7 +217,7 @@ class FireStoreService {
 
 
   Future<String> getCoverFromId(String placeId) async {
-    Reference instance = FirebaseStorage.instance.ref("$placeId/cover");
+    Reference instance = FirebaseStorage.instance.ref("places/$placeId/cover");
     return await instance.getDownloadURL();
   }
 
