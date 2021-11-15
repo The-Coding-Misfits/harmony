@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:harmony/models/place.dart';
 import 'package:harmony/services/location_service.dart';
 import 'package:harmony/utilites/constants.dart';
+import 'package:harmony/utilites/custom_exception.dart';
 import 'package:harmony/utilites/places/place_category_enum.dart';
 import 'package:harmony/viewmodel/add_place/add_place_viewmodel.dart';
 import 'package:harmony/widgets/filter/category_widgets/category_grid.dart';
@@ -259,6 +260,20 @@ class AddPlaceState extends State<AddPlace> {
   }
 
   Future<Place> createPlace() async{
+    if(await anyPlaceExistNearby()){
+      return throw CustomException("A nearby place exists already!");
+    }
+    return await createPlaceModel();
+  }
+
+  Future<bool> anyPlaceExistNearby() async{
+    if(await widget._viewModel.checkIfAnyPlaceExistsNearby(locationData!)){
+      return true;
+    }
+    return false;
+  }
+
+  Future<Place> createPlaceModel() {
     return widget._viewModel.createPlace(
       nameController.value.text,
       categorySelected!,
