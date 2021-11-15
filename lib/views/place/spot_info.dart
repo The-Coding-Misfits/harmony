@@ -103,8 +103,12 @@ class SpotInfoState extends State<SpotInfo> {
               future: FireStoreService().getReviewFromId(currReviewId),
               builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
                 if (snapshot.connectionState == ConnectionState.done) {
-                  return ReviewCard.forSpotInfo(
-                    snapshot.data
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 5),
+                    child: ReviewCard.forSpotInfo(
+                      snapshot.data,
+                      17
+                    ),
                   );
                 } else {
                   return Padding(

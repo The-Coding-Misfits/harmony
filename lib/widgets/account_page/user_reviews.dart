@@ -46,7 +46,8 @@ class UserReviewsState extends State<UserReviews> {
                     Review review = snapshot.data;
 
                     return ReviewCard(
-                      review
+                      review,
+                      13
                     );
                   }
 

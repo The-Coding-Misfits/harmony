@@ -8,12 +8,13 @@ import 'package:harmony/widgets/general_use/rating_widget.dart';
 class ReviewCard extends StatelessWidget {
   final Review review;
   final bool forSpotInfo;
+  final double contentSize;
 
-  const ReviewCard(this.review, {Key? key}) :
+  const ReviewCard(this.review, this.contentSize, {Key? key}) :
       forSpotInfo = false,
       super(key: key);
 
-  ReviewCard.forSpotInfo(this.review) :
+  ReviewCard.forSpotInfo(this.review, this.contentSize,) :
       forSpotInfo = true;
 
   @override
@@ -53,11 +54,11 @@ class ReviewCard extends StatelessWidget {
                   ),
                   subtitle: Row(
                     children: [
-                      RatingWidget(review.rating.toDouble(), 13),
+                      RatingWidget(review.rating.toDouble(), contentSize),
                       Text(
                         " ${review.rating.toDouble()}/5.0",
-                        style: const TextStyle(
-                            fontSize: 13
+                        style: TextStyle(
+                          fontSize: contentSize
                         ),
                       )
                     ],
