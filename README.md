@@ -25,6 +25,8 @@ These are some screenshots from the alpha version of the app
 
 <img src="https://user-images.githubusercontent.com/63517174/141697247-49000557-a553-4d07-821c-7f8748398b55.png" width="400" height="900"/>
 
-<img src="https://user-images.githubusercontent.com/63517174/141697211-a3fec0e9-cd99-478d-80f5-3f61ee83542f.png" width="400" height="900"/>
+<img src="https://user-images.githubusercontent.com/63517174/141787293-3192e5b8-479e-447c-9d84-f43a994866e8.png" width="400" height="900"/>
+
+<img src="https://user-images.githubusercontent.com/63517174/141787372-96e6866c-1ebd-44a0-ac5b-e9e60ba99892.png" width="400" height="900"/>
 
 <img src="https://user-images.githubusercontent.com/63517174/141686118-ffdcd55b-04b9-42cf-a0e8-c7230106a515.png" width="400" height="900"/>
