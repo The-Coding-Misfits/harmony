@@ -5,8 +5,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:harmony/models/place.dart';
 import 'package:harmony/services/firestore.dart';
+import 'package:harmony/services/geo_fire.dart';
 import 'package:harmony/utilites/custom_exception.dart';
 import 'package:harmony/utilites/places/place_category_enum.dart';
+import 'package:location/location.dart';
 
 class AddPlaceViewModel{
 
@@ -30,6 +32,17 @@ class AddPlaceViewModel{
     Uint8List uint8list = base64.decode(imageAsString);
     Image image = Image.memory(uint8list);
     return image;
+  }
+
+  Future<bool> checkIfAnyPlaceExistsNearby(LocationData locationOfPotentialData) async{
+    List<String> neighbourHashes = GeoFireService().createGeoPoint(locationOfPotentialData.latitude!, locationOfPotentialData.longitude!)
+    .neighbors;
+    for(String geoHash in neighbourHashes){
+      if(await FireStoreService().anyPlaceExistWithHash(geoHash)){
+        return true;
+      }
+    }
+    return false;
   }
 
 
