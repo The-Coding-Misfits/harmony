@@ -13,7 +13,7 @@ class PlaceCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 10, right: 10, top: 5),
+      padding: const EdgeInsets.only(left: 5, right: 5, top: 5),
       child: Card(
         clipBehavior: Clip.antiAlias,
         child: GestureDetector(
