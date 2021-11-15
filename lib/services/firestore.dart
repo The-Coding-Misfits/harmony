@@ -266,4 +266,12 @@ class FireStoreService {
     Reference instance = FirebaseStorage.instance.ref("users/$userId/pfp");
     return await instance.getDownloadURL();
   }
+
+  Future<bool> anyPlaceExistWithHash(String geoHash) async{
+    QuerySnapshot snapshot = await places.where(
+      'geohash',
+      isEqualTo: geoHash
+    ).get();
+    return snapshot.docs.isNotEmpty;
+  }
 }
