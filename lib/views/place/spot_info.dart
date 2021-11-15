@@ -60,14 +60,14 @@ class SpotInfoState extends State<SpotInfo> {
 
     Widget imageUrlWidget = imageUrl != null ? Image.network(
       imageUrl,
-      scale: 6
+      scale: 1
     ) : FutureBuilder(
       future: FireStoreService().getCoverFromId(place.id),
       builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
         if (snapshot.connectionState == ConnectionState.done) {
           imageUrl = snapshot.data;
 
-          return Image.network(imageUrl!, scale: 6);
+          return Image.network(imageUrl!, scale: 1);
         }
 
         return const Text("Loading cover...");
