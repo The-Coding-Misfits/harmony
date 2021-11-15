@@ -220,14 +220,6 @@ class FireStoreService {
     return await instance.getDownloadURL();
   }
 
-  Future<HarmonyUser> getUserFromId(String id) async{
-    var user = await users.doc(id).get();
-
-    return HarmonyUser.fromJson(
-        user.data() as Map<String, dynamic>, id
-    );
-  }
-
   Future<Place> getPlaceFromId(String placeId) async {
     var place = await places.doc(placeId).get();
     return Place.fromJson(place.data() as Map<String, dynamic>, placeId);

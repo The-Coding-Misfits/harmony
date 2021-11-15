@@ -10,17 +10,6 @@ class ReviewCard extends StatelessWidget {
 
   ReviewCard(this.review, {Key? key}) : super(key: key);
 
-  String? pfpUrl;
-
-  getPfp(String userId) async {
-    if (pfpUrl == null) {
-      pfpUrl = await FireStoreService().getPfpFromId(userId);
-      return pfpUrl;
-    } else {
-      return pfpUrl;
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Padding(
