@@ -5,7 +5,6 @@ class AddPlaceMarker extends StatelessWidget {
   final double minRadius;
   final double  maxRadius;
   final double iconSize;
-  static const String markerTag = "add_place_marker_hero_tag";
   const AddPlaceMarker(this.minRadius, this.maxRadius, this.iconSize);
 
   @override

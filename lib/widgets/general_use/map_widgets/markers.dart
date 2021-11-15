@@ -43,26 +43,28 @@ class Markers {
   }
 
   MarkerLayerOptions getAddPlacePageMarker(LatLng point) {
+    double lat = point.latitude;
+    double lon = point.longitude;
     return MarkerLayerOptions(
       markers: [
         Marker(
           point: point,
           builder: (BuildContext context) {
-            return const DecoratedBox(
-              decoration: BoxDecoration(
+            return DecoratedBox(
+              decoration: const BoxDecoration(
                 color: Colors.white,
                 shape: BoxShape.circle,
               ),
               child: Padding(
-                padding: EdgeInsets.all(2),
+                padding: const EdgeInsets.all(2),
                 child: DecoratedBox(
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: kHarmonyColor,
                     shape: BoxShape.circle,
                   ),
                   child: Hero(
-                    tag : AddPlaceMarker.markerTag,
-                    child: AddPlaceMarker(
+                    tag : getSpotMarker(lat, lon),
+                    child: const AddPlaceMarker(
                         20,
                         30,
                         15
@@ -78,14 +80,24 @@ class Markers {
   }
 
   Marker getPlaceMarker(Place place){
+    double lat = place.point.latitude;
+    double lon = place.point.longitude;
     return Marker(
-      point: LatLng(place.point.latitude, place.point.longitude),
+      point: LatLng(lat,lon),
         builder: (BuildContext context) {
-          return const Icon(
-            Icons.location_on,
-            size: 40
+          return Hero(
+            tag: getSpotMarker(lat, lon),
+            child: const Icon(
+              Icons.location_on,
+              size: 40
+            ),
           );
         }
     );
+  }
+
+
+  String getSpotMarker(double latitude, double longitude){
+    return "spot_marker_tag_lat${latitude}_lon$longitude";
   }
 }
