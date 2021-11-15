@@ -253,9 +253,8 @@ class AddPlaceState extends State<AddPlace> {
         context,
         kDiscoverPageRouteName
       );
-    } on Exception catch(_){
-      print(_.toString());
-      showSnackbar("An error happened while adding the spot!");
+    } on Exception catch(error){
+      showSnackbar(error.toString());
     }
   }
 
