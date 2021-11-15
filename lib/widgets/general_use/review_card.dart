@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:harmony/models/place.dart';
 import 'package:harmony/models/review.dart';
 import 'package:harmony/models/user.dart';
 import 'package:harmony/services/firestore.dart';
@@ -30,21 +31,31 @@ class ReviewCard extends StatelessWidget {
             children: [
               ListTile(
                 title: FutureBuilder(
-                  future: FireStoreService().getUserFromId(review.authorID),
+                  future: FireStoreService().getPlaceFromId(review.placeID),
                   builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
                     if (snapshot.connectionState == ConnectionState.done) {
-                      HarmonyUser user = snapshot.data;
+                      Place place = snapshot.data;
 
-                      return Text(user.username);
+                      return Text(place.name);
                     } else {
                       return const Text("Loading...");
                     }
                   },
                 ),
-                subtitle: RatingWidget(review.rating.toDouble(), 10),
+                subtitle: Row(
+                  children: [
+                    RatingWidget(review.rating.toDouble(), 13),
+                    Text(
+                      " ${review.rating.toDouble()}/5.0",
+                      style: const TextStyle(
+                        fontSize: 13
+                      ),
+                    )
+                  ],
+                ),
               ),
               Padding(
-                padding: const EdgeInsets.only(bottom: 5, left: 5, right: 5),
+                padding: const EdgeInsets.only(bottom: 15, left: 15, right: 15),
                 child: Text(review.content),
               )
             ]
