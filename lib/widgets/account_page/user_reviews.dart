@@ -35,6 +35,7 @@ class UserReviewsState extends State<UserReviews> {
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2
             ),
+            itemCount: user.reviewIds.length,
             itemBuilder: (BuildContext context, int index) {
               var reviewId = user.reviewIds[index];
 

@@ -35,18 +35,20 @@ class ReviewCard extends StatelessWidget {
 
     return Padding(
       padding: const EdgeInsets.only(left: 10, right: 10, top: 5),
-      child: Card(
-        child: ListTile(
-          leading: SizedBox(
-            width: 50,
-            height: 50,
-            child: CircleAvatar(
-              radius: 100,
-              child: pfpWidget,
+      child: Column(
+        children: [
+          ListTile(
+            leading: SizedBox(
+              width: 50,
+              height: 50,
+              child: CircleAvatar(
+                radius: 100,
+                child: pfpWidget,
+              ),
             ),
+            title: Text(),
           ),
-          title: Text(review.content),
-        ),
+        ]
       ),
     );
   }

@@ -4,6 +4,7 @@ import 'package:harmony/services/firestore.dart';
 import 'package:harmony/utilites/constants.dart';
 import 'package:harmony/utilites/page_enum.dart';
 import 'package:harmony/widgets/account_page/user_favorites.dart';
+import 'package:harmony/widgets/account_page/user_reviews.dart';
 import 'package:harmony/widgets/general_use/harmony_bottom_navigation_bar.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -22,7 +23,8 @@ class _AccountPageState extends State<AccountPage> {
   Color activeDividerColor = kHarmonyColor;
   // TODO
   Widget favoritesWidget = const UserFavorites();
-  Widget reviewsWidget = const Text("reviews");
+  Widget reviewsWidget = const UserReviews();
+
   final ImagePicker _picker = ImagePicker();
   String? pfpUrl;
 

@@ -227,6 +227,7 @@ class FireStoreService {
 
   Future<Review> getReviewFromId(String reviewId) async {
     var review = await reviews.doc(reviewId).get();
+    print(Review.fromJson(review.data() as Map<String, dynamic>, reviewId).content);
     return Review.fromJson(review.data() as Map<String, dynamic>, reviewId);
   }
 

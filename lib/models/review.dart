@@ -19,12 +19,12 @@ class Review{
     }
 
     return Review(
-      data["author_id"] as String,
+      data["authorId"] as String,
       id,
       data["content"] as String,
       data["likes"] as int,
       data["rating"] as int,
-      parseTimestamp(data["time_added"]),
+      parseTimestamp(data["timeAdded"]),
       data['place_id'] as String,
     );
 
