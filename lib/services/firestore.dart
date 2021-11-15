@@ -54,12 +54,11 @@ class FireStoreService {
     if (categoriesEligible.isNotEmpty && !(categoriesEligible.contains(place.category))){
       return false;
     }
-    if(rating > place.rating) {
+    if(rating > place.rating && rating != 1) { //if its 1, than all places can be included
       return false;
     }
     return true;
   }
-
 
   Future<Place> addPlace(String name, PlaceCategory category, File imageFile, double latitude, double longitude) async{
     ///Returns id
@@ -72,7 +71,7 @@ class FireStoreService {
         'name': name,
         'past_user_ids': [],//no users check in
         'review_ids': [],
-        'rating': 1, // initial rating
+        'rating': 0, // initial rating
       });
     DocumentSnapshot placeSnapshot = await result.get();
     Map<String, dynamic> data = placeSnapshot.data() as Map<String, dynamic>;
