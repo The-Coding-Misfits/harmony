@@ -7,8 +7,14 @@ import 'package:harmony/widgets/general_use/rating_widget.dart';
 
 class ReviewCard extends StatelessWidget {
   final Review review;
+  final bool forSpotInfo;
 
-  const ReviewCard(this.review, {Key? key}) : super(key: key);
+  const ReviewCard(this.review, {Key? key}) :
+      forSpotInfo = true,
+      super(key: key);
+
+  ReviewCard.forSpotInfo(this.review) :
+      forSpotInfo = true;
 
   @override
   Widget build(BuildContext context) {
@@ -34,12 +40,12 @@ class ReviewCard extends StatelessWidget {
               children: [
                 ListTile(
                   title: FutureBuilder(
-                    future: FireStoreService().getPlaceFromId(review.placeID),
+                    future: forSpotInfo ? FireStoreService().getUserFromId(review.authorID) : FireStoreService().getPlaceFromId(review.placeID),
                     builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
                       if (snapshot.connectionState == ConnectionState.done) {
-                        Place place = snapshot.data;
+                        var data = snapshot.data;
 
-                        return Text(place.name);
+                        return forSpotInfo ? Text(data.username) : Text(data.name);
                       } else {
                         return const Text("Loading...");
                       }

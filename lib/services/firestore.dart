@@ -225,6 +225,11 @@ class FireStoreService {
     return Place.fromJson(place.data() as Map<String, dynamic>, placeId);
   }
 
+  Future<HarmonyUser> getUserFromId(String userId) async {
+    var user = await users.doc(userId).get();
+    return HarmonyUser.fromJson(user.data() as Map<String, dynamic>, userId);
+  }
+
   Future<Review> getReviewFromId(String reviewId) async {
     var review = await reviews.doc(reviewId).get();
     return Review.fromJson(review.data() as Map<String, dynamic>, reviewId);

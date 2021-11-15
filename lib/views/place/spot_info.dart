@@ -6,6 +6,7 @@ import 'package:harmony/services/location_service.dart';
 import 'package:harmony/utilites/places/place_category_enum.dart';
 import 'package:harmony/widgets/filter/category_widgets/category_grid.dart';
 import 'package:harmony/widgets/general_use/map_widgets/harmony_add_place_map.dart';
+import 'package:harmony/widgets/general_use/review_card.dart';
 import 'package:harmony/widgets/place_listview/sub_listviews/place_formulas.dart';
 import 'package:harmony/widgets/spot_info/favorite_widget.dart';
 import 'package:location/location.dart';
@@ -74,6 +75,53 @@ class SpotInfoState extends State<SpotInfo> {
 
         return const Text("Loading cover...");
       },
+    );
+
+    Widget reviewsWidget = place.reviewIds.isEmpty ? const Text(
+      "0 Reviews",
+      style: TextStyle(fontSize: 22)
+    ) : Column(
+      children: [
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Text(
+              place.reviewIds.length == 1 ? "1 Review" : "${place.reviewIds.length} Reviews",
+              style: const TextStyle(fontSize: 22)
+          ),
+        ),
+        const Padding(
+          padding: EdgeInsets.only(top: 0, bottom: 0),
+          child: Divider(),
+        ),
+        ListView.builder(
+          shrinkWrap: true,
+          itemCount: place.reviewIds.length,
+          itemBuilder: (BuildContext context, int index) {
+            String currReviewId = place.reviewIds[index];
+
+            return FutureBuilder(
+              future: FireStoreService().getReviewFromId(currReviewId),
+              builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+                if (snapshot.connectionState == ConnectionState.done) {
+                  return ReviewCard.forSpotInfo(
+                    snapshot.data
+                  );
+                } else {
+                  return Padding(
+                    padding: const EdgeInsets.only(top: 5, bottom: 5),
+                    child: Row(
+                      children: const [
+                        CircularProgressIndicator(),
+                        Text("Loading review...")
+                      ],
+                    ),
+                  );
+                }
+              },
+            );
+          },
+        )
+      ],
     );
 
     return Scaffold(
@@ -146,7 +194,7 @@ class SpotInfoState extends State<SpotInfo> {
                 padding: const EdgeInsets.only(top: 15, left: 10, right: 10),
                 child: Align(
                     alignment: Alignment.centerLeft,
-                    child: Text("${place.reviewIds.length} Reviews", style: const TextStyle(fontSize: 22))
+                    child: reviewsWidget
                 )
             ),
           ],
