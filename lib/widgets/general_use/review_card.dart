@@ -10,7 +10,7 @@ class ReviewCard extends StatelessWidget {
   final bool forSpotInfo;
 
   const ReviewCard(this.review, {Key? key}) :
-      forSpotInfo = true,
+      forSpotInfo = false,
       super(key: key);
 
   ReviewCard.forSpotInfo(this.review) :
