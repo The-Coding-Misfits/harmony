@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:harmony/models/place.dart';
 import 'package:harmony/models/user.dart';
 import 'package:harmony/services/auth_service.dart';
@@ -31,10 +32,9 @@ class UserFavoritesState extends State<UserFavorites> {
       return Expanded(
         child: Container(
           color: const Color(0xffefefef),
-          child: GridView.builder(
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2
-            ),
+          child: StaggeredGridView.countBuilder(
+            crossAxisCount: 2,
+            staggeredTileBuilder: (int index) => const StaggeredTile.fit(1),
             shrinkWrap: true,
             itemCount: user!.favoritesID.length,
             itemBuilder: (BuildContext context, int index) {
