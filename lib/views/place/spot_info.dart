@@ -145,10 +145,10 @@ class SpotInfoState extends State<SpotInfo> {
         backgroundColor: const Color(0x11000000),
         foregroundColor: Colors.black,
         actions: [
+          AuthService.currHarmonyUser!.reviewIds.any((item) => place.reviewIds.contains(item))
+              ? const SizedBox(width: 0, height: 0)
+              : CreateReviewIconButton(place),
           FavoriteIconButton(place: place),
-          place.reviewIds.contains(AuthService.currHarmonyUser!.id)
-              ? const CreateReviewIconButton()
-              : const SizedBox(width: 0, height: 0)
         ],
       ),
       body: SingleChildScrollView(

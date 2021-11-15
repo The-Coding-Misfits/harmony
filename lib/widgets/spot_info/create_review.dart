@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:harmony/models/place.dart';
 
 class CreateReviewIconButton extends StatefulWidget {
-  const CreateReviewIconButton({Key? key}) : super(key: key);
+  final Place place;
+
+  const CreateReviewIconButton(this.place, {Key? key}) : super(key: key);
 
   @override
   CreateReviewIconButtonState createState() => CreateReviewIconButtonState();
@@ -10,6 +13,9 @@ class CreateReviewIconButton extends StatefulWidget {
 class CreateReviewIconButtonState extends State<CreateReviewIconButton> {
   @override
   Widget build(BuildContext context) {
-    throw UnimplementedError();
+    return IconButton(
+      onPressed: () {},
+      icon: const Icon(Icons.comment),
+    );
   }
 }
