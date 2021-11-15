@@ -248,11 +248,7 @@ class AddPlaceState extends State<AddPlace> {
       Place place = await createPlace();
       showSnackbar("Added spot!");
     }
-    on CustomException catch(_){
-      showSnackbar("Adding failed because ${_.cause}");
-    }
     on Exception catch(_){
-      print(_.toString());
       showSnackbar("An error happened while adding the place!");
     }
   }
@@ -260,8 +256,8 @@ class AddPlaceState extends State<AddPlace> {
   Future<Place> createPlace() async{
 
 
-
     Place createdPlace = await createPlaceModel();
+    return createdPlace;
   }
 
   Future<Place> createPlaceModel(){
@@ -275,6 +271,8 @@ class AddPlaceState extends State<AddPlace> {
       locationData!.longitude!.toDouble(),
     );
   }
+
+
 
   void showSnackbar(String message){
     ScaffoldMessenger.of(context).showSnackBar(
