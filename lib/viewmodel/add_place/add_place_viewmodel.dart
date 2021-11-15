@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:geoflutterfire/geoflutterfire.dart';
 import 'package:harmony/models/place.dart';
 import 'package:harmony/services/firestore.dart';
 import 'package:harmony/services/geo_fire.dart';
@@ -35,9 +36,9 @@ class AddPlaceViewModel{
   }
 
   Future<bool> checkIfAnyPlaceExistsNearby(LocationData locationOfPotentialData) async{
-    List<String> neighbourHashes = GeoFireService().createGeoPoint(locationOfPotentialData.latitude!, locationOfPotentialData.longitude!)
-    .neighbors;
-    for(String geoHash in neighbourHashes){
+    GeoFirePoint point = GeoFireService().createGeoPoint(locationOfPotentialData.latitude!, locationOfPotentialData.longitude!);
+    List<String> hashesToBeChecked = point.neighbors..add(point.hash);
+    for(String geoHash in hashesToBeChecked){
       if(await FireStoreService().anyPlaceExistWithHash(geoHash)){
         return true;
       }
