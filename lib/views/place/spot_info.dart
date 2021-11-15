@@ -79,9 +79,12 @@ class SpotInfoState extends State<SpotInfo> {
       },
     );
 
-    Widget reviewsWidget = place.reviewIds.isEmpty ? const Text(
-      "0 Reviews",
-      style: TextStyle(fontSize: 22)
+    Widget reviewsWidget = place.reviewIds.isEmpty ? const Align(
+      alignment: Alignment.centerLeft,
+      child: Text(
+          "0 Reviews",
+          style: TextStyle(fontSize: 22)
+      ),
     ) : Column(
       children: [
         Align(
