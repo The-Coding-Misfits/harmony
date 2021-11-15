@@ -225,6 +225,11 @@ class FireStoreService {
     return Place.fromJson(place.data() as Map<String, dynamic>, placeId);
   }
 
+  Future<Review> getReviewFromId(String reviewId) async {
+    var review = await reviews.doc(reviewId).get();
+    return Review.fromJson(review.data() as Map<String, dynamic>, reviewId);
+  }
+
   void removeFavoriteFromUser(String placeId, HarmonyUser user) {
     List<dynamic> favorites = user.favoritesID;
     favorites.remove(placeId);
