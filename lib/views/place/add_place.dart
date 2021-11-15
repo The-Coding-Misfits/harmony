@@ -4,6 +4,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:harmony/models/place.dart';
 import 'package:harmony/services/location_service.dart';
+import 'package:harmony/utilites/custom_exception.dart';
 import 'package:harmony/utilites/places/place_category_enum.dart';
 import 'package:harmony/viewmodel/add_place/add_place_viewmodel.dart';
 import 'package:harmony/widgets/filter/category_widgets/category_grid.dart';
@@ -246,13 +247,24 @@ class AddPlaceState extends State<AddPlace> {
     try{
       Place place = await createPlace();
       showSnackbar("Added spot!");
-    } on Exception catch(_){
+    }
+    on CustomException catch(_){
+      showSnackbar("Adding failed because ${_.cause}");
+    }
+    on Exception catch(_){
       print(_.toString());
       showSnackbar("An error happened while adding the place!");
     }
   }
 
   Future<Place> createPlace() async{
+
+
+
+    Place createdPlace = await createPlaceModel();
+  }
+
+  Future<Place> createPlaceModel(){
     return widget._viewModel.createPlace(
       nameController.value.text,
       categorySelected!,
