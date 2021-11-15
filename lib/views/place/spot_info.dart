@@ -95,6 +95,8 @@ class SpotInfoState extends State<SpotInfo> {
         ),
         ListView.builder(
           shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          padding: EdgeInsets.zero,
           itemCount: place.reviewIds.length,
           itemBuilder: (BuildContext context, int index) {
             String currReviewId = place.reviewIds[index];
@@ -107,7 +109,7 @@ class SpotInfoState extends State<SpotInfo> {
                     padding: const EdgeInsets.only(bottom: 5),
                     child: ReviewCard.forSpotInfo(
                       snapshot.data,
-                      17
+                      15
                     ),
                   );
                 } else {
@@ -195,11 +197,8 @@ class SpotInfoState extends State<SpotInfo> {
                 )
             ),
             Padding(
-                padding: const EdgeInsets.only(top: 15, left: 10, right: 10),
-                child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: reviewsWidget
-                )
+                padding: const EdgeInsets.only(top: 15, left: 10, right: 10, bottom: 15),
+                child: reviewsWidget
             ),
           ],
         ),
