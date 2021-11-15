@@ -9,7 +9,7 @@ import 'package:harmony/widgets/filter/category_widgets/category_grid.dart';
 import 'package:harmony/widgets/general_use/map_widgets/harmony_add_place_map.dart';
 import 'package:harmony/widgets/general_use/review_card.dart';
 import 'package:harmony/widgets/place_listview/sub_listviews/place_formulas.dart';
-import 'package:harmony/widgets/spot_info/create_review.dart';
+import 'package:harmony/widgets/spot_info/create_review_button.dart';
 import 'package:harmony/widgets/spot_info/favorite_widget.dart';
 import 'package:location/location.dart';
 import 'package:map_launcher/map_launcher.dart';
