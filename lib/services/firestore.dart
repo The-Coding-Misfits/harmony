@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:typed_data';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:geoflutterfire/geoflutterfire.dart';
@@ -227,7 +226,7 @@ class FireStoreService {
     return Place.fromJson(place.data() as Map<String, dynamic>, placeId);
   }
 
-  removeFavoriteFromUser(String placeId, HarmonyUser user) {
+  void removeFavoriteFromUser(String placeId, HarmonyUser user) {
     List<dynamic> favorites = user.favoritesID;
     favorites.remove(placeId);
 
@@ -242,7 +241,7 @@ class FireStoreService {
     );
   }
 
-  addFavoriteToUser(String placeId, HarmonyUser user) {
+  void addFavoriteToUser(String placeId, HarmonyUser user) {
     List<dynamic> favorites = user.favoritesID;
     favorites.add(placeId);
 
@@ -257,11 +256,10 @@ class FireStoreService {
     );
   }
 
-  changePfpOfUser(HarmonyUser user, XFile file) {
+  void changePfpOfUser(HarmonyUser user, XFile file) {
     String firestoragePath = "users/${user.id}/pfp";
     Reference storageRef = FirebaseStorage.instance.ref().child(firestoragePath);
     storageRef.putFile(File(file.path));
-    return firestoragePath;
   }
 
   Future<String> getPfpFromId(String userId) async {
