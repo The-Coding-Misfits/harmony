@@ -4,6 +4,7 @@ import 'package:harmony/models/user.dart';
 import 'package:harmony/services/auth_service.dart';
 import 'package:harmony/services/firestore.dart';
 import 'package:harmony/widgets/general_use/review_card.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class UserReviews extends StatefulWidget {
   const UserReviews({Key? key}) : super(key: key);
@@ -31,10 +32,9 @@ class UserReviewsState extends State<UserReviews> {
       return Expanded(
         child: Container(
           color: const Color(0xffefefef),
-          child: GridView.builder(
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2
-            ),
+          child: StaggeredGridView.countBuilder(
+            staggeredTileBuilder: (int index) => const StaggeredTile.fit(1),
+            crossAxisCount: 2,
             itemCount: user.reviewIds.length,
             itemBuilder: (BuildContext context, int index) {
               var reviewId = user.reviewIds[index];
