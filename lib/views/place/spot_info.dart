@@ -3,6 +3,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:harmony/models/place.dart';
 import 'package:harmony/services/firestore.dart';
 import 'package:harmony/services/location_service.dart';
+import 'package:harmony/utilites/places/place_category_enum.dart';
+import 'package:harmony/widgets/filter/category_widgets/category_grid.dart';
 import 'package:harmony/widgets/general_use/map_widgets/harmony_add_place_map.dart';
 import 'package:harmony/widgets/place_listview/sub_listviews/place_formulas.dart';
 import 'package:harmony/widgets/spot_info/favorite_widget.dart';
@@ -111,10 +113,20 @@ class SpotInfoState extends State<SpotInfo> {
                 ),
               ),
             ),
+            Padding(
+              padding: const EdgeInsets.only(top: 5, left: 10),
+              child: SizedBox(
+                height: 50,
+                width: 500,
+                child: CategoryGrid.isDisplay(
+                    [PlaceCategory.values.firstWhere((e) => e == place.category)]
+                ),
+              ),
+            ),
             Align(
               alignment: Alignment.centerLeft,
               child: Padding(
-                  padding: const EdgeInsets.only(bottom: 5, left: 10, top: 5),
+                  padding: const EdgeInsets.only(bottom: 5, left: 10, top: 10),
                   child: Row(
                     children: [
                       RatingWidget(place.rating, 20),

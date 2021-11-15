@@ -5,12 +5,17 @@ import 'package:harmony/widgets/filter/category_widgets/category_item.dart';
 import 'package:harmony/widgets/filter/category_widgets/category_model.dart';
 
 class CategoryGrid extends StatefulWidget {
-  final Function(List<PlaceCategory>) onCategoryChanged;
+  final Function(List<PlaceCategory>)? onCategoryChanged;
   final bool isSingleOptionOnly;
   final bool isDisplayOnly;
   final List<PlaceCategory> startingCategories;
 
   const CategoryGrid(this.onCategoryChanged,this.startingCategories, {Key? key, this.isSingleOptionOnly = false, this.isDisplayOnly = false}) : super(key: key);
+
+  CategoryGrid.isDisplay(this.startingCategories) :
+    isSingleOptionOnly = true,
+    isDisplayOnly = true,
+    onCategoryChanged = null;
 
   @override
   _CategoryGridState createState() => _CategoryGridState();
@@ -83,7 +88,7 @@ class _CategoryGridState extends State<CategoryGrid> {
     }else {
       categoryEnable(item);
     }
-    widget.onCategoryChanged(selectedCategories);
+    widget.onCategoryChanged!(selectedCategories);
   }
 
   void categoryDisable(CategoryModel item){
