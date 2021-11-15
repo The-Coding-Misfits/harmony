@@ -86,7 +86,9 @@ class _AccountPageState extends State<AccountPage> {
 
                                     Navigator.pop(context);
 
-                                    setState(() {});
+                                    setState(() {
+                                      pfpUrl = null;
+                                    });
                                   },
                                 ),
                                 ListTile(
@@ -99,7 +101,9 @@ class _AccountPageState extends State<AccountPage> {
 
                                     Navigator.pop(context);
 
-                                    setState(() {});
+                                    setState(() {
+                                      pfpUrl = null;
+                                    });
                                   },
                                 ),
                               ],
