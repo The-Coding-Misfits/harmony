@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:geoflutterfire/geoflutterfire.dart';
+import 'package:harmony/models/associative_entities/check_in.dart';
 import 'package:harmony/models/review.dart';
 import 'package:harmony/models/user.dart';
 import 'package:harmony/models/place.dart';
@@ -86,7 +87,7 @@ class FireStoreService {
           'reviews' : [],
           'uid' : uid,
           'username' : username,
-          'check_in': 0
+          'check_in': <CheckIn>[]
         });
     DocumentSnapshot userSnapshot = await result.get();
     Map<String, dynamic> data = userSnapshot.data() as Map<String, dynamic>;
