@@ -31,23 +31,20 @@ class HarmonyUser{
       'favorite_places': favoritesID,
       'reviews': reviewIds,
       'username': username,
-      'check_in': _convertCheckInsToString()
+      'check_in': _convertCheckInsToTimestamps()
     };
   }
 
-  List<String> _convertCheckInsToString(){
-    List<String> checkInStringArray = [];
+  List<Timestamp> _convertCheckInsToTimestamps(){
+    List<Timestamp> checkInTimestamps = [];
     for (CheckIn checkIn in checkIns){
-      checkInStringArray.add(checkIn.toString());
+      checkInTimestamps.add(checkIn.time);
     }
-    return checkInStringArray;
+    return checkInTimestamps;
   }
   static List<CheckIn> _parseCheckIns(List<dynamic> rawCheckInArray){
     List<CheckIn> checkIns = [];
-    for (dynamic timeStamp in rawCheckInArray){
-      try{
-        timeStamp as Timestamp;
-      } catch(_){}
+    for (Timestamp timeStamp in rawCheckInArray){
       checkIns.add(
         CheckIn(timeStamp)
       );
