@@ -13,6 +13,10 @@ To use Harmony, you will need to [clone](https://docs.github.com/en/repositories
 2)  Run `flutter pub get` in the root directory of Harmony
 3)  Run the `lib/main.dart` file in [Android Studio](https://developer.android.com/studio) or [VS Code](https://code.visualstudio.com/)
 
+### Install Links
+
+Android: https://bit.ly/30FkoQe
+
 ## Alpha Screenshots
 
 These are some screenshots from the alpha version of the app
