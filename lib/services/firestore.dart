@@ -284,4 +284,17 @@ class FireStoreService {
     ).get();
     return snapshot.docs.isNotEmpty;
   }
+
+  Future<Review> createReview(Map review) async {
+    DocumentReference result = await reviews.add(
+        Map<String, dynamic>.from(review)
+    );
+
+    DocumentSnapshot reviewSnapshot = await result.get();
+    Map<String, dynamic> data = reviewSnapshot.data() as Map<String, dynamic>;
+
+    print(reviewSnapshot.data());
+
+    return Review.fromJson(data, reviewSnapshot.id);
+  }
 }

@@ -1,6 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:harmony/models/place.dart';
+import 'package:harmony/services/auth_service.dart';
+import 'package:harmony/services/firestore.dart';
 import 'package:harmony/widgets/filter/rating_widgets/rating_grid.dart';
+import 'package:harmony/widgets/login_register/harmony_shiny_button.dart';
 
 class CreateReviewPage extends StatefulWidget {
   final Place place;
@@ -89,6 +93,21 @@ class CreateReviewPageState extends State<CreateReviewPage> {
                       minimumRating
                     ),
                   )
+              ),
+              HarmonyShinyButton(
+                "Create Review",
+                () async {
+                  await FireStoreService().createReview(
+                    {
+                      "authorId": AuthService.currHarmonyUser!.id,
+                      "content": contentController.text,
+                      "likes": 0,
+                      "placeId": widget.place.id,
+                      "rating": minimumRating,
+                      "timeAdded": Timestamp.now()
+                    }
+                  );
+                }
               )
             ],
           ),
