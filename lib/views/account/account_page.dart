@@ -40,14 +40,16 @@ class _AccountPageState extends State<AccountPage> {
     selectedWidget = favoritesWidget;
   }
 
-  getPfp(String userId) async {
+  Future<String> getPfp(String userId) async {
     if (pfpUrl == null) {
       pfpUrl = await FireStoreService().getPfpFromId(userId);
-      return pfpUrl;
+      return pfpUrl!;
     } else {
-      return pfpUrl;
+      return pfpUrl!;
     }
   }
+
+
 
   @override
   Widget build(BuildContext context) {
