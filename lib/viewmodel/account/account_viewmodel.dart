@@ -6,7 +6,6 @@ import 'package:harmony/viewmodel/account/check_in_chunk.dart';
 class AccountPageViewModel {
 
   List<CheckInChunk> getChunks(HarmonyUser user){
-    print("hey");
     List<CheckIn> checkIns = _getCheckIns(user);
     if(checkIns.isEmpty) return [];
     List<Timestamp> chunkStartTimestamps = divideTheCheckInTimeFrame(checkIns);
@@ -23,7 +22,6 @@ class AccountPageViewModel {
         _compareTwoCheckIns
     );
     //checkIns = checkIns.reversed as List<CheckIn>; // since we compare if bigger
-    print(checkIns);
     return checkIns;
   }
 
@@ -63,25 +61,16 @@ class AccountPageViewModel {
     int numberOfPointsInChunk = 0;
     int currIndexOfTimestamps = 1;// start from second time stamp since we are checking smaller
     for(int i = 0; i < checkIns.length; i++){
-      print("another loop");
-      print("loop counter $i");
-      print("check in length ${checkIns.length}");
-      print("timestamp $currIndexOfTimestamps");
       Timestamp nextChunkStartTimeStamp = chunkStartTimestamps[currIndexOfTimestamps];
       CheckIn checkIn = checkIns[i];
       int comparisonResult = checkIn.time.compareTo(nextChunkStartTimeStamp);
       if (comparisonResult == -1){//meaning checkIn time is smaller than next time stamp and belongs to this chunk
         numberOfPointsInChunk++;
-        print("check in belongs this chunk ${checkIn.time}");
-
       }
       else if(comparisonResult == 1  || comparisonResult == 0){ //meaning checkIn time is bigger or equal to the next timestamp therefore belongs to next chunk
-        print("check in belongs next chunk ${checkIn.time}");
         currIndexOfTimestamps++;
         if(currIndexOfTimestamps >= chunkStartTimestamps.length){
-          print("exception");
           numberOfPointsInChunk += checkIns.getRange(i, checkIns.length).length;
-          print("range $numberOfPointsInChunk");
           CheckInChunk chunkResolved = CheckInChunk(numberOfPointsInChunk);
           checkInChunks.add(chunkResolved);
           break;
@@ -94,7 +83,6 @@ class AccountPageViewModel {
         }
       }
     }
-    print(checkInChunks);
     return checkInChunks;
   }
 
