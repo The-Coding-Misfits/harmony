@@ -7,18 +7,20 @@ import 'package:harmony/services/firestore.dart';
 import 'package:harmony/widgets/general_use/place_card.dart';
 
 class UserFavorites extends StatefulWidget {
-  const UserFavorites({Key? key}) : super(key: key);
+  final HarmonyUser user;
+
+
+  const UserFavorites(this.user);
 
   @override
   UserFavoritesState createState() => UserFavoritesState();
 }
 
 class UserFavoritesState extends State<UserFavorites> {
-  HarmonyUser? user = AuthService.currHarmonyUser;
-
+  late HarmonyUser user = widget.user;
   @override
   Widget build(BuildContext context) {
-    if (user!.favoritesID.isEmpty) {
+    if (user.favoritesID.isEmpty) {
       return Expanded(
         child: Container(
           color: const Color(0xffefefef),
@@ -36,9 +38,9 @@ class UserFavoritesState extends State<UserFavorites> {
             crossAxisCount: 2,
             staggeredTileBuilder: (int index) => const StaggeredTile.fit(1),
             shrinkWrap: true,
-            itemCount: user!.favoritesID.length,
+            itemCount: user.favoritesID.length,
             itemBuilder: (BuildContext context, int index) {
-              var placeId = user!.favoritesID[index];
+              var placeId = user.favoritesID[index];
 
               return FutureBuilder(
                 future: FireStoreService().getPlaceFromId(placeId),

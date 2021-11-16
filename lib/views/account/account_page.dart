@@ -25,9 +25,8 @@ class AccountPage extends StatefulWidget {
 class _AccountPageState extends State<AccountPage> {
 
   Color activeDividerColor = kHarmonyColor;
-  // TODO
-  Widget favoritesWidget = const UserFavorites();
-  Widget reviewsWidget = const UserReviews();
+  late Widget favoritesWidget = UserFavorites(widget.user);
+  late Widget reviewsWidget = UserReviews(widget.user);
 
   final ImagePicker _picker = ImagePicker();
   String? pfpUrl;
