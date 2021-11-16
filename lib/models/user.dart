@@ -1,5 +1,7 @@
-import 'package:harmony/models/review.dart';
-import 'package:harmony/models/place.dart';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+import 'associative_entities/check_in.dart';
 
 class HarmonyUser{
   final String id; // Not designated by us as all other classes, comes from firestore when creating document
@@ -7,11 +9,11 @@ class HarmonyUser{
   String username;//May change in profile settings etc.
   List<dynamic> reviewIds;
   List<dynamic> favoritesID;
-  int checkIn;
+  List<CheckIn> checkIns;
 
 
   HarmonyUser(this.id, this.uid, this.username, this.reviewIds,
-      this.favoritesID, this.checkIn);
+      this.favoritesID, this.checkIns);
 
   factory HarmonyUser.fromJson(Map<String, dynamic> data, String id){
     return HarmonyUser(
@@ -20,7 +22,7 @@ class HarmonyUser{
       data["username"] as String,
       data["reviews"] as List<dynamic>,
       data['favorite_places'] as List<dynamic>,
-      data['check_in'] as int,
+      _parseCheckIns(data['check_in']),
     );
   }
 
@@ -29,7 +31,27 @@ class HarmonyUser{
       'favorite_places': favoritesID,
       'reviews': reviewIds,
       'username': username,
-      'check_in': checkIn
+      'check_in': _convertCheckInsToString()
     };
+  }
+
+  List<String> _convertCheckInsToString(){
+    List<String> checkInStringArray = [];
+    for (CheckIn checkIn in checkIns){
+      checkInStringArray.add(checkIn.toString());
+    }
+    return checkInStringArray;
+  }
+  static List<CheckIn> _parseCheckIns(List<dynamic> rawCheckInArray){
+    List<CheckIn> checkIns = [];
+    for (dynamic timeStamp in rawCheckInArray){
+      try{
+        timeStamp as Timestamp;
+      } catch(_){}
+      checkIns.add(
+        CheckIn(timeStamp)
+      );
+    }
+    return checkIns;
   }
 }
