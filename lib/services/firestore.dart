@@ -286,25 +286,15 @@ class FireStoreService {
   }
 
   Future<Review> createReview(Map review, Place place, HarmonyUser user) async {
-    DocumentReference result = await reviews.add(
-        Map<String, dynamic>.from(review)
-    );
+    DocumentSnapshot reviewSnapshot = await addReview(review);
+    Map<String, dynamic> data = extractDataFromSnapshot(reviewSnapshot);
+    updateReviewsOfPlace(place, reviewSnapshot);
+    updateUserReviews(user, reviewSnapshot);
 
-    DocumentSnapshot reviewSnapshot = await result.get();
-    Map<String, dynamic> data = reviewSnapshot.data() as Map<String, dynamic>;
+    return Review.fromJson(data, reviewSnapshot.id);
+  }
 
-    List<dynamic> placeReviews = place.reviewIds;
-    placeReviews.add(reviewSnapshot.id);
-
-    places.doc(place.id).get().then(
-      (placeDoc) {
-        placeDoc.reference.update(
-          {
-            "review_ids": placeReviews
-          }
-        );
-      }
-    );
+  void updateUserReviews(HarmonyUser user, DocumentSnapshot<Object?> reviewSnapshot) {
 
     List<dynamic> userReviews = user.reviewIds;
     userReviews.add(reviewSnapshot.id);
@@ -318,7 +308,37 @@ class FireStoreService {
         );
       }
     );
-
-    return Review.fromJson(data, reviewSnapshot.id);
   }
+
+  Future<DocumentSnapshot> addReview(Map review) async {
+    DocumentReference result = await reviews.add(
+        Map<String, dynamic>.from(review)
+    );
+
+    return await result.get();
+  }
+
+  Map<String, dynamic> extractDataFromSnapshot(DocumentSnapshot reviewSnapshot){
+    try{
+      return reviewSnapshot.data() as Map<String, dynamic>;
+    } catch(_){
+      return {};
+    }
+  }
+
+  void updateReviewsOfPlace(Place place, DocumentSnapshot reviewSnapshot){
+    List<dynamic> placeReviews = place.reviewIds;
+    placeReviews.add(reviewSnapshot.id);
+
+    places.doc(place.id).get().then(
+            (placeDoc) {
+          placeDoc.reference.update(
+              {
+                "review_ids": placeReviews
+              }
+          );
+        }
+    );
+  }
+
 }
