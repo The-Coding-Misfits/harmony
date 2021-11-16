@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:harmony/models/place.dart';
 import 'package:harmony/services/auth_service.dart';
 import 'package:harmony/services/firestore.dart';
+import 'package:harmony/utilites/constants.dart';
 import 'package:harmony/widgets/filter/rating_widgets/rating_grid.dart';
 import 'package:harmony/widgets/login_register/harmony_shiny_button.dart';
 
@@ -108,6 +109,16 @@ class CreateReviewPageState extends State<CreateReviewPage> {
                     },
                     widget.place,
                     AuthService.currHarmonyUser!
+                  );
+
+                  Navigator.pushReplacementNamed(
+                    context,
+                    kSpotInfoRouteName,
+                    arguments: {
+                      "place": widget.place,
+                      "distance": null,
+                      "imageUrl": null,
+                    }
                   );
                 }
               )
