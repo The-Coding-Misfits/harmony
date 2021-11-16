@@ -341,4 +341,20 @@ class FireStoreService {
     );
   }
 
+  void checkInUser(HarmonyUser user, Timestamp timestamp){
+    //CheckIn checkIn = CheckIn(Timestamp.now());
+    CheckIn checkIn = CheckIn(timestamp);
+    user.checkIns.add(checkIn);
+    _checkInUserAtDB(user);
+  }
+  void _checkInUserAtDB(HarmonyUser user){
+    users.doc(user.id).get().then(
+            (userDoc){
+          userDoc.reference.update(
+            user.toJson()
+          );
+        }
+    );
+  }
+
 }
