@@ -144,8 +144,8 @@ class _AccountPageState extends State<AccountPage> {
                     displayMode: SparkChartMarkerDisplayMode.all),
                 //Enable data label
                 labelDisplayMode: SparkChartLabelDisplayMode.all,
-                xValueMapper: (int index) => checkIns[index].year,
-                yValueMapper: (int index) => checkIns[index].sales,
+                xValueMapper: (int index) => 0,
+                yValueMapper: (int index) => 0,
                 dataCount: 5,
               ),
               Padding(
