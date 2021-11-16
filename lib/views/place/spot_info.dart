@@ -148,6 +148,17 @@ class SpotInfoState extends State<SpotInfo> {
         backgroundColor: const Color(0x11000000),
         foregroundColor: Colors.black,
         actions: [
+          IconButton(
+            icon: const Icon(FontAwesomeIcons.directions),
+            onPressed: () async {
+              final availableMaps = await MapLauncher.installedMaps;
+
+              await availableMaps.first.showMarker(
+                  coords: Coords(place.point.latitude, place.point.longitude),
+                  title: place.name
+              );
+            },
+          ),
           AuthService.currHarmonyUser!.reviewIds.any((item) => place.reviewIds.contains(item))
               ? const SizedBox(width: 0, height: 0)
               : CreateReviewIconButton(place),
@@ -213,18 +224,6 @@ class SpotInfoState extends State<SpotInfo> {
             ),
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () async {
-          final availableMaps = await MapLauncher.installedMaps;
-
-          await availableMaps.first.showMarker(
-            coords: Coords(place.point.latitude, place.point.longitude),
-            title: place.name
-          );
-        },
-        icon: const Icon(FontAwesomeIcons.directions),
-        label: const Text("Get Directions"),
       ),
     );
   }
