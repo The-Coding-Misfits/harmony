@@ -6,6 +6,7 @@ import 'package:harmony/viewmodel/account/check_in_chunk.dart';
 class AccountPageViewModel {
 
   List<CheckInChunk> getChunks(HarmonyUser user){
+    print("hey");
     List<CheckIn> checkIns = _getCheckIns(user);
     if(checkIns.isEmpty) return [];
     List<Timestamp> chunkStartTimestamps = divideTheCheckInTimeFrame(checkIns);
@@ -31,17 +32,23 @@ class AccountPageViewModel {
   }
 
   List<Timestamp> divideTheCheckInTimeFrame(List<CheckIn> checkIns){
-    const NUM_DIVISIONS_TIMEFRAME = 15;
+    int numOfDivisionsOfTimeFrame = getNumberOfDivisionsOfTimeFrame(checkIns.length);
     Timestamp firstCheckInTime = checkIns.first.time;
     Timestamp lastCheckInTime = checkIns.last.time;
-    return getTheChunkStartTimeStamps(NUM_DIVISIONS_TIMEFRAME, firstCheckInTime, lastCheckInTime);
+    return getTheChunkStartTimeStamps(numOfDivisionsOfTimeFrame, firstCheckInTime, lastCheckInTime);
   }
 
-  List<Timestamp> getTheChunkStartTimeStamps(int NUM_DIVISIONS_TIMEFRAME,Timestamp firstCheckInTime, Timestamp lastCheckInTime ){
+  int getNumberOfDivisionsOfTimeFrame(int listLength){
+    if(listLength < 4) return listLength;
+    return listLength ~/ 2;
+
+  }
+
+  List<Timestamp> getTheChunkStartTimeStamps(int numOfDivisionsOfTimeFrame,Timestamp firstCheckInTime, Timestamp lastCheckInTime ){
     int totalSecondsBetweenCheckins = lastCheckInTime.seconds - firstCheckInTime.seconds;
-    int oneChunkTime = totalSecondsBetweenCheckins ~/ NUM_DIVISIONS_TIMEFRAME;
+    int oneChunkTime = totalSecondsBetweenCheckins ~/ numOfDivisionsOfTimeFrame;
     List<Timestamp> timeChunks = [];
-    for(int i = 0; i < NUM_DIVISIONS_TIMEFRAME; i++){
+    for(int i = 0; i < numOfDivisionsOfTimeFrame; i++){
       int timeOfChunk = firstCheckInTime.seconds + (oneChunkTime * i);
       timeChunks.add(
         Timestamp(timeOfChunk, 0)
@@ -56,29 +63,38 @@ class AccountPageViewModel {
     int numberOfPointsInChunk = 0;
     int currIndexOfTimestamps = 1;// start from second time stamp since we are checking smaller
     for(int i = 0; i < checkIns.length; i++){
+      print("another loop");
+      print("loop counter $i");
+      print("check in length ${checkIns.length}");
+      print("timestamp $currIndexOfTimestamps");
       Timestamp nextChunkStartTimeStamp = chunkStartTimestamps[currIndexOfTimestamps];
       CheckIn checkIn = checkIns[i];
       int comparisonResult = checkIn.time.compareTo(nextChunkStartTimeStamp);
       if (comparisonResult == -1){//meaning checkIn time is smaller than next time stamp and belongs to this chunk
         numberOfPointsInChunk++;
+        print("check in belongs this chunk ${checkIn.time}");
+
       }
       else if(comparisonResult == 1  || comparisonResult == 0){ //meaning checkIn time is bigger or equal to the next timestamp therefore belongs to next chunk
-        try{
-          nextChunkStartTimeStamp = chunkStartTimestamps[currIndexOfTimestamps++];
-          CheckInChunk chunkResolved = CheckInChunk(numberOfPointsInChunk);
-          checkInChunks.add(chunkResolved);
-          numberOfPointsInChunk = 0;
-          i--; //since we want to loop again with this check in
-        }catch(_){
-          //catches for out of bounds exception in line 67
-          //if there are no more time chunks meaning this is the last chunk
-          numberOfPointsInChunk = checkIns.getRange(i, checkIns.length).length;
+        print("check in belongs next chunk ${checkIn.time}");
+        currIndexOfTimestamps++;
+        if(currIndexOfTimestamps >= chunkStartTimestamps.length){
+          print("exception");
+          numberOfPointsInChunk += checkIns.getRange(i, checkIns.length).length;
+          print("range $numberOfPointsInChunk");
           CheckInChunk chunkResolved = CheckInChunk(numberOfPointsInChunk);
           checkInChunks.add(chunkResolved);
           break;
         }
+        else {
+          CheckInChunk chunkResolved = CheckInChunk(numberOfPointsInChunk);
+          checkInChunks.add(chunkResolved);
+          numberOfPointsInChunk = 0;
+          i--; //since we want to loop again with this check in
+        }
       }
     }
+    print(checkInChunks);
     return checkInChunks;
   }
 
