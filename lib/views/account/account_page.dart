@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:harmony/models/associative_entities/check_in.dart';
 import 'package:harmony/models/user.dart';
 import 'package:harmony/services/firestore.dart';
 import 'package:harmony/utilites/constants.dart';
@@ -7,6 +8,7 @@ import 'package:harmony/widgets/account_page/user_favorites.dart';
 import 'package:harmony/widgets/account_page/user_reviews.dart';
 import 'package:harmony/widgets/general_use/harmony_bottom_navigation_bar.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:syncfusion_flutter_charts/sparkcharts.dart';
 
 
 class AccountPage extends StatefulWidget {
@@ -27,6 +29,8 @@ class _AccountPageState extends State<AccountPage> {
 
   final ImagePicker _picker = ImagePicker();
   String? pfpUrl;
+
+  late List<CheckIn> checkIns = widget.user.checkIns;
 
   late Widget selectedWidget;
   @override
@@ -129,6 +133,20 @@ class _AccountPageState extends State<AccountPage> {
               Padding(
                 padding: const EdgeInsets.only(top: 10),
                 child: Text(widget.user.username, style: const TextStyle(fontSize: 20)),
+              ),
+              ///CHECK IN CHART
+              SfSparkLineChart.custom(
+                //Enable the trackball
+                trackball: const SparkChartTrackball(
+                    activationMode: SparkChartActivationMode.tap),
+                //Enable marker
+                marker: const SparkChartMarker(
+                    displayMode: SparkChartMarkerDisplayMode.all),
+                //Enable data label
+                labelDisplayMode: SparkChartLabelDisplayMode.all,
+                xValueMapper: (int index) => checkIns[index].year,
+                yValueMapper: (int index) => checkIns[index].sales,
+                dataCount: 5,
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 20),
