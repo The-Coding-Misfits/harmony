@@ -40,7 +40,7 @@ class AccountPageViewModel {
 
   int getNumberOfDivisionsOfTimeFrame(int listLength){
     if(listLength < 4) return listLength;
-    return listLength ~/ 2;
+    return 15;
 
   }
 
