@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:harmony/models/associative_entities/check_in.dart';
 import 'package:harmony/models/user.dart';
 import 'package:harmony/services/firestore.dart';
 import 'package:harmony/utilites/constants.dart';
 import 'package:harmony/utilites/page_enum.dart';
+import 'package:harmony/viewmodel/account/account_viewmodel.dart';
+import 'package:harmony/viewmodel/account/check_in_chunk.dart';
 import 'package:harmony/widgets/account_page/user_favorites.dart';
 import 'package:harmony/widgets/account_page/user_reviews.dart';
 import 'package:harmony/widgets/general_use/harmony_bottom_navigation_bar.dart';
@@ -14,7 +15,8 @@ import 'package:syncfusion_flutter_charts/sparkcharts.dart';
 class AccountPage extends StatefulWidget {
 
   final HarmonyUser user;
-  const AccountPage(this.user, {Key? key}) : super(key: key);
+  final AccountPageViewModel accountPageViewModel = AccountPageViewModel();
+  AccountPage(this.user, {Key? key}) : super(key: key);
 
   @override
   _AccountPageState createState() => _AccountPageState();
@@ -30,7 +32,7 @@ class _AccountPageState extends State<AccountPage> {
   final ImagePicker _picker = ImagePicker();
   String? pfpUrl;
 
-  late List<CheckIn> checkIns = widget.user.checkIns;
+  late List<CheckInChunk> checkInChunks = widget.accountPageViewModel.getChunks(widget.user);
 
   late Widget selectedWidget;
   @override
@@ -48,6 +50,8 @@ class _AccountPageState extends State<AccountPage> {
       return pfpUrl!;
     }
   }
+  int test = 0;
+
 
 
 
@@ -138,17 +142,17 @@ class _AccountPageState extends State<AccountPage> {
               ),
               ///CHECK IN CHART
               SfSparkLineChart.custom(
-                //Enable the trackball
-                trackball: const SparkChartTrackball(
-                    activationMode: SparkChartActivationMode.tap),
                 //Enable marker
+                trackball: const SparkChartTrackball(
+
+                ),
                 marker: const SparkChartMarker(
-                    displayMode: SparkChartMarkerDisplayMode.all),
+                    displayMode: SparkChartMarkerDisplayMode.none),
                 //Enable data label
-                labelDisplayMode: SparkChartLabelDisplayMode.all,
-                xValueMapper: (int index) => 0,
-                yValueMapper: (int index) => 0,
-                dataCount: 5,
+                labelDisplayMode: SparkChartLabelDisplayMode.none,
+                xValueMapper: (int index) => index,
+                yValueMapper: (int index) => checkInChunks[index].numOfCheckIns,
+                dataCount: checkInChunks.length,
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 20),
