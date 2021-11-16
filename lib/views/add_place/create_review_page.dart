@@ -105,7 +105,9 @@ class CreateReviewPageState extends State<CreateReviewPage> {
                       "placeId": widget.place.id,
                       "rating": minimumRating,
                       "timeAdded": Timestamp.now()
-                    }
+                    },
+                    widget.place,
+                    AuthService.currHarmonyUser!
                   );
                 }
               )

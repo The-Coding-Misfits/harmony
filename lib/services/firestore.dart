@@ -232,6 +232,7 @@ class FireStoreService {
   }
 
   Future<Review> getReviewFromId(String reviewId) async {
+    print(reviewId);
     var review = await reviews.doc(reviewId).get();
     return Review.fromJson(review.data() as Map<String, dynamic>, reviewId);
   }
@@ -285,7 +286,7 @@ class FireStoreService {
     return snapshot.docs.isNotEmpty;
   }
 
-  Future<Review> createReview(Map review) async {
+  Future<Review> createReview(Map review, Place place, HarmonyUser user) async {
     DocumentReference result = await reviews.add(
         Map<String, dynamic>.from(review)
     );
@@ -293,7 +294,31 @@ class FireStoreService {
     DocumentSnapshot reviewSnapshot = await result.get();
     Map<String, dynamic> data = reviewSnapshot.data() as Map<String, dynamic>;
 
-    print(reviewSnapshot.data());
+    List<dynamic> placeReviews = place.reviewIds;
+    placeReviews.add(reviewSnapshot.id);
+
+    places.doc(place.id).get().then(
+      (placeDoc) {
+        placeDoc.reference.update(
+          {
+            "review_ids": placeReviews
+          }
+        );
+      }
+    );
+
+    List<dynamic> userReviews = user.reviewIds;
+    userReviews.add(reviewSnapshot.id);
+
+    users.doc(user.id).get().then(
+      (userDoc) {
+        userDoc.reference.update(
+          {
+            "reviews": userReviews
+          }
+        );
+      }
+    );
 
     return Review.fromJson(data, reviewSnapshot.id);
   }
