@@ -1,5 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:harmony/models/place.dart';
+import 'package:harmony/services/auth_service.dart';
+import 'package:harmony/services/firestore.dart';
+import 'package:harmony/utilites/constants.dart';
+import 'package:harmony/widgets/filter/rating_widgets/rating_grid.dart';
+import 'package:harmony/widgets/login_register/harmony_shiny_button.dart';
 
 class CreateReviewPage extends StatefulWidget {
   final Place place;
@@ -12,6 +18,7 @@ class CreateReviewPage extends StatefulWidget {
 
 class CreateReviewPageState extends State<CreateReviewPage> {
   TextEditingController contentController = TextEditingController();
+  int minimumRating = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +64,66 @@ class CreateReviewPageState extends State<CreateReviewPage> {
                 ),
               ),
             ),
-          )
+          ),
+          Column(
+            children: [
+              const Align(
+                alignment: Alignment.centerLeft,
+                child: Padding(
+                  padding: EdgeInsets.only(top: 10, left: 10),
+                  child: Text(
+                    "How would you rate here?",
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w300
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                  padding: const EdgeInsets.only(bottom: 5, left: 5),
+                  child: SizedBox(
+                    height: 50,
+                    width: 500,
+                    child: RatingGrid(
+                      (int rating) {
+                        setState(() {
+                          minimumRating = rating;
+                        });
+                      },
+                      minimumRating
+                    ),
+                  )
+              ),
+              HarmonyShinyButton(
+                "Create Review",
+                () async {
+                  await FireStoreService().createReview(
+                    {
+                      "authorId": AuthService.currHarmonyUser!.id,
+                      "content": contentController.text,
+                      "likes": 0,
+                      "placeId": widget.place.id,
+                      "rating": minimumRating,
+                      "timeAdded": Timestamp.now()
+                    },
+                    widget.place,
+                    AuthService.currHarmonyUser!
+                  );
+
+                  Navigator.pushReplacementNamed(
+                    context,
+                    kSpotInfoRouteName,
+                    arguments: {
+                      "place": widget.place,
+                      "distance": null,
+                      "imageUrl": null,
+                    }
+                  );
+                }
+              )
+            ],
+          ),
         ],
       ),
     );

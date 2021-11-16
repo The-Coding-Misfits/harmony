@@ -25,7 +25,7 @@ class Review{
       data["likes"] as int,
       data["rating"] as int,
       parseTimestamp(data["timeAdded"]),
-      data['place_id'] as String,
+      data['placeId'] as String,
     );
 
   }

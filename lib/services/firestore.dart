@@ -284,4 +284,41 @@ class FireStoreService {
     ).get();
     return snapshot.docs.isNotEmpty;
   }
+
+  Future<Review> createReview(Map review, Place place, HarmonyUser user) async {
+    DocumentReference result = await reviews.add(
+        Map<String, dynamic>.from(review)
+    );
+
+    DocumentSnapshot reviewSnapshot = await result.get();
+    Map<String, dynamic> data = reviewSnapshot.data() as Map<String, dynamic>;
+
+    List<dynamic> placeReviews = place.reviewIds;
+    placeReviews.add(reviewSnapshot.id);
+
+    places.doc(place.id).get().then(
+      (placeDoc) {
+        placeDoc.reference.update(
+          {
+            "review_ids": placeReviews
+          }
+        );
+      }
+    );
+
+    List<dynamic> userReviews = user.reviewIds;
+    userReviews.add(reviewSnapshot.id);
+
+    users.doc(user.id).get().then(
+      (userDoc) {
+        userDoc.reference.update(
+          {
+            "reviews": userReviews
+          }
+        );
+      }
+    );
+
+    return Review.fromJson(data, reviewSnapshot.id);
+  }
 }
