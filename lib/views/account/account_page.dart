@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:harmony/models/user.dart';
 import 'package:harmony/services/auth_service.dart';
+import 'package:harmony/utilites/constants.dart';
 import 'package:harmony/utilites/page_enum.dart';
 import 'package:harmony/widgets/account_page/check_in/check_in_display_row.dart';
 import 'package:harmony/widgets/account_page/profile_photo.dart';
@@ -17,8 +18,8 @@ class AccountPage extends StatelessWidget {
   AccountPage(this.user, {Key? key, this.pushedFromSpotInfo = false}) : super(key: key);
 
   final List<String> _tabs = <String>[
-    'Favorite spots',
-    "Reviews"
+    'FAVORITE SPOTS',
+    "REVIEWS"
   ];
 
   @override
@@ -109,6 +110,16 @@ class AccountPage extends StatelessWidget {
                   bottom: TabBar(
                     // These are the widgets to put in each tab in the tab bar.
                     tabs: _tabs.map((String name) => Tab(text: name)).toList(),
+                    //line config
+                    indicatorColor: kHarmonyColor,
+                    indicatorSize: TabBarIndicatorSize.label,
+                    //label config
+                    unselectedLabelColor: Colors.grey,
+                    labelColor: kHarmonyColor,
+                    labelStyle: const TextStyle(
+                      fontWeight: FontWeight.normal,
+                      letterSpacing: 1
+                    ),
                   ),
                 ),
               ),
@@ -166,7 +177,7 @@ class AccountPage extends StatelessWidget {
   }
   
   Widget getTabBarViewAccordingToTab(String tabName){
-    if(tabName == "Reviews"){
+    if(tabName == "REVIEWS"){
       return UserReviews(user);
     }
     return UserFavorites(user);
