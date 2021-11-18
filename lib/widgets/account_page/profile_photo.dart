@@ -1,6 +1,8 @@
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:harmony/models/user.dart';
 import 'package:harmony/services/firestore.dart';
+import 'package:harmony/widgets/general_use/uses_snackbar_mixin.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ProfilePhoto extends StatefulWidget {
@@ -12,13 +14,12 @@ class ProfilePhoto extends StatefulWidget {
   State<ProfilePhoto> createState() => _ProfilePhotoState();
 }
 
-class _ProfilePhotoState extends State<ProfilePhoto> {
+class _ProfilePhotoState extends State<ProfilePhoto> with UsesSnackbar{
   final ImagePicker _picker = ImagePicker();
-  late Widget profilePhotoWidget;
+  late Widget profilePhotoWidget = getProfilePhotoWidget();
 
   @override
   void initState() {
-    profilePhotoWidget = getProfilePhotoWidget();
     super.initState();
   }
 
@@ -50,7 +51,8 @@ class _ProfilePhotoState extends State<ProfilePhoto> {
     return FutureBuilder(
       future: FireStoreService().getPfpFromId(widget.user.id),
       builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-        if(snapshot.hasData){
+        print("gott snaphsot $snapshot");
+        if(snapshot.hasData || snapshot.connectionState == ConnectionState.done){
           return Image.network(snapshot.data!);
         }
         else if (snapshot.hasError){
@@ -137,13 +139,27 @@ class _ProfilePhotoState extends State<ProfilePhoto> {
     );
   }
 
-  void exitedPicker(XFile? pickedImage, BuildContext context){
+  void exitedPicker(XFile? pickedImage, BuildContext context) {
     if(pickedImage != null){
-      FireStoreService().changePfpOfUser(widget.user, pickedImage);
-      setState(() {
-        profilePhotoWidget = getProfilePhotoWidget();
-      });
+      Navigator.pop(context);
+      _handleUploadOfPhoto(pickedImage);
     }
-    Navigator.pop(context);
+  }
+
+
+  Future<void> _handleUploadOfPhoto(XFile pickedImage) async {
+    Stream<TaskSnapshot> taskSnapshots = FireStoreService().changePfpOfUser(widget.user, pickedImage);
+    showSnackbar("Changing profile picture...", context);
+    await for (TaskSnapshot taskSnapshot in taskSnapshots){
+      if(taskSnapshot.state == TaskState.success){
+        showSnackbar("Successfully changed picture", context);
+        setState(() {
+          profilePhotoWidget = getProfilePhotoWidget();
+        });
+      }
+      else if(taskSnapshot.state == TaskState.error){
+        showSnackbar("An error happened while changing picture\nPlease try again", context);
+      }
+    }
   }
 }
