@@ -168,13 +168,35 @@ class SpotInfoState extends State<SpotInfo> {
         child: Column(
           children: [
             SizedBox(
-                height: 300,
-                width: MediaQuery.of(context).size.width,
-                child: HarmonyAddPlaceMap(
-                    latitude: place.point.latitude,
-                    longitude: place.point.longitude,
+              child: Stack(
+                children: [
+                  Container(
+                      height: 350,
+                      width: MediaQuery.of(context).size.width,
+                      child: HarmonyAddPlaceMap(
+                        latitude: place.point.latitude,
+                        longitude: place.point.longitude,
 
-                )
+                      )
+                  ),
+                  Positioned.fill(
+                    top: 200,
+                    child: Container(
+                      height: 30,
+                      decoration: const BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: [
+                              Color(0x00FFFFFF),
+                              Color(0xFFFFFFFF)
+                            ]
+                        ),
+                      ),
+                    ),
+                  )
+                ]
+              ),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 10, left: 10),
