@@ -51,7 +51,10 @@ class AccountPage extends StatelessWidget {
                           child: SizedBox(
                             width: 30,
                               height: 30,
-                              child: ProfilePhoto(user)
+                              child: ProfilePhoto(
+                                  user,
+                                canPhotoBeChanged: false,
+                              )
                           ),
                         ),
                       ]
