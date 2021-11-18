@@ -169,9 +169,9 @@ class AccountPage extends StatelessWidget {
             }).toList(),
           ),
         ),
-        bottomNavigationBar: HarmonyBottomNavigationBar(
-          PAGE_ENUM.ACCOUNT_PAGE
-      ),
+        bottomNavigationBar: pushedFromSpotInfo ? const SizedBox() :  HarmonyBottomNavigationBar(
+            PAGE_ENUM.ACCOUNT_PAGE
+        ),
       ),
     );
   }
