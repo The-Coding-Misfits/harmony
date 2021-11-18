@@ -117,7 +117,7 @@ class SpotInfoState extends State<SpotInfo> {
                     padding: const EdgeInsets.only(bottom: 5),
                     child: ReviewCard.forSpotInfo(
                       snapshot.data,
-                      15
+                      15,
                     ),
                   );
                 } else {
