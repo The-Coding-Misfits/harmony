@@ -8,8 +8,9 @@ import 'package:image_picker/image_picker.dart';
 
 class ProfilePhoto extends StatefulWidget {
   final HarmonyUser user;
+  final bool canPhotoBeChanged;
 
-  const ProfilePhoto(this.user, {Key? key}) : super(key: key);
+  const ProfilePhoto(this.user, {Key? key, this.canPhotoBeChanged = true}) : super(key: key);
 
   @override
   State<ProfilePhoto> createState() => _ProfilePhotoState();
@@ -28,7 +29,7 @@ class _ProfilePhotoState extends State<ProfilePhoto> with UsesSnackbar{
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (){
-        if(widget.user.uid == AuthService.currHarmonyUser!.uid){ // check if profile photo displayed is of the current users, if not don't let it change
+        if(widget.canPhotoBeChanged){
           handleTap(context);
         }
       },
