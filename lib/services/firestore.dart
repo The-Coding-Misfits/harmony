@@ -266,10 +266,11 @@ class FireStoreService {
     );
   }
 
-  void changePfpOfUser(HarmonyUser user, XFile file) {
+  Stream<TaskSnapshot> changePfpOfUser(HarmonyUser user, XFile file) {
     String firestoragePath = "users/${user.id}/pfp";
     Reference storageRef = FirebaseStorage.instance.ref().child(firestoragePath);
-    storageRef.putFile(File(file.path));
+    UploadTask uploadTask = storageRef.putFile(File(file.path));
+    return uploadTask.snapshotEvents;
   }
 
   Future<String> getPfpFromId(String userId) async {
