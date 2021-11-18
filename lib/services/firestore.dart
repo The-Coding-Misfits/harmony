@@ -342,19 +342,33 @@ class FireStoreService {
     );
   }
 
-  void checkInUser(HarmonyUser user, Timestamp timestamp){
+  void checkInUser(HarmonyUser user, Timestamp timestamp, Place place) {
     //CheckIn checkIn = CheckIn(Timestamp.now());
     CheckIn checkIn = CheckIn(timestamp);
     user.checkIns.add(checkIn);
-    _checkInUserAtDB(user);
+    _checkInUserAtDB(user, place);
   }
-  void _checkInUserAtDB(HarmonyUser user){
+
+  void _checkInUserAtDB(HarmonyUser user, Place place){
     users.doc(user.id).get().then(
             (userDoc){
           userDoc.reference.update(
             user.toJson()
           );
         }
+    );
+
+    List pastUserIds = place.pastUserIds;
+    pastUserIds.add(user.id);
+
+    places.doc(place.id).get().then(
+      (placeDoc) {
+        placeDoc.reference.update(
+          {
+            "past_user_ids": pastUserIds
+          }
+        );
+      }
     );
   }
 

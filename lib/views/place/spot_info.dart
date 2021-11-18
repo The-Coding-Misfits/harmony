@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:harmony/models/place.dart';
@@ -8,6 +9,7 @@ import 'package:harmony/utilites/places/place_category_enum.dart';
 import 'package:harmony/widgets/filter/category_widgets/category_grid.dart';
 import 'package:harmony/widgets/general_use/map_widgets/harmony_add_place_map.dart';
 import 'package:harmony/widgets/general_use/review_card.dart';
+import 'package:harmony/widgets/login_register/harmony_shiny_button.dart';
 import 'package:harmony/widgets/place_listview/sub_listviews/place_formulas.dart';
 import 'package:harmony/widgets/spot_info/create_review_button.dart';
 import 'package:harmony/widgets/spot_info/favorite_widget.dart';
@@ -215,13 +217,49 @@ class SpotInfoState extends State<SpotInfo> {
                     child: imageUrlWidget
                 )
             ),
+            usersCountWidget(place),
+            HarmonyShinyButton(
+              "Check-In",
+              () {
+                FireStoreService().checkInUser(AuthService.currHarmonyUser!, Timestamp.now(), place);
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text("Successfully checked you in!"))
+                );
+              }
+            ),
             Padding(
-                padding: const EdgeInsets.only(top: 15, left: 10, right: 10, bottom: 15),
+                padding: const EdgeInsets.only(left: 10, right: 10, bottom: 15),
                 child: reviewsWidget
             ),
           ],
         ),
       ),
+    );
+  }
+
+  Widget usersCountWidget(Place place) {
+    int listLength = place.pastUserIds.length;
+    String text;
+
+    if (listLength == 0) {
+      text = "No user was here before!";
+    } else if (listLength == 1) {
+      text = "1 User have been here before!";
+    } else {
+      text = "${place.pastUserIds.length} Users have been here before!";
+    }
+
+    return Padding(
+        padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
+        child: Align(
+          alignment: Alignment.centerLeft,
+          child: Text(
+            text,
+            style: const TextStyle(
+                fontSize: 20
+            ),
+          ),
+        )
     );
   }
 }

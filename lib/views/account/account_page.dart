@@ -41,9 +41,9 @@ class _AccountPageState extends State<AccountPage> {
                 child: Text(widget.user.username, style: const TextStyle(fontSize: 20)),
               ),
               ///CHECK IN CHART
-              CheckInChart(
-                widget.user
-              ),
+              //CheckInChart(
+              //  widget.user
+              // ,
               Expanded(
                 child: MenuWidget(favoritesWidget, reviewsWidget),
               )
