@@ -1,6 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:harmony/views/login&register/register.dart';
 import 'package:harmony/services/auth_service.dart';
 import 'package:harmony/utilites/constants.dart';
@@ -49,10 +48,6 @@ class _MyAppState extends State<MyApp> {
                   return MaterialApp(
                     title: "Harmony",
                     theme: ThemeData(
-                        appBarTheme: const AppBarTheme(
-                            systemOverlayStyle: SystemUiOverlayStyle(statusBarBrightness: Brightness.light)
-                        ),
-                        brightness: Brightness.light,
                         fontFamily: "Montserrat",
                         primaryColor: const Color(0xff00CA9D),
                         colorScheme: ColorScheme.fromSwatch().copyWith(
