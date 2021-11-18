@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:harmony/models/associative_entities/check_in.dart';
 import 'package:harmony/models/user.dart';
-import 'package:harmony/viewmodel/account/check_in_chunk.dart';
 
-class AccountPageViewModel {
+import 'check_in_chunk.dart';
 
+class CheckInChartController{
   List<CheckInChunk> getChunks(HarmonyUser user){
     List<CheckIn> checkIns = _getCheckIns(user);
     if(checkIns.isEmpty) return [];
@@ -49,7 +49,7 @@ class AccountPageViewModel {
     for(int i = 0; i < numOfDivisionsOfTimeFrame; i++){
       int timeOfChunk = firstCheckInTime.seconds + (oneChunkTime * i);
       timeChunks.add(
-        Timestamp(timeOfChunk, 0)
+          Timestamp(timeOfChunk, 0)
       );
     }
     return timeChunks;
@@ -86,11 +86,4 @@ class AccountPageViewModel {
     return checkInChunks;
   }
 
-
-
-
-
-
 }
-
-

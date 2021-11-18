@@ -2,19 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:harmony/models/user.dart';
 import 'package:harmony/utilites/constants.dart';
 import 'package:harmony/utilites/page_enum.dart';
-import 'package:harmony/viewmodel/account/account_viewmodel.dart';
-import 'package:harmony/viewmodel/account/check_in_chunk.dart';
+import 'package:harmony/widgets/account_page/check_in/check_in_chart.dart';
 import 'package:harmony/widgets/account_page/profile_photo.dart';
 import 'package:harmony/widgets/account_page/user_favorites.dart';
 import 'package:harmony/widgets/account_page/user_reviews.dart';
 import 'package:harmony/widgets/general_use/harmony_bottom_navigation_bar.dart';
-import 'package:syncfusion_flutter_charts/sparkcharts.dart';
 
 
 class AccountPage extends StatefulWidget {
 
   final HarmonyUser user;
-  final AccountPageViewModel accountPageViewModel = AccountPageViewModel();
   AccountPage(this.user, {Key? key}) : super(key: key);
 
   @override
@@ -26,8 +23,6 @@ class _AccountPageState extends State<AccountPage> {
   Color activeDividerColor = kHarmonyColor;
   late Widget favoritesWidget = UserFavorites(widget.user);
   late Widget reviewsWidget = UserReviews(widget.user);
-
-  late List<CheckInChunk> checkInChunks = widget.accountPageViewModel.getChunks(widget.user);
 
   late Widget selectedWidget;
   @override
@@ -54,7 +49,9 @@ class _AccountPageState extends State<AccountPage> {
                 child: Text(widget.user.username, style: const TextStyle(fontSize: 20)),
               ),
               ///CHECK IN CHART
-              getChartWidget(),
+              CheckInChart(
+                widget.user
+              ),
               Padding(
                 padding: const EdgeInsets.only(top: 20),
                 child: Row(
@@ -131,40 +128,6 @@ class _AccountPageState extends State<AccountPage> {
           PAGE_ENUM.ACCOUNT_PAGE
       ),
     );
-  }
-
-
-
-  Widget getChartWidget(){
-    if(checkInChunks.isEmpty){
-      return const Padding(
-        padding: EdgeInsets.only(top: 15),
-        child: Align(
-          alignment: Alignment.center,
-          child: Text(
-            "You haven't check in yet!",
-            style: TextStyle(
-              fontSize: 10
-            ),
-          ),
-        ),
-      );
-    }
-    else {
-      return SfSparkLineChart.custom(
-        //Enable marker
-        trackball: const SparkChartTrackball(
-
-        ),
-        marker: const SparkChartMarker(
-            displayMode: SparkChartMarkerDisplayMode.none),
-        //Enable data label
-        labelDisplayMode: SparkChartLabelDisplayMode.none,
-        xValueMapper: (int index) => index,
-        yValueMapper: (int index) => checkInChunks[index].numOfCheckIns,
-        dataCount: checkInChunks.length,
-      );
-    }
   }
 }
 
