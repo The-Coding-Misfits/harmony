@@ -98,36 +98,39 @@ class SpotInfoState extends State<SpotInfo> {
           padding: EdgeInsets.only(top: 0, bottom: 0),
           child: Divider(),
         ),
-        ListView.builder(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          padding: EdgeInsets.zero,
-          itemCount: place.reviewIds.length,
-          itemBuilder: (BuildContext context, int index) {
-            String currReviewId = place.reviewIds[index];
+        SafeArea(
+          top: false,
+          child: ListView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            padding: EdgeInsets.zero,
+            itemCount: place.reviewIds.length,
+            itemBuilder: (BuildContext context, int index) {
+              String currReviewId = place.reviewIds[index];
 
-            return FutureBuilder(
-              future: FireStoreService().getReviewFromId(currReviewId),
-              builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-                if (snapshot.connectionState == ConnectionState.done) {
-                  return ReviewCard.forSpotInfo(
-                    snapshot.data,
-                    15,
-                  );
-                } else {
-                  return Padding(
-                    padding: const EdgeInsets.only(top: 5, bottom: 5),
-                    child: Row(
-                      children: const [
-                        CircularProgressIndicator(),
-                        Text("Loading review...")
-                      ],
-                    ),
-                  );
-                }
-              },
-            );
-          },
+              return FutureBuilder(
+                future: FireStoreService().getReviewFromId(currReviewId),
+                builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    return ReviewCard.forSpotInfo(
+                      snapshot.data,
+                      15,
+                    );
+                  } else {
+                    return Padding(
+                      padding: const EdgeInsets.only(top: 5, bottom: 5),
+                      child: Row(
+                        children: const [
+                          CircularProgressIndicator(),
+                          Text("Loading review...")
+                        ],
+                      ),
+                    );
+                  }
+                },
+              );
+            },
+          ),
         )
       ],
     );
