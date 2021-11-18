@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:harmony/models/user.dart';
+import 'package:harmony/utilites/constants.dart';
 import 'package:harmony/widgets/account_page/check_in/check_in_chart_controller.dart';
 import 'package:harmony/widgets/account_page/check_in/check_in_chunk.dart';
 import 'package:syncfusion_flutter_charts/sparkcharts.dart';
@@ -44,6 +45,8 @@ class CheckInChart extends StatelessWidget {
       xValueMapper: (int index) => index,
       yValueMapper: (int index) => checkInChunks[index].numOfCheckIns,
       dataCount: checkInChunks.length,
+      lowPointColor: Color(0XFFFCFFD4),
+      highPointColor: kHarmonyColor,
     );
   }
 }
