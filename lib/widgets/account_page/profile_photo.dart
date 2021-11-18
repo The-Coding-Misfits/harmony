@@ -1,6 +1,7 @@
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:harmony/models/user.dart';
+import 'package:harmony/services/auth_service.dart';
 import 'package:harmony/services/firestore.dart';
 import 'package:harmony/widgets/general_use/uses_snackbar_mixin.dart';
 import 'package:image_picker/image_picker.dart';
@@ -27,7 +28,9 @@ class _ProfilePhotoState extends State<ProfilePhoto> with UsesSnackbar{
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (){
-        handleTap(context);
+        if(widget.user.uid == AuthService.currHarmonyUser!.uid){ // check if profile photo displayed is of the current users, if not don't let it change
+          handleTap(context);
+        }
       },
       child: profilePhotoWidget
     );
