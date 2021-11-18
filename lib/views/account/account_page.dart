@@ -55,73 +55,7 @@ class _AccountPageState extends State<AccountPage> {
               ),
               ///CHECK IN CHART
               getChartWidget(),
-              Padding(
-                padding: const EdgeInsets.only(top: 20),
-                child: Row(
-                  children: [
-                    SizedBox(
-                      child: Column(
-                        children: [
-                          TextButton(
-                            child: Text(
-                              "Favorite Spots",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  color: selectedWidget == favoritesWidget ? const Color(0xff00CA9D) : Colors.black
-                              ),
-                            ),
-                            style: ButtonStyle(
-                              overlayColor: MaterialStateProperty.all(Colors.transparent)
-                            ),
-                            onPressed: () {
-                              setState(() {
-                                selectedWidget = favoritesWidget;
-                              });
-                            },
-                          ),
-                          Divider(
-                              thickness: 2,
-                            indent: 40,
-                            endIndent: 40,
-                            color: selectedWidget == favoritesWidget ? activeDividerColor : Colors.transparent,
-                          ),
-                        ],
-                      ),
-                      width: MediaQuery.of(context).size.width / 2,
-                    ),
-                    SizedBox(
-                      child: Column(
-                        children: [
-                          TextButton(
-                            child: Text(
-                              "My Reviews",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  color: selectedWidget == reviewsWidget ? const Color(0xff00CA9D) : Colors.black
-                              ),
-                            ),
-                            style: ButtonStyle(
-                                overlayColor: MaterialStateProperty.all(Colors.transparent)
-                            ),
-                            onPressed: () {
-                              setState(() {
-                                selectedWidget = reviewsWidget;
-                              });
-                            },
-                          ),
-                          Divider(
-                              thickness: 2,
-                            indent: 40,
-                            endIndent: 40,
-                            color: selectedWidget == reviewsWidget ? activeDividerColor : Colors.transparent,
-                          ),
-                        ],
-                      ),
-                      width: MediaQuery.of(context).size.width / 2,
-                    )
-                  ],
-                ),
-              ),
+              getMenuWidget(),
               selectedWidget,
             ],
           ),
@@ -133,7 +67,75 @@ class _AccountPageState extends State<AccountPage> {
     );
   }
 
-
+  Widget getMenuWidget() {
+    return Padding(
+      padding: const EdgeInsets.only(top: 20),
+      child: Row(
+        children: [
+          SizedBox(
+            child: Column(
+              children: [
+                TextButton(
+                  child: Text(
+                    "Favorite Spots",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: selectedWidget == favoritesWidget ? const Color(0xff00CA9D) : Colors.black
+                    ),
+                  ),
+                  style: ButtonStyle(
+                      overlayColor: MaterialStateProperty.all(Colors.transparent)
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      selectedWidget = favoritesWidget;
+                    });
+                  },
+                ),
+                Divider(
+                  thickness: 2,
+                  indent: 40,
+                  endIndent: 40,
+                  color: selectedWidget == favoritesWidget ? activeDividerColor : Colors.transparent,
+                ),
+              ],
+            ),
+            width: MediaQuery.of(context).size.width / 2,
+          ),
+          SizedBox(
+            child: Column(
+              children: [
+                TextButton(
+                  child: Text(
+                    "My Reviews",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: selectedWidget == reviewsWidget ? const Color(0xff00CA9D) : Colors.black
+                    ),
+                  ),
+                  style: ButtonStyle(
+                      overlayColor: MaterialStateProperty.all(Colors.transparent)
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      selectedWidget = reviewsWidget;
+                    });
+                  },
+                ),
+                Divider(
+                  thickness: 2,
+                  indent: 40,
+                  endIndent: 40,
+                  color: selectedWidget == reviewsWidget ? activeDividerColor : Colors.transparent,
+                ),
+              ],
+            ),
+            width: MediaQuery.of(context).size.width / 2,
+          )
+        ],
+      ),
+    );
+  }
 
   Widget getChartWidget(){
     if(checkInChunks.isEmpty){
