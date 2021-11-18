@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:harmony/models/user.dart';
-import 'package:harmony/utilites/constants.dart';
 import 'package:harmony/utilites/page_enum.dart';
 import 'package:harmony/widgets/account_page/check_in/check_in_display_row.dart';
 import 'package:harmony/widgets/account_page/profile_photo.dart';
@@ -159,37 +158,3 @@ class AccountPage extends StatelessWidget {
     return UserFavorites(user);
   }
 }
-
-
-
-/*slivers: [
-SliverToBoxAdapter(
-child: Padding(
-padding: const EdgeInsets.only(top: 15),
-child: Center(child: ProfilePhoto(widget.user))
-),
-),
-SliverToBoxAdapter(
-child: Center(
-child: Padding(
-padding: const EdgeInsets.only(top: 10),
-child: Text(widget.user.username, style: const TextStyle(fontSize: 20)),
-),
-),
-),
-///CHECK IN CHART
-SliverToBoxAdapter(
-child: CheckInDisplayRow(
-widget.user
-),
-),
-SliverToBoxAdapter(
-child: MenuTabBar(
-widget.user
-),
-)
-/*SliverToBoxAdapter(
-                child: MenuWidget(favoritesWidget, reviewsWidget),
-              )*/
-],
-)*/
