@@ -98,14 +98,11 @@ class SpotInfoState extends State<SpotInfo> {
           padding: EdgeInsets.only(top: 0, bottom: 0),
           child: Divider(),
         ),
-        ListView.separated(
+        ListView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
           padding: EdgeInsets.zero,
           itemCount: place.reviewIds.length,
-          separatorBuilder: (BuildContext context, int index) {
-            return const Divider();
-          },
           itemBuilder: (BuildContext context, int index) {
             String currReviewId = place.reviewIds[index];
 
@@ -114,7 +111,6 @@ class SpotInfoState extends State<SpotInfo> {
               builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
                 if (snapshot.connectionState == ConnectionState.done) {
                   return Padding(
-                    padding: const EdgeInsets.only(bottom: 5),
                     child: ReviewCard.forSpotInfo(
                       snapshot.data,
                       15,
