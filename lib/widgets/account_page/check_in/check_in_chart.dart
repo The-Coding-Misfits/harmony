@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:harmony/models/user.dart';
 import 'package:harmony/utilites/constants.dart';
 import 'package:harmony/widgets/account_page/check_in/check_in_chart_controller.dart';
@@ -34,20 +34,17 @@ class CheckInChart extends StatelessWidget {
 
   Widget getChartWidget(){
     return SfSparkLineChart.custom(
-
-    //Enable marker
-      trackball: const SparkChartTrackball(
-
-      ),
       marker: const SparkChartMarker(
-          displayMode: SparkChartMarkerDisplayMode.none),
+          displayMode: SparkChartMarkerDisplayMode.last),
       //Enable data label
       labelDisplayMode: SparkChartLabelDisplayMode.none,
       xValueMapper: (int index) => index,
       yValueMapper: (int index) => checkInChunks[index].numOfCheckIns,
       dataCount: checkInChunks.length,
-      lowPointColor: Color(0XFFFCFFD4),
+      lowPointColor: const Color(0XFFFCFFD4),
       highPointColor: kHarmonyColor,
+      color: kHarmonyColor,
+      axisLineColor: Colors.transparent,
     );
   }
 }
