@@ -52,7 +52,7 @@ class _ProfilePhotoState extends State<ProfilePhoto> with UsesSnackbar{
       future: FireStoreService().getPfpFromId(widget.user.id),
       builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
         if(snapshot.hasData){
-          return Image.network(snapshot.data!);
+          return Image.network(snapshot.data!, fit: BoxFit.fill);
         }
         else if (snapshot.hasError){
           return getProfilePagePhotoErrorWidget();

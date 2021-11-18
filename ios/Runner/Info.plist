@@ -22,17 +22,42 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>comgooglemaps</string>
+		<string>baidumap</string>
+		<string>iosamap</string>
+		<string>waze</string>
+		<string>yandexmaps</string>
+		<string>yandexnavi</string>
+		<string>citymapper</string>
+		<string>mapswithme</string>
+		<string>osmandmaps</string>
+		<string>dgis</string>
+		<string>qqmap</string>
+		<string>here-location</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>Harmony needs access to your camera so you can upload images.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Harmony needs access to your live location to notify you the gourgeous places around yourself, just in case you miss them!</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Harmony needs access to your live location to notify you the gourgeous places around yourself, just in case you miss them!</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Harmony needs access to your location to present the beautiful trekking places near you!</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Harmony needs access to your photo library so you can upload images.</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
+	<key>UIStatusBarStyle</key>
+	<string>UIStatusBarStyleDarkContent</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
@@ -43,31 +68,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>NSPhotoLibraryUsageDescription</key>
-    <string>Harmony needs access to your photo library so you can upload images.</string>
-    <key>NSCameraUsageDescription</key>
-    <string>Harmony needs access to your camera so you can upload images.</string>
-    <key>NSLocationWhenInUseUsageDescription</key>
-    <string>Harmony needs access to your location to present the beautiful trekking places near you!</string>
-    <key>NSLocationAlwaysUsageDescription</key>
-    <string>Harmony needs access to your live location to notify you the gourgeous places around yourself, just in case you miss them!</string>
-    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-    <string>Harmony needs access to your live location to notify you the gourgeous places around yourself, just in case you miss them!</string>
-
-    <key>LSApplicationQueriesSchemes</key>
-    <array>
-        <string>comgooglemaps</string>
-        <string>baidumap</string>
-        <string>iosamap</string>
-        <string>waze</string>
-        <string>yandexmaps</string>
-        <string>yandexnavi</string>
-        <string>citymapper</string>
-        <string>mapswithme</string>
-        <string>osmandmaps</string>
-        <string>dgis</string>
-        <string>qqmap</string>
-        <string>here-location</string>
-    </array>
 </dict>
 </plist>
