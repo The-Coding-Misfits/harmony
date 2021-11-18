@@ -40,55 +40,70 @@ class _MyAppState extends State<MyApp> {
         // Once complete, show your application
         if (snapshot.connectionState == ConnectionState.done) {
           String initialRoute = auth.currentUser == null ? kLoginPageRouteName : kDiscoverPageRouteName;
-          if(auth.currentUser != null) AuthService.initCurrUser(auth.currentUser!.uid);
 
-          return MaterialApp(
-            title: "Harmony",
-            theme: ThemeData(
-              appBarTheme: const AppBarTheme(
-                systemOverlayStyle: SystemUiOverlayStyle(statusBarBrightness: Brightness.light)
-              ),
-              brightness: Brightness.light,
-              fontFamily: "Montserrat",
-              primaryColor: const Color(0xff00CA9D),
-              colorScheme: ColorScheme.fromSwatch().copyWith(
-                primary: const Color(0xff00CA9D),
-                secondary: const Color(0xff00CA9D)
-              )
-            ),
-            debugShowCheckedModeBanner: false,
-            initialRoute: initialRoute,
-            routes: {
-              kLoginPageRouteName : (context) => LoginPage(),
-              kDiscoverPageRouteName : (context) => const DiscoverPage(),
-              kRegisterPageRouteName : (context) => const RegisterPage(),
-              kAddPlacePageRouteName : (context) => AddPlace(),
-              kErrorPageRouteName : (context) => const SomethingWentWrong(),
-              kSettingsPageRouteName : (context) => SettingsPage(),
-              kSpotInfoRouteName : (context) => const SpotInfo()
-            },
-          );
+          if (auth.currentUser != null) {
+            return FutureBuilder(
+              future: AuthService().initCurrUser(auth.currentUser!.uid),
+              builder: (BuildContext context, AsyncSnapshot snapshot) {
+                if (snapshot.connectionState == ConnectionState.done) {
+                  return MaterialApp(
+                    title: "Harmony",
+                    theme: ThemeData(
+                        appBarTheme: const AppBarTheme(
+                            systemOverlayStyle: SystemUiOverlayStyle(statusBarBrightness: Brightness.light)
+                        ),
+                        brightness: Brightness.light,
+                        fontFamily: "Montserrat",
+                        primaryColor: const Color(0xff00CA9D),
+                        colorScheme: ColorScheme.fromSwatch().copyWith(
+                            primary: const Color(0xff00CA9D),
+                            secondary: const Color(0xff00CA9D)
+                        )
+                    ),
+                    debugShowCheckedModeBanner: false,
+                    initialRoute: initialRoute,
+                    routes: {
+                      kLoginPageRouteName : (context) => LoginPage(),
+                      kDiscoverPageRouteName : (context) => const DiscoverPage(),
+                      kRegisterPageRouteName : (context) => const RegisterPage(),
+                      kAddPlacePageRouteName : (context) => AddPlace(),
+                      kErrorPageRouteName : (context) => const SomethingWentWrong(),
+                      kSettingsPageRouteName : (context) => SettingsPage(),
+                      kSpotInfoRouteName : (context) => const SpotInfo()
+                    },
+                  );
+                } else {
+                  return loadingWidget();
+                }
+              },
+            );
+          }
         }
 
         // Otherwise, show something whilst waiting for initialization to complete
-        return Container(
-          color: Colors.white,
-          child: Center(
-              child: Column(
-                children: [
-                  Hero(
-                      tag: "harmony_logo",
-                      child: Image.asset("assets/images/harmony.png", scale: 3)
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.only(top: 20),
-                    child: CircularProgressIndicator(),
-                  )
-                ],
-              )
-          ),
-        );
+        return loadingWidget();
       },
+    );
+  }
+
+  Widget loadingWidget() {
+    return Container(
+      color: Colors.white,
+      child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Hero(
+                  tag: "harmony_logo",
+                  child: Image.asset("assets/images/harmony.png", scale: 4)
+              ),
+              const Padding(
+                padding: EdgeInsets.only(top: 20),
+                child: CircularProgressIndicator(color: Color(0xff00CA9D)),
+              ),
+            ],
+          )
+      ),
     );
   }
 }

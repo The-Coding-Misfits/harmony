@@ -14,8 +14,9 @@ class AuthService {
   static HarmonyUser? currHarmonyUser;
   static UserCredential? userCredentials;
 
-  static void initCurrUser(String uid) async{
+  Future<HarmonyUser?> initCurrUser(String uid) async{
     currHarmonyUser = await FireStoreService().getUserFromUID(uid);
+    return currHarmonyUser;
   }
 
   static void createHarmonyUser(User newUser, String username) async{
