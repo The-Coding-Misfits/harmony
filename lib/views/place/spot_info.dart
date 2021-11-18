@@ -183,18 +183,10 @@ class SpotInfoState extends State<SpotInfo> {
                 child: Text(
                   place.name,
                   style: const TextStyle(
-                      fontSize: 20
+                      fontSize: 22,
+                    fontWeight: FontWeight.bold,
+
                   ),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 5, left: 10),
-              child: SizedBox(
-                height: 50,
-                width: 500,
-                child: CategoryGrid.isDisplay(
-                    [PlaceCategory.values.firstWhere((e) => e == place.category)]
                 ),
               ),
             ),
@@ -208,6 +200,16 @@ class SpotInfoState extends State<SpotInfo> {
                       distanceWidget
                     ],
                   )
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 5, left: 10),
+              child: SizedBox(
+                height: 50,
+                width: 500,
+                child: CategoryGrid.isDisplay(
+                    [PlaceCategory.values.firstWhere((e) => e == place.category)]
+                ),
               ),
             ),
             Padding(
