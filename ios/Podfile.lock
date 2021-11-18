@@ -517,6 +517,8 @@ PODS:
     - nanopb/encode (= 2.30908.0)
   - nanopb/decode (2.30908.0)
   - nanopb/encode (2.30908.0)
+  - package_info_plus (0.4.5):
+    - Flutter
   - PromisesObjC (2.0.0)
 
 DEPENDENCIES:
@@ -531,6 +533,7 @@ DEPENDENCIES:
   - image_picker (from `.symlinks/plugins/image_picker/ios`)
   - location (from `.symlinks/plugins/location/ios`)
   - map_launcher (from `.symlinks/plugins/map_launcher/ios`)
+  - package_info_plus (from `.symlinks/plugins/package_info_plus/ios`)
 
 SPEC REPOS:
   trunk:
@@ -577,6 +580,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/location/ios"
   map_launcher:
     :path: ".symlinks/plugins/map_launcher/ios"
+  package_info_plus:
+    :path: ".symlinks/plugins/package_info_plus/ios"
 
 SPEC CHECKSUMS:
   abseil: 6c8eb7892aefa08d929b39f9bb108e5367e3228f
@@ -608,6 +613,7 @@ SPEC CHECKSUMS:
   location: 3a2eed4dd2fab25e7b7baf2a9efefe82b512d740
   map_launcher: e325db1261d029ff33e08e03baccffe09593ffea
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
+  package_info_plus: 6c92f08e1f853dc01228d6f553146438dafcd14e
   PromisesObjC: 68159ce6952d93e17b2dfe273b8c40907db5ba58
 
 PODFILE CHECKSUM: 48b0e768a65fef704cb9ee349b701c4532fb7618

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:harmony/services/auth_service.dart';
 import 'package:harmony/utilites/constants.dart';
 import 'package:harmony/utilites/login_register_states/signout_state.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 class HamburgerButton extends StatelessWidget {
   HamburgerButton({Key? key}) : super(key: key);
@@ -33,10 +34,12 @@ class HamburgerButton extends StatelessWidget {
                   ListTile(
                     leading: const Icon(Icons.info),
                     title: const Text("About Harmony"),
-                    onTap: () {
+                    onTap: () async {
+                      PackageInfo packageInfo = await PackageInfo.fromPlatform();
+
                       showAboutDialog(
                           context: context,
-                          applicationVersion: "1.0.0a",
+                          applicationVersion: packageInfo.version,
                           applicationIcon: Image.asset("assets/images/harmony.png", scale: 6,),
                           applicationName: "Harmony"
                       );
