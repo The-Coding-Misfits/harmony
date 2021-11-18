@@ -346,10 +346,11 @@ class FireStoreService {
     //CheckIn checkIn = CheckIn(Timestamp.now());
     CheckIn checkIn = CheckIn(timestamp);
     user.checkIns.add(checkIn);
-    _checkInUserAtDB(user, place);
+    _checkInUserAtDB(user);
+    _updatePlacePUIDS(place, user);
   }
 
-  void _checkInUserAtDB(HarmonyUser user, Place place){
+  void _checkInUserAtDB(HarmonyUser user){
     users.doc(user.id).get().then(
             (userDoc){
           userDoc.reference.update(
@@ -357,18 +358,20 @@ class FireStoreService {
           );
         }
     );
+  }
 
+  void _updatePlacePUIDS(Place place, HarmonyUser user) { // PUIDS stands for PastUserIds,
     List pastUserIds = place.pastUserIds;
     pastUserIds.add(user.id);
 
     places.doc(place.id).get().then(
-      (placeDoc) {
-        placeDoc.reference.update(
-          {
-            "past_user_ids": pastUserIds
-          }
-        );
-      }
+            (placeDoc) {
+          placeDoc.reference.update(
+              {
+                "past_user_ids": pastUserIds
+              }
+          );
+        }
     );
   }
 
