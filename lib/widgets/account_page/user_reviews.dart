@@ -7,51 +7,52 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class UserReviews extends StatelessWidget {
   final HarmonyUser user;
-
-  UserReviews(this.user);
+  const UserReviews(this.user);
 
   @override
   Widget build(BuildContext context) {
     if (user.reviewIds.isEmpty) {
-      return Expanded(
-          child: Container(
-            color: const Color(0xffefefef),
-            child: const Align(
-              alignment: Alignment.center,
-              child: Text("No reviews!"),
-            ),
-          )
-      );
-    } else {
-      return Expanded(
-        child: Container(
-          color: const Color(0xffefefef),
-          child: StaggeredGridView.countBuilder(
-            staggeredTileBuilder: (int index) => const StaggeredTile.fit(1),
-            crossAxisCount: 2,
-            itemCount: user.reviewIds.length,
-            itemBuilder: (BuildContext context, int index) {
-              var reviewId = user.reviewIds[index];
+      return getEmptyWidget();
+    }
+    return SliverStaggeredGrid.countBuilder(
+      crossAxisCount: 2,
+      staggeredTileBuilder: (int index) => const StaggeredTile.fit(1),
+      itemCount: user.reviewIds.length,
+      itemBuilder: (BuildContext context, int index) {
+        var reviewId = user.reviewIds[index];
 
-              return FutureBuilder(
-                future: FireStoreService().getReviewFromId(reviewId),
-                builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-                  if (snapshot.connectionState == ConnectionState.done) {
-                    Review review = snapshot.data;
+        return FutureBuilder(
+          future: FireStoreService().getReviewFromId(reviewId),
+          builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+            if (snapshot.connectionState == ConnectionState.done) {
+              Review review = snapshot.data;
 
-                    return ReviewCard(
-                      review,
-                      13
-                    );
-                  }
-
-                  return const Text("Loading review...");
-                },
+              return ReviewCard(
+                  review,
+                  13
               );
-            },
+            }
+
+            return const Text("Loading review...");
+          },
+        );
+      },
+    );
+  }
+
+
+  Widget getEmptyWidget(){
+    return SliverToBoxAdapter(
+      child: Center(
+        child: Padding(
+          padding: const EdgeInsets.only(top: 32),
+          child: Container(
+            child: const Text(
+                "No reviews!"
+            ),
           ),
         ),
-      );
-    }
+      ),
+    );
   }
 }
