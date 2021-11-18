@@ -12,7 +12,8 @@ import 'package:harmony/widgets/general_use/harmony_bottom_navigation_bar.dart';
 class AccountPage extends StatelessWidget {
 
   final HarmonyUser user;
-  AccountPage(this.user, {Key? key}) : super(key: key);
+  final bool pushedFromSpotInfo;
+  AccountPage(this.user, {Key? key, this.pushedFromSpotInfo = false}) : super(key: key);
 
   final List<String> _tabs = <String>[
     'Favorite spots',
@@ -43,7 +44,7 @@ class AccountPage extends StatelessWidget {
                   title: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        HamburgerButton(),
+                        pushedFromSpotInfo ? const SizedBox() : HamburgerButton(),
                         Visibility(
                           visible: innerBoxIsScrolled,
                           child: SizedBox(

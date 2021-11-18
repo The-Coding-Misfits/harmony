@@ -78,6 +78,7 @@ class ReviewCard extends StatelessWidget {
           context,
           MaterialPageRoute(builder: (context) => AccountPage(
               user,
+            pushedFromSpotInfo: forSpotInfo,
           ))
       );
     }else{
