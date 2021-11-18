@@ -10,20 +10,10 @@ import 'package:harmony/widgets/general_use/hamburger_button.dart';
 import 'package:harmony/widgets/general_use/harmony_bottom_navigation_bar.dart';
 
 
-class AccountPage extends StatefulWidget {
+class AccountPage extends StatelessWidget {
 
   final HarmonyUser user;
   AccountPage(this.user, {Key? key}) : super(key: key);
-
-  @override
-  _AccountPageState createState() => _AccountPageState();
-}
-
-class _AccountPageState extends State<AccountPage> {
-
-  Color activeDividerColor = kHarmonyColor;
-  late Widget favoritesWidget = UserFavorites(widget.user);
-  late Widget reviewsWidget = UserReviews(widget.user);
 
   final List<String> _tabs = <String>[
     'Favorite spots',
@@ -60,7 +50,7 @@ class _AccountPageState extends State<AccountPage> {
                           child: SizedBox(
                             width: 30,
                               height: 30,
-                              child: ProfilePhoto(widget.user)
+                              child: ProfilePhoto(user)
                           ),
                         ),
                       ]
@@ -76,19 +66,18 @@ class _AccountPageState extends State<AccountPage> {
                             child: Visibility(
                               visible: !innerBoxIsScrolled,
                               child: Center(
-                                  child: ProfilePhoto(widget.user)
+                                  child: ProfilePhoto(user)
                               ),
                             )
                         ),
                         Center(
                           child: Padding(
                             padding: const EdgeInsets.only(top: 10),
-                            child: Text(widget.user.username, style: const TextStyle(fontSize: 20)),
+                            child: Text(user.username, style: const TextStyle(fontSize: 20)),
                           ),
                         ),
-                        ///CHECK IN CHART
                         CheckInDisplayRow(
-                            widget.user
+                            user
                         ),
                       ],
                     ),
@@ -146,26 +135,7 @@ class _AccountPageState extends State<AccountPage> {
                           // fixed-height list items, hence the use of
                           // SliverFixedExtentList. However, one could use any
                           // sliver widget here, e.g. SliverList or SliverGrid.
-                          sliver: SliverFixedExtentList(
-                            // The items in this example are fixed to 48 pixels
-                            // high. This matches the Material Design spec for
-                            // ListTile widgets.
-                            itemExtent: 48.0,
-                            delegate: SliverChildBuilderDelegate(
-                                  (BuildContext context, int index) {
-                                // This builder is called for each child.
-                                // In this example, we just number each list item.
-                                return ListTile(
-                                  title: Text('Item $index'),
-                                );
-                              },
-                              // The childCount of the SliverChildBuilderDelegate
-                              // specifies how many children this inner list
-                              // has. In this example, each tab has a list of
-                              // exactly 30 items, but this is arbitrary.
-                              childCount: 30,
-                            ),
-                          ),
+                          sliver: getTabBarViewAccordingToTab(name)
                         ),
                       ],
                     );
@@ -180,6 +150,13 @@ class _AccountPageState extends State<AccountPage> {
       ),
       ),
     );
+  }
+  
+  Widget getTabBarViewAccordingToTab(String tabName){
+    if(tabName == "Reviews"){
+      return UserReviews(user);
+    }
+    return UserFavorites(user);
   }
 }
 
