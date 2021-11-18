@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:harmony/models/review.dart';
 import 'package:harmony/models/user.dart';
-import 'package:harmony/services/auth_service.dart';
 import 'package:harmony/services/firestore.dart';
 import 'package:harmony/widgets/general_use/review_card.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
