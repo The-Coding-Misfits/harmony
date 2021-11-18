@@ -2,23 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:harmony/models/place.dart';
 import 'package:harmony/models/user.dart';
-import 'package:harmony/services/auth_service.dart';
+
 import 'package:harmony/services/firestore.dart';
 import 'package:harmony/widgets/general_use/place_card.dart';
 
-class UserFavorites extends StatefulWidget {
+class UserFavorites extends StatelessWidget {
   final HarmonyUser user;
 
 
-  const UserFavorites(this.user);
+  UserFavorites(this.user);
 
-  @override
-  UserFavoritesState createState() => UserFavoritesState();
-}
-
-class UserFavoritesState extends State<UserFavorites> {
-  late HarmonyUser user = widget.user;
-  @override
   Widget build(BuildContext context) {
     if (user.favoritesID.isEmpty) {
       return Expanded(

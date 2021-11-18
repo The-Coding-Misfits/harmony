@@ -5,16 +5,10 @@ import 'package:harmony/services/firestore.dart';
 import 'package:harmony/widgets/general_use/review_card.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
-class UserReviews extends StatefulWidget {
+class UserReviews extends StatelessWidget {
   final HarmonyUser user;
-  const UserReviews(this.user);
 
-  @override
-  UserReviewsState createState() => UserReviewsState();
-}
-
-class UserReviewsState extends State<UserReviews> {
-  late HarmonyUser user = widget.user;
+  UserReviews(this.user);
 
   @override
   Widget build(BuildContext context) {
