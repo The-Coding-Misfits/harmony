@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:harmony/models/user.dart';
+import 'package:harmony/services/auth_service.dart';
 import 'package:harmony/utilites/page_enum.dart';
 import 'package:harmony/widgets/account_page/check_in/check_in_display_row.dart';
 import 'package:harmony/widgets/account_page/profile_photo.dart';
@@ -66,7 +67,10 @@ class AccountPage extends StatelessWidget {
                             child: Visibility(
                               visible: !innerBoxIsScrolled,
                               child: Center(
-                                  child: ProfilePhoto(user)
+                                  child: ProfilePhoto(
+                                      user,
+                                    canPhotoBeChanged: canPhotoBeChanged(),
+                                  )
                               ),
                             )
                         ),
@@ -157,5 +161,9 @@ class AccountPage extends StatelessWidget {
       return UserReviews(user);
     }
     return UserFavorites(user);
+  }
+
+  bool canPhotoBeChanged(){
+    return user.uid == AuthService.currHarmonyUser!.uid;
   }
 }
