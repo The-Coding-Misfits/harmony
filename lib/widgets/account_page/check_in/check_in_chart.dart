@@ -22,13 +22,13 @@ class CheckInChart extends StatelessWidget {
 
   Widget getNoCheckInWidget(){
     return const Padding(
-      padding: EdgeInsets.only(top: 15),
+      padding: EdgeInsets.only(top: 15, bottom: 15),
       child: Align(
         alignment: Alignment.center,
         child: Text(
           "You haven't checked in yet!",
           style: TextStyle(
-              fontSize: 10
+              fontSize: 13
           ),
         ),
       ),
