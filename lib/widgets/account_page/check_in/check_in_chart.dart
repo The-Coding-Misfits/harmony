@@ -13,24 +13,20 @@ class CheckInChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if(checkInChunks.isEmpty){
+    if(checkInChunks.length < 6){
       return getNoCheckInWidget();
     }else {
-      return getChartWidget();
+      return Expanded(
+          child: getChartWidget()
+      );
     }
   }
 
   Widget getNoCheckInWidget(){
-    return const Padding(
-      padding: EdgeInsets.only(top: 15, bottom: 15),
-      child: Align(
-        alignment: Alignment.center,
-        child: Text(
-          "You haven't checked in yet!",
-          style: TextStyle(
-              fontSize: 13
-          ),
-        ),
+    return const Text(
+      "You need to have at least 5 check-ins to display a chart!",
+      style: TextStyle(
+          fontSize: 10
       ),
     );
   }
