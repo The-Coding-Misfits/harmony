@@ -10,6 +10,7 @@ import 'package:harmony/utilites/places/place_category_enum.dart';
 import 'package:harmony/viewmodel/add_place/add_place_viewmodel.dart';
 import 'package:harmony/widgets/filter/category_widgets/category_grid.dart';
 import 'package:harmony/widgets/general_use/map_widgets/harmony_add_place_map.dart';
+import 'package:harmony/widgets/general_use/uses_snackbar_mixin.dart';
 import 'package:harmony/widgets/login_register/harmony_shiny_button.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:location/location.dart';
@@ -23,7 +24,7 @@ class AddPlace extends StatefulWidget {
   AddPlaceState createState() => AddPlaceState();
 }
 
-class AddPlaceState extends State<AddPlace> {
+class AddPlaceState extends State<AddPlace> with UsesSnackbar{
 
   TextEditingController nameController = TextEditingController();
   final ImagePicker _picker = ImagePicker();
@@ -244,17 +245,17 @@ class AddPlaceState extends State<AddPlace> {
   }
 
   void handleAdding() async{
-    showSnackbar("Adding spot...");
+    showSnackbar("Adding spot...", context);
     try{
       Place place = await createPlace();
-      showSnackbar("Added spot!");
+      showSnackbar("Added spot!", context);
 
       Navigator.pushReplacementNamed(
         context,
         kDiscoverPageRouteName
       );
     } on Exception catch(error){
-      showSnackbar(error.toString());
+      showSnackbar(error.toString(), context);
     }
   }
 
@@ -284,11 +285,6 @@ class AddPlaceState extends State<AddPlace> {
     );
   }
 
-  void showSnackbar(String message){
-    ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(message))
-    );
-  }
 
 
   bool isEligibleAdd() {
