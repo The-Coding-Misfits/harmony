@@ -80,14 +80,20 @@ class AccountPage extends StatelessWidget {
                             child: Text(user.username, style: const TextStyle(fontSize: 20)),
                           ),
                         ),
-                        CheckInDisplayRow(
-                            user
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 32),
+                          child: SizedBox(
+                            height: 50,
+                            child: CheckInDisplayRow(
+                                user
+                            ),
+                          ),
                         ),
                       ],
                     ),
                   ),
                   pinned: true,
-                  expandedHeight: 350.0,
+                  expandedHeight: 375.0,
                   // The "forceElevated" property causes the SliverAppBar to show
                   // a shadow. The "innerBoxIsScrolled" parameter is true when the
                   // inner scroll view is scrolled beyond its "zero" point, i.e.

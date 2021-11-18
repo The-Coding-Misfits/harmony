@@ -34,6 +34,7 @@ class CheckInChart extends StatelessWidget {
 
   Widget getChartWidget(){
     return SfSparkLineChart.custom(
+
     //Enable marker
       trackball: const SparkChartTrackball(
 
