@@ -39,7 +39,7 @@ class _HarmonyNearbyMapState extends State<HarmonyNearbyMap> {
 
     return FlutterMap(
       options: MapOptions(
-        zoom: 12.0,
+        zoom: 13.8,
         center: coords,
         onTap: (_, __) => _popupLayerController.hideAllPopups(), // Hide popup when the map is tapped.
       ),
