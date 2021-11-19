@@ -7,7 +7,6 @@ import 'package:harmony/widgets/account_page/check_in/check_in_display_row.dart'
 import 'package:harmony/widgets/account_page/profile_photo.dart';
 import 'package:harmony/widgets/account_page/user_favorites.dart';
 import 'package:harmony/widgets/account_page/user_reviews.dart';
-import 'package:harmony/widgets/general_use/hamburger_button.dart';
 import 'package:harmony/widgets/general_use/harmony_bottom_navigation_bar.dart';
 
 
@@ -39,7 +38,6 @@ class AccountPage extends StatelessWidget {
                   title: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        pushedFromSpotInfo ? const SizedBox() : HamburgerButton(),
                         Visibility(
                           visible: innerBoxIsScrolled,
                           child: SizedBox(
