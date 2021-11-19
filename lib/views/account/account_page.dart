@@ -56,20 +56,19 @@ class AccountPage extends StatelessWidget {
                   flexibleSpace: FlexibleSpaceBar(
                     background: Column(
                       children: [
-                        const SizedBox( // to account for hamburger button
-                          height: 40,
-                        ),
                         Padding(
                             padding: const EdgeInsets.only(top: 15),
-                            child: Visibility(
-                              visible: !innerBoxIsScrolled,
-                              child: Center(
-                                  child: ProfilePhoto(
-                                      user,
-                                    canPhotoBeChanged: canPhotoBeChanged(),
-                                  )
-                              ),
-                            )
+                            child: SafeArea(
+                                child: Visibility(
+                                  visible: !innerBoxIsScrolled,
+                                  child: Center(
+                                      child: ProfilePhoto(
+                                        user,
+                                        canPhotoBeChanged: canPhotoBeChanged(),
+                                      )
+                                  ),
+                                )
+                            ),
                         ),
                         Center(
                           child: Padding(
