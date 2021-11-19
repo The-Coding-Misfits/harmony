@@ -8,13 +8,12 @@ import 'package:syncfusion_flutter_charts/sparkcharts.dart';
 class CheckInChart extends StatelessWidget {
   final HarmonyUser user;
   final CheckInChartController controller = CheckInChartController();
-  late final List<CheckInChunk> checkInChunks = controller.getChunks(user);
   CheckInChart(this.user, {Key? key}) : super(key: key);
 
 
   @override
   Widget build(BuildContext context) {
-    if(checkInChunks.length < 6){
+    if(user.checkIns.length < 6){
       return getNoCheckInWidget();
     }else {
       return Expanded(
@@ -33,6 +32,7 @@ class CheckInChart extends StatelessWidget {
   }
 
   Widget getChartWidget(){
+    List<CheckInChunk> checkInChunks = controller.getChunks(user);
     return SfSparkLineChart.custom(
       marker: const SparkChartMarker(
           displayMode: SparkChartMarkerDisplayMode.last),
