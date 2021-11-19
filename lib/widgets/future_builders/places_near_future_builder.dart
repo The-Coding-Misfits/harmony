@@ -5,7 +5,7 @@ import 'package:harmony/widgets/filter/filter_sheet/filter_model.dart';
 import 'package:location/location.dart';
 
 class PlacesNearFutureBuilder extends StatelessWidget {
-  final Function(List<Place>) onNearPlacesGetWidgetCallback;
+  final Function(List<Place>, FilterModel) onNearPlacesGetWidgetCallback;
   final LocationData userLocation;
   final FilterModel filterModel;
 
@@ -19,7 +19,7 @@ class PlacesNearFutureBuilder extends StatelessWidget {
       builder: (BuildContext context, AsyncSnapshot<List<Place>> placesSnapshot){
         if (placesSnapshot.hasData){
           List<Place> data = placesSnapshot.data!;
-          return onNearPlacesGetWidgetCallback(data);
+          return onNearPlacesGetWidgetCallback(data, filterModel);
         }
         else if (placesSnapshot.hasError) {
           return Column(

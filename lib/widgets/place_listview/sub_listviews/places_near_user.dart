@@ -19,7 +19,7 @@ class PlacesNearUserListView extends StatelessWidget {
     );
   }
 
-  Widget onGotNearPlaces(List<Place> nearPlaces){
+  Widget onGotNearPlaces(List<Place> nearPlaces, FilterModel filterModel){
     if (nearPlaces.isEmpty){
       return const Align(
         alignment: Alignment.center,

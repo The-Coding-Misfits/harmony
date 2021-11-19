@@ -20,11 +20,12 @@ class NearbyOnLocationBuilder extends StatelessWidget {
         filterModel);
   }
 
-  Widget onNearPlacesGot( List<Place> nearPlaces){
+  Widget onNearPlacesGot(List<Place> nearPlaces, FilterModel filterModel){
     print(nearPlaces);
     return HarmonyNearbyMap(
       userLocation: userLocation,
       placesNear: nearPlaces,
+      filterModel: filterModel,
     );
   }
 }
