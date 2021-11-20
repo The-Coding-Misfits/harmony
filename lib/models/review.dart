@@ -1,11 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:harmony/models/associative_entities/like.dart';
 
 class Review{
   final String authorID;
   final String placeID;
   final String id;
   String content;
-  int likes;
+  List<Like> likes;
   int rating;
   DateTime timeAdded;
 
@@ -17,12 +18,23 @@ class Review{
       Timestamp t = timeAdded; //built-in timestamp class firestore
       return t.toDate();
     }
+    
+    List<Like> parseLikes(dynamic rawLikes){
+      List<Like> likes = [];
+      try{
+        List<String> likesAsUserIds = rawLikes as List<String>;
+        for(String userId in likesAsUserIds){
+          likes.add(Like(userId));
+        }
+        return likes;
+      }catch(_){return [];}
+    }
 
     return Review(
       data["authorId"] as String,
       id,
       data["content"] as String,
-      data["likes"] as int,
+      parseLikes(data['reviews']),
       data["rating"] as int,
       parseTimestamp(data["timeAdded"]),
       data['placeId'] as String,
