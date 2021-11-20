@@ -53,7 +53,7 @@ class Review{
     );
   }
 
-  Iterable<String> likesAsString(){
+  Iterable<String> getLikesAsString(){
     return likes.map((e) => e.toString());
   }
 
@@ -62,7 +62,7 @@ class Review{
     return {
       'author_id': authorID,
       'content': content,
-      'likes': likesAsString,
+      'likes': getLikesAsString,
       'rating': rating,
       'time_added': Timestamp.fromDate(timeAdded),
       'place_id': placeID
