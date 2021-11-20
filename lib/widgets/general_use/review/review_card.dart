@@ -6,11 +6,15 @@ import 'package:harmony/services/firestore.dart';
 import 'package:harmony/utilites/constants.dart';
 import 'package:harmony/views/account/account_page.dart';
 import 'package:harmony/widgets/general_use/rating_widget.dart';
+import 'package:harmony/widgets/general_use/review/review_how_long_ago_widget.dart';
+import 'package:harmony/widgets/general_use/review/review_likes_widget.dart';
 
 class ReviewCard extends StatelessWidget {
   final Review review;
   final bool forSpotInfo;
   final double contentSize;
+  final EdgeInsets columnDesignatorPadding = const EdgeInsets.fromLTRB(15, 0, 15, 15);
+
 
   const ReviewCard(this.review, this.contentSize, {Key? key}) :
       forSpotInfo = false,
@@ -25,7 +29,7 @@ class ReviewCard extends StatelessWidget {
       padding: const EdgeInsets.only(left: 5, right: 5, top: 5),
       child: GestureDetector(
         onTap: () {
-          handleTap(context);
+          handleTapOnCard(context);
         },
         child: Card(
           color: Colors.white,
@@ -52,15 +56,25 @@ class ReviewCard extends StatelessWidget {
                         style: TextStyle(
                           fontSize: contentSize
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Padding(
-                    padding: const EdgeInsets.only(bottom: 15, left: 15, right: 15),
+                    padding: columnDesignatorPadding,
                     child: Text(review.content),
+                  ),
+                ),
+                Padding(
+                  padding: columnDesignatorPadding,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      ReviewLikesWidget(review),
+                      ReviewHowLongAgoWidget(review)
+                    ],
                   ),
                 )
               ]
@@ -69,7 +83,7 @@ class ReviewCard extends StatelessWidget {
       )
     );
   }
-  void handleTap(BuildContext context) async{
+  void handleTapOnCard(BuildContext context) async{
     Place place = await FireStoreService().getPlaceFromId(review.placeID);
     if(forSpotInfo){
       HarmonyUser user = await FireStoreService().getUserFromId(review.authorID);

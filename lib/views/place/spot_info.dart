@@ -8,7 +8,7 @@ import 'package:harmony/services/location_service.dart';
 import 'package:harmony/utilites/places/place_category_enum.dart';
 import 'package:harmony/widgets/filter/category_widgets/category_grid.dart';
 import 'package:harmony/widgets/general_use/map_widgets/harmony_add_place_map.dart';
-import 'package:harmony/widgets/general_use/review_card.dart';
+import 'package:harmony/widgets/general_use/review/review_card.dart';
 import 'package:harmony/widgets/login_register/harmony_shiny_button.dart';
 import 'package:harmony/widgets/place_listview/sub_listviews/place_formulas.dart';
 import 'package:harmony/widgets/spot_info/create_review_button.dart';
@@ -170,7 +170,7 @@ class SpotInfoState extends State<SpotInfo> {
             SizedBox(
               child: Stack(
                 children: [
-                  Container(
+                  SizedBox(
                       height: 350,
                       width: MediaQuery.of(context).size.width,
                       child: HarmonyAddPlaceMap(
