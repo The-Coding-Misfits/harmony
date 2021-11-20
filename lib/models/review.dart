@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:harmony/models/associative_entities/like.dart';
+import 'package:harmony/models/user.dart';
 
 class Review{
   final String authorID;
@@ -46,12 +47,22 @@ class Review{
     return likes.length;
   }
 
+  void like(HarmonyUser userLiked){
+    likes.add(
+      Like(userLiked.id)
+    );
+  }
+
+  Iterable<String> likesAsString(){
+    return likes.map((e) => e.toString());
+  }
+
 
   Map<String, dynamic> toJson(){
     return {
       'author_id': authorID,
       'content': content,
-      'likes': likes.map((e) => e.toString()),
+      'likes': likesAsString,
       'rating': rating,
       'time_added': Timestamp.fromDate(timeAdded),
       'place_id': placeID
