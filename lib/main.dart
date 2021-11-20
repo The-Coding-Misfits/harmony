@@ -7,6 +7,7 @@ import 'package:harmony/views/discover/discover_page.dart';
 import 'package:harmony/views/login&register/login.dart';
 import 'package:harmony/views/place/spot_info.dart';
 import 'package:harmony/views/settings/settings_page.dart';
+import 'package:harmony/views/state_pages/loading_widget.dart';
 import 'package:harmony/views/state_pages/something_went_wrong.dart';
 import 'package:harmony/views/place/add_place.dart';
 
@@ -68,7 +69,7 @@ class _MyAppState extends State<MyApp> {
                     },
                   );
                 } else {
-                  return loadingWidget();
+                  return const LoadingWidget();
                 }
               },
             );
@@ -76,29 +77,9 @@ class _MyAppState extends State<MyApp> {
         }
 
         // Otherwise, show something whilst waiting for initialization to complete
-        return loadingWidget();
+        return const LoadingWidget();
       },
     );
   }
 
-  Widget loadingWidget() {
-    return Container(
-      color: Colors.white,
-      child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Hero(
-                  tag: "harmony_logo",
-                  child: Image.asset("assets/images/harmony.png", scale: 4)
-              ),
-              const Padding(
-                padding: EdgeInsets.only(top: 20),
-                child: CircularProgressIndicator(color: Color(0xff00CA9D)),
-              ),
-            ],
-          )
-      ),
-    );
-  }
 }
