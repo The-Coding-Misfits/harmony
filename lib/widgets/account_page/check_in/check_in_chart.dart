@@ -16,9 +16,7 @@ class CheckInChart extends StatelessWidget {
     if(user.checkIns.length < 6){
       return getNoCheckInWidget();
     }else {
-      return Expanded(
-          child: getChartWidget()
-      );
+      return getChartWidget();
     }
   }
 

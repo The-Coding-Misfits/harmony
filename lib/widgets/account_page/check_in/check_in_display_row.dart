@@ -8,22 +8,25 @@ class CheckInDisplayRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Flexible(
-          fit: FlexFit.loose,
-          flex: 1,
-          child: getCheckInCountText(),
-        ),
-        const SizedBox(width: 15,),
-        Flexible(
-          fit: FlexFit.loose,
-          flex: 2,
-          child: CheckInChart(user),
-        )
-      ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Flexible(
+            fit: FlexFit.loose,
+            flex: 1,
+            child: getCheckInCountText(),
+          ),
+          const SizedBox(width: 15,),
+          Flexible(
+            fit: FlexFit.loose,
+            flex: 2,
+            child: CheckInChart(user),
+          )
+        ],
+      ),
     );
   }
 
