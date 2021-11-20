@@ -42,6 +42,10 @@ class Review{
 
   }
 
+  int getLikeCount(){
+    return likes.length;
+  }
+
 
   Map<String, dynamic> toJson(){
     return {
