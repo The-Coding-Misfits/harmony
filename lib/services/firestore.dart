@@ -376,13 +376,12 @@ class FireStoreService {
   }
 
   void reviewLikedByUser(Review review, HarmonyUser user){
-    handleLikeForReview(review, user);
-
+    _handleLikeForReview(review, user);
   }
 
-  void handleLikeForReview(Review review, HarmonyUser user){
+  void _handleLikeForReview(Review review, HarmonyUser user){
     review.like(user);
-    updateReview(
+    _updateReview(
         review,
         {
           "likes": review.getLikesAsString()
@@ -390,7 +389,7 @@ class FireStoreService {
     );
   }
 
-  void updateReview(Review review, Map<String, dynamic> fields){
+  void _updateReview(Review review, Map<String, dynamic> fields){
     reviews.doc(review.id).get().then(
             (reviewDoc){
           reviewDoc.reference.update(
@@ -399,5 +398,17 @@ class FireStoreService {
         }
     );
   }
+
+  void reviewUnlikedByUser(Review review, HarmonyUser user){
+    review.unlike(user);
+    _updateReview(
+        review,
+        {
+          "likes": review.getLikesAsString()
+        }
+    );
+  }
+
+
 
 }

@@ -53,6 +53,14 @@ class Review{
     );
   }
 
+  void unlike(HarmonyUser userLiked){
+    try{
+      likes.remove(
+          Like(userLiked.id)
+      );
+    }catch(_){}
+  }
+
   Iterable<String> getLikesAsString(){
     return likes.map((e) => e.toString());
   }
