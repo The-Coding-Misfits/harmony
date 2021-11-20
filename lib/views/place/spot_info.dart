@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:harmony/models/place.dart';
+import 'package:harmony/models/user.dart';
 import 'package:harmony/services/auth_service.dart';
 import 'package:harmony/services/firestore.dart';
 import 'package:harmony/services/location_service.dart';
@@ -245,11 +246,18 @@ class SpotInfoState extends State<SpotInfo> {
             HarmonyShinyButton(
               "Check-In",
               () {
-                FireStoreService().checkInUser(AuthService.currHarmonyUser!, Timestamp.now(), place);
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text("Successfully checked you in!"))
-                );
-              }
+                if (!checkIfCheckedIn(place)) {
+                  FireStoreService().checkInUser(AuthService.currHarmonyUser!, Timestamp.now(), place);
+                  ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text("Successfully checked you in!"))
+                  );
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text("You already checked in to this spot!"))
+                  );
+                }
+              },
+              isActive: !checkIfCheckedIn(place),
             ),
             Padding(
                 padding: const EdgeInsets.only(left: 10, right: 10, bottom: 15),
@@ -285,5 +293,15 @@ class SpotInfoState extends State<SpotInfo> {
           ),
         )
     );
+  }
+
+  bool checkIfCheckedIn(Place place) {
+    HarmonyUser user = AuthService.currHarmonyUser!;
+
+    if (place.pastUserIds.contains(user.id)) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

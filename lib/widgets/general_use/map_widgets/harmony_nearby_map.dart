@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_marker_popup/flutter_map_marker_popup.dart';
 import 'package:harmony/models/place.dart';
+import 'package:harmony/widgets/filter/filter_sheet/filter_model.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:location/location.dart';
 import 'map_constants.dart';
@@ -11,8 +12,9 @@ import 'markers.dart';
 class HarmonyNearbyMap extends StatefulWidget {
   final List<Place> placesNear;
   final LocationData userLocation;
+  final FilterModel filterModel;
 
-  const HarmonyNearbyMap({Key? key, required this.placesNear, required this.userLocation}) : super(key: key);
+  const HarmonyNearbyMap({Key? key, required this.placesNear, required this.userLocation, required this.filterModel}) : super(key: key);
   @override
   _HarmonyNearbyMapState createState() => _HarmonyNearbyMapState();
 }
@@ -25,7 +27,6 @@ class _HarmonyNearbyMapState extends State<HarmonyNearbyMap> {
   List<Marker> _buildMarkers() {
     List<Marker> placeMarkers = [];
     for (Place place in widget.placesNear){
-      print("near places map ${place.name}");
       placeMarkers.add(Markers().getPlaceMarker(place));
     }
     return placeMarkers;
@@ -38,16 +39,31 @@ class _HarmonyNearbyMapState extends State<HarmonyNearbyMap> {
 
     return FlutterMap(
       options: MapOptions(
-        zoom: 15.0,
+        zoom: 13.8,
         center: coords,
-        onTap: (_, __) => _popupLayerController
-            .hideAllPopups(), // Hide popup when the map is tapped.
+        onTap: (_, __) => _popupLayerController.hideAllPopups(), // Hide popup when the map is tapped.
       ),
       children: [
         TileLayerWidget(
           options: TileLayerOptions(
             urlTemplate: kUrlTemplate ,
               additionalOptions: kMapAdditionalInfo
+          ),
+        ),
+        CircleLayerWidget(
+          options: CircleLayerOptions(
+            circles: [
+              CircleMarker(
+                point: coords,
+                color: const Color(0xFFF5A623).withOpacity(0.5),
+                radius: 50
+              ),
+              CircleMarker(
+                point: coords,
+                color: const Color(0xFFF5A623).withOpacity(0.3),
+                radius: widget.filterModel.proximity * 100
+              ),
+            ]
           ),
         ),
         Markers().getNearbyPageMarker(coords),

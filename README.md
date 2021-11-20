@@ -13,10 +13,6 @@ To use Harmony, you will need to [clone](https://docs.github.com/en/repositories
 2)  Run `flutter pub get` in the root directory of Harmony
 3)  Run the `lib/main.dart` file in [Android Studio](https://developer.android.com/studio) or [VS Code](https://code.visualstudio.com/)
 
-### Install Links
-
-Android: https://bit.ly/30FkoQe
-
 ## Alpha Screenshots
 
 These are some screenshots from the alpha version of the app
@@ -29,8 +25,8 @@ These are some screenshots from the alpha version of the app
 
 <img src="https://user-images.githubusercontent.com/63517174/141697247-49000557-a553-4d07-821c-7f8748398b55.png" width="400" height="900"/>
 
-<img src="https://user-images.githubusercontent.com/63517174/141787293-3192e5b8-479e-447c-9d84-f43a994866e8.png" width="400" height="900"/>
+<img src="https://user-images.githubusercontent.com/63517174/142724814-619b701e-6ea3-43c7-9bd1-32527db98e6b.png" width="400" height="900"/>
 
-<img src="https://user-images.githubusercontent.com/63517174/141787372-96e6866c-1ebd-44a0-ac5b-e9e60ba99892.png" width="400" height="900"/>
+<img src="https://user-images.githubusercontent.com/63517174/142724918-9073d7d5-d302-4f17-aaad-5dc7fba92363.png" width="400" height="900"/>
 
-<img src="https://user-images.githubusercontent.com/63517174/141686118-ffdcd55b-04b9-42cf-a0e8-c7230106a515.png" width="400" height="900"/>
+<img src="https://user-images.githubusercontent.com/63517174/142724938-d99d90a0-d8ea-4c08-ad0b-2901b8c2accf.png" width="400" height="900"/>
