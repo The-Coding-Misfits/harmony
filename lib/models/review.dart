@@ -47,7 +47,7 @@ class Review{
     return {
       'author_id': authorID,
       'content': content,
-      'likes': likes,
+      'likes': likes.map((e) => e.toString()),
       'rating': rating,
       'time_added': Timestamp.fromDate(timeAdded),
       'place_id': placeID
