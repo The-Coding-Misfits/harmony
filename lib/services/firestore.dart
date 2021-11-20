@@ -375,4 +375,29 @@ class FireStoreService {
     );
   }
 
+  void reviewLikedByUser(Review review, HarmonyUser user){
+    handleLikeForReview(review, user);
+
+  }
+
+  void handleLikeForReview(Review review, HarmonyUser user){
+    review.like(user);
+    updateReview(
+        review,
+        {
+          "likes": review.getLikesAsString()
+        }
+    );
+  }
+
+  void updateReview(Review review, Map<String, dynamic> fields){
+    reviews.doc(review.id).get().then(
+            (reviewDoc){
+          reviewDoc.reference.update(
+              fields
+          );
+        }
+    );
+  }
+
 }
