@@ -42,7 +42,7 @@ class DiscoverPageState extends State<DiscoverPage> with FilterSheetCreator impl
         ),
       ),
       bottomNavigationBar: HarmonyBottomNavigationBar(
-        PAGE_ENUM.DISCOVER_PAGE
+        PageEnum.discoverPage
       ),
     );
   }

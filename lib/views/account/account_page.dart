@@ -140,7 +140,7 @@ class AccountPage extends StatelessWidget {
           ),
         ),
         bottomNavigationBar: pushedFromSpotInfo ? const SizedBox() :  HarmonyBottomNavigationBar(
-            PAGE_ENUM.ACCOUNT_PAGE
+            PageEnum.accountPage
         ),
       ),
     );

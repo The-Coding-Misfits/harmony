@@ -42,7 +42,7 @@ class _NearbyPageState extends State<NearbyPage> with FilterSheetCreator impleme
         ),
       ),
       bottomNavigationBar: HarmonyBottomNavigationBar(
-        PAGE_ENUM.NEARBY_PAGE,
+        PageEnum.nearbyPage,
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {

@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'associative_entities/check_in.dart';
 
-class HarmonyUser{
+class HarmonyUser {
   final String id; // Not designated by us as all other classes, comes from firestore when creating document
   final String uid;
   String username;//May change in profile settings etc.

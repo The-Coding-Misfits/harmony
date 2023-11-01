@@ -11,8 +11,7 @@ import 'package:harmony/utilites/custom_exception.dart';
 import 'package:harmony/utilites/places/place_category_enum.dart';
 import 'package:location/location.dart';
 
-class AddPlaceViewModel{
-
+class AddPlaceViewModel {
   Future<Place> createPlace(String name, PlaceCategory category, File imageFile, double latitude, double longitude) async {
     FireStoreService fireStoreService = FireStoreService();
 
@@ -38,8 +37,8 @@ class AddPlaceViewModel{
   Future<bool> checkIfAnyPlaceExistsNearby(LocationData locationOfPotentialData) async{
     GeoFirePoint point = GeoFireService().createGeoPoint(locationOfPotentialData.latitude!, locationOfPotentialData.longitude!);
     List<String> hashesToBeChecked = point.neighbors..add(point.hash);
-    for(String geoHash in hashesToBeChecked){
-      if(await FireStoreService().anyPlaceExistWithHash(geoHash)){
+    for (String geoHash in hashesToBeChecked) {
+      if (await FireStoreService().anyPlaceExistWithHash(geoHash)) {
         return true;
       }
     }

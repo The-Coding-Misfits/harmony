@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:geoflutterfire/geoflutterfire.dart';
 import 'package:harmony/models/associative_entities/check_in.dart';
@@ -15,7 +16,6 @@ import 'package:location/location.dart';
 
 
 class FireStoreService {
-
   static CollectionReference users = FirebaseFirestore.instance.collection('users');
   static CollectionReference places = FirebaseFirestore.instance.collection('places');
   static CollectionReference reviews = FirebaseFirestore.instance.collection('reviews');
@@ -32,8 +32,9 @@ class FireStoreService {
   Future<List<Place>> getPlacesNearUser(LocationData userLocation, FilterModel filterModel) async {
     GeoFirePoint center = _geoFireService.createGeoPoint(userLocation.latitude!, userLocation.longitude!);
     String field = "point";
-    Stream<List<DocumentSnapshot>> documentStream =  _geoFireService.geo.collection(collectionRef: places).within(
-        center: center, radius: filterModel.proximity, field: field);
+    Stream<List<DocumentSnapshot>> documentStream = _geoFireService.geo.collection(collectionRef: places).within(
+      center: center, radius: filterModel.proximity, field: field
+    );
     return await filterNearPlacesStream(documentStream, filterModel.chosenCategories, filterModel.minimumRating);
   }
 
@@ -361,45 +362,43 @@ class FireStoreService {
   }
 
   void _updatePlacePUIDS(Place place, HarmonyUser user) { // PUIDS stands for PastUserIds,
-    List pastUserIds = place.pastUserIds;
-    pastUserIds.add(user.id);
+    List<HarmonyUser> pastUsers = place.pastUsers;
+    pastUsers.add(user);
 
     places.doc(place.id).get().then(
-            (placeDoc) {
-          placeDoc.reference.update(
-              {
-                "past_user_ids": pastUserIds
-              }
-          );
-        }
+      (placeDoc) {
+        placeDoc.reference.update({
+          "past_user_ids": pastUserIds
+        });
+      }
     );
   }
 
-  void reviewLikedByUser(Review review, HarmonyUser user){
+  void reviewLikedByUser(Review review, HarmonyUser user) {
     _handleLikeForReview(review, user);
   }
 
-  void _handleLikeForReview(Review review, HarmonyUser user){
+  void _handleLikeForReview(Review review, HarmonyUser user) {
     review.like(user);
     _updateReview(
-        review,
-        {
-          "likes": review.getLikesAsString()
-        }
+      review,
+      {
+        "likes": review.getLikesAsString()
+      }
     );
   }
 
-  void _updateReview(Review review, Map<String, dynamic> fields){
+  void _updateReview(Review review, Map<String, dynamic> fields) {
     reviews.doc(review.id).get().then(
-            (reviewDoc){
-          reviewDoc.reference.update(
-              fields
-          );
-        }
+      (reviewDoc) {
+        reviewDoc.reference.update(
+          fields
+        );
+      }
     );
   }
 
-  void reviewUnlikedByUser(Review review, HarmonyUser user){
+  void reviewUnlikedByUser(Review review, HarmonyUser user) {
     review.unlike(user);
     _updateReview(
         review,
@@ -408,7 +407,4 @@ class FireStoreService {
         }
     );
   }
-
-
-
 }

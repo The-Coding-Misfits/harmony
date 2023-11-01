@@ -7,7 +7,7 @@ import 'package:harmony/views/discover/discover_page.dart';
 import 'package:harmony/views/place/near_place.dart';
 
 class HarmonyBottomNavigationBar extends StatelessWidget {
-  final PAGE_ENUM currPage;
+  final PageEnum currPage;
   final Color _activeColor = const Color(0xff00CA9D);
   final Color _inactiveColor = Colors.black54;
 
@@ -27,7 +27,7 @@ class HarmonyBottomNavigationBar extends StatelessWidget {
               IconButton(
                 icon: Icon(
                   FontAwesomeIcons.compass,
-                  color: currPage == PAGE_ENUM.DISCOVER_PAGE ? _activeColor : _inactiveColor,
+                  color: currPage == PageEnum.discoverPage ? _activeColor : _inactiveColor,
 
                 ),
                 onPressed: () =>  Navigator.pushReplacement(
@@ -43,7 +43,7 @@ class HarmonyBottomNavigationBar extends StatelessWidget {
                   icon: Icon(
                     Icons.near_me_outlined,
                     size: 26,
-                    color: currPage == PAGE_ENUM.NEARBY_PAGE ? _activeColor : _inactiveColor,
+                    color: currPage == PageEnum.nearbyPage ? _activeColor : _inactiveColor,
                   ),
                   onPressed: () =>  Navigator.pushReplacement(
 
@@ -58,7 +58,7 @@ class HarmonyBottomNavigationBar extends StatelessWidget {
                 icon: Icon(
                   FontAwesomeIcons.user,
                   size: 22,
-                  color: currPage == PAGE_ENUM.ACCOUNT_PAGE ? _activeColor : _inactiveColor,
+                  color: currPage == PageEnum.accountPage ? _activeColor : _inactiveColor,
                 ),
                 onPressed: () =>  Navigator.pushReplacement(
 
